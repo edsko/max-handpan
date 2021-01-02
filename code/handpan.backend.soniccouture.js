@@ -2,7 +2,7 @@
  * Max Handpan
  *
  * @module handpan.backend.soniccouture
- * @description Background for {@link https://www.soniccouture.com/en/products/35-rare-and-unique/g29-pan-drums/ | Soniccouture Pan Drums}
+ * @description Backend for {@link https://www.soniccouture.com/en/products/35-rare-and-unique/g29-pan-drums/ | Soniccouture Pan Drums}
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
  * @see {@link https://github.com/edsko/max-handpan}
@@ -22,12 +22,15 @@ autowatch = 0;
 *******************************************************************************/
 
 var OurTrack = require("live.ourtrack").OurTrack;
+var Handpan  = require("handpan.generic");
 
 /*******************************************************************************
   Global variables
 *******************************************************************************/
 
-var ourTrack = null;
+var ourTrack    = null;
+var strike      = null;
+var interpreted = interpretScale(Handpan.scales[Handpan.Scale.KURD_9]);
 
 /*******************************************************************************
   Handle M4L messages
@@ -37,15 +40,13 @@ var ourTrack = null;
  * Initialize device
  */
 function init() {
-  post("init\n");
+  outerThis = this;
 
   ourTrack = new OurTrack(this, function(trackNo, selected) {
-    post("our track changed! :-o\n");
+    // TODO: Handle changes
   });
 
-  var strikeId = ourTrack.findParameter("Strike");
-  var strike   = new LiveAPI(null, ["id", strikeId]);
-  strike.set("value", 5);
+  strike = new LiveAPI(null, ["id", ourTrack.findParameter("Strike")]);
 }
 
 /**
@@ -64,12 +65,32 @@ function list() {
     return;
   }
 
-  var pitch    = arguments[0];
-  var velocity = arguments[1];
+  var pitchIn      = arguments[0];
+  var velocity     = arguments[1];
+  var fromMIDI     = Handpan.fromMIDI(pitchIn);
+  var articulation = fromMIDI[0];
+  var zone         = fromMIDI[1];
+  var pitchOut     = interpreted[zone];
 
-  post("list", pitch, velocity, "\n");
+  with (Handpan.Articulation) {
+    switch(articulation) {
+      case MID:
+        strike.set("value", 0);
+        break;
+      case SLAP:
+        strike.set("value", 50);
+        // For the taks, we also use an octave higher
+        if(zone == Handpan.Zone.DOUM) {
+          pitchOut += 12;
+        }
+        break;
+      default:
+        error("Unknown articulation\n");
+        break;
+    }
+  }
 
-  outlet(0, [pitch, velocity]);
+  outlet(0, [pitchOut, velocity]);
 }
 
 /**
@@ -87,3 +108,43 @@ function anything() {
       break;
   }
 }
+
+/*******************************************************************************
+  Internal
+
+  TODO: We should try to generalize this so that we can use the mk2 as well.
+  (_Detect_ mk1 versus mk2? More generally, detect backend?)
+*******************************************************************************/
+
+function interpretScale(scale) {
+  // Translate note to pitch
+  //
+  // We start with everything initialized to their lowest possible value;
+  // for the Soniccounture chromatic mapping for mk1, this is an A at 57.
+  var pitches = [];
+  for(var i = 0; i < 12; i++) {
+    pitches[(Handpan.Note.A + i) % 12] = 57 + i;
+  }
+
+  // Intepret the scale
+  //
+  // We always try the lowest possible pitch for each note that is still higher
+  // then the previous. This places the scale as low as possible on the mapping,
+  // but means that the scale is still monotonically increasing.
+  // (Players can of course use a standard +12 effect if desired.)
+  var interpreted = [];
+  var offset      = 0;
+  var prev        = -1;
+  for(step in scale) {
+    var note  = scale[step];
+    var pitch = pitches[note];
+    if (pitch + offset <= prev) {
+      offset += 12;
+    }
+    interpreted[step] = pitch + offset;
+    prev = interpreted[step];
+  }
+
+  return interpreted;
+}
+interpretScale.local = 1;

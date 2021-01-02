@@ -61,13 +61,13 @@ function init() {
      */
     var pos = state.positionOfDoum();
     push.setColor(pos.col, pos.row, state.colors.doum);
-    push.setAction(pos.col, pos.row, sendNote(Articulation.MID, Note.DOUM));
+    push.setAction(pos.col, pos.row, sendNote(Articulation.MID, Zone.DOUM));
 
     var taks = state.positionOfTaks();
     for(tak in taks) {
       pos = taks[tak];
       push.setColor(pos.col, pos.row, state.colors.tak);
-      push.setAction(pos.col, pos.row, sendNote(Articulation.SLAP, Note.DOUM));
+      push.setAction(pos.col, pos.row, sendNote(Articulation.SLAP, Zone.DOUM));
     }
 
     /*
@@ -78,9 +78,9 @@ function init() {
      */
     for(var i = 1; i <= 9; i++) {
       pos  = state.positionOfTonefield(i);
-      note = Note.TONEFIELD_1 + (i - 1);
-      push.setAction(pos[0].col, pos[0].row, sendNote(Articulation.MID, note));
-      push.setAction(pos[1].col, pos[1].row, sendNote(Articulation.SLAP, note));
+      zone = Zone.TONEFIELD_1 + (i - 1);
+      push.setAction(pos[0].col, pos[0].row, sendNote(Articulation.MID, zone));
+      push.setAction(pos[1].col, pos[1].row, sendNote(Articulation.SLAP, zone));
     }
   }
 
@@ -152,13 +152,13 @@ updatePush.local = 1;
 /**
  * Send the played note to outlet 1
  *
- * @param {number} mode Mode
- * @param {number} note Note
+ * @param {number} articulation Articulation
+ * @param {number} zone Zone
  * @private
  */
-function sendNote(mode, note) {
+function sendNote(articulation, zone) {
   return function(col, row, color, velocity) {
-    outlet(0, [48 + (mode * 12) + note, velocity]);
+    outlet(0, [Handpan.toMIDI(articulation, zone), velocity]);
   }
 }
 sendNote.local = 1;

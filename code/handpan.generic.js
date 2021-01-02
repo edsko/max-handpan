@@ -27,11 +27,11 @@ exports.Articulation = {
 };
 
 /**
- * Different parts of the handpan
+ * Different zones of the handpan
  *
  * @enum {number}
  */
-exports.Note = {
+exports.Zone = {
   DOUM: 0
 , TONEFIELD_1: 1
 , TONEFIELD_2: 2
@@ -43,3 +43,70 @@ exports.Note = {
 , TONEFIELD_8: 8
 , TONEFIELD_9: 9
 };
+
+/**
+ * Convert zone/artificulation to MIDI note.
+ *
+ * This is how the handpan interface and the handpan backend communicate.
+ *
+ * @see fromMIDI
+ */
+exports.toMIDI = function(articulation, zone) {
+  // We don't use the first 4 octaves (0-47)
+  return 48 + (articulation * 12) + zone;
+}
+
+/**
+ * Convert MIDI note to zone/articulation
+ *
+ * @see toMIDI
+ */
+exports.fromMIDI = function(pitch) {
+  var articulation = Math.floor(pitch / 12) - 4;
+  var zone         = pitch % 12;
+  return [articulation, zone];
+}
+
+
+/**
+ * Scale
+ *
+ * @enum {number}
+ */
+exports.Scale = {
+  KURD_9: 0
+}
+
+/**
+ * Scale degree
+ *
+ * @enum {number}
+ */
+exports.Note = {
+    C : 0
+  , Cs: 1
+  , Db: 1
+  , D : 2
+  , Ds: 3
+  , Eb: 3
+  , E : 4
+  , F : 5
+  , Fs: 6
+  , Gb: 6
+  , G : 7
+  , Gs: 8
+  , Ab: 8
+  , A : 9
+  , As: 10
+  , Bb: 10
+  , B : 11
+  };
+
+/**
+ * Notes in supported scales
+ */
+exports.scales = {};
+
+with(exports.Note) {
+  exports.scales[exports.Scale.KURD_9] = [D, A, Bb, C, D, E, F, G, A, C];
+}
