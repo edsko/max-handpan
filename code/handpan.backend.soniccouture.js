@@ -2,7 +2,7 @@
  * Max Handpan
  *
  * @module handpan.backend.soniccouture
- * @description Background for Soniccouture Pan Drums
+ * @description Background for {@link https://www.soniccouture.com/en/products/35-rare-and-unique/g29-pan-drums/ | Soniccouture Pan Drums}
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
  * @see {@link https://github.com/edsko/max-handpan}
