@@ -33,9 +33,9 @@ var Handpan  = require("handpan.generic");
   Global variables
 *******************************************************************************/
 
-var push        = null;
-var ourTrack    = null;
-var state       = new State();
+var push     = null;
+var ourTrack = null;
+var state    = new State();
 
 /*******************************************************************************
   Handle M4L messages

@@ -115,6 +115,29 @@ exports.OurTrack.prototype = {
   }
 
   /**
+   * Find parameter by name (on any device) in current track
+   */
+, findParameter: function(name) {
+    var track      = new LiveAPI("live_set tracks " + this.trackNo);
+    var numDevices = track.getcount("devices");
+
+    for(var i = 0; i < numDevices; i++) {
+      var device    = new LiveAPI("live_set tracks " + this.trackNo + " devices " + i);
+      var numParams = device.getcount("parameters");
+
+      for(var j = 0; j < numParams; j++) {
+        var parameter = LiveAPI("live_set tracks " + this.trackNo + " devices " + i + " parameters " + j);
+
+        if(parameter.get("name") == name) {
+          return parameter.id;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Delete all callbacks.
    *
    * This means we will stop watching the track.

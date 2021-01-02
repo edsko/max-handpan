@@ -18,6 +18,18 @@ outlets   = 2;
 autowatch = 0;
 
 /*******************************************************************************
+  Imports
+*******************************************************************************/
+
+var OurTrack = require("live.ourtrack").OurTrack;
+
+/*******************************************************************************
+  Global variables
+*******************************************************************************/
+
+var ourTrack = null;
+
+/*******************************************************************************
   Handle M4L messages
 *******************************************************************************/
 
@@ -26,13 +38,21 @@ autowatch = 0;
  */
 function init() {
   post("init\n");
+
+  ourTrack = new OurTrack(this, function(trackNo, selected) {
+    post("our track changed! :-o\n");
+  });
+
+  var strikeId = ourTrack.findParameter("Strike");
+  var strike   = new LiveAPI(null, ["id", strikeId]);
+  strike.set("value", 5);
 }
 
 /**
  * Delete observers
  */
 function deleteObservers() {
-  post("deleteObservers\n");
+  if(ourTrack != null) ourTrack.deleteObservers();
 }
 
 /**
@@ -50,4 +70,20 @@ function list() {
   post("list", pitch, velocity, "\n");
 
   outlet(0, [pitch, velocity]);
+}
+
+/**
+ * Route other messages
+ */
+function anything() {
+  switch(messagename) {
+    // Messages that update the state
+    case 'scale':
+      // TODO
+      break;
+
+    default:
+      error("Message '" + messagename + "' not understood\n");
+      break;
+  }
 }
