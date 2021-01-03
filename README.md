@@ -10,4 +10,3 @@ Currently most urgent TODOs:
 
 * `OurTrack` recognition does not seem to work inside an instrument rack.
 * Backend scale selection is not yet implemented.
-* Zone-specific sensitivity is not yet implemented.

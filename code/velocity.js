@@ -42,20 +42,25 @@ function msg_float(f) {
   }
 
   for(x = 0; x <= 127; x++) {
-    if(comp == 0) {
-      y = x;
-    } else if(comp > 0) {
-      y = fn_compress(comp, x);
+    if(x == 0) {
+      // Velocity 0 (note-off) we always leave at 0.
+      y = 0;
     } else {
-      y = fn_expand(Math.abs(comp), x);
-    }
+      if(comp == 0) {
+        y = x;
+      } else if(comp > 0) {
+        y = fn_compress(comp, x);
+      } else {
+        y = fn_expand(Math.abs(comp), x);
+      }
 
-    if(boost == 0) {
-      // Nothing to do
-    } else if (boost < 0) {
-      y = fn_rescale(1 + boost, y);
-    } else {
-      y = fn_rescale(1 - boost, y) + (boost * 127);
+      if(boost == 0) {
+        // Nothing to do
+      } else if (boost < 0) {
+        y = fn_rescale(1 + boost, y);
+      } else {
+        y = fn_rescale(1 - boost, y) + (boost * 127);
+      }
     }
 
     outlet(0, [x, y]);

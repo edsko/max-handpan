@@ -17,7 +17,7 @@
 *******************************************************************************/
 
 inlets    = 2;
-outlets   = 2;
+outlets   = 3;
 autowatch = 0;
 
 /*******************************************************************************
@@ -150,15 +150,29 @@ function updatePush() {
 updatePush.local = 1;
 
 /**
- * Send the played note to outlet 1
+ * Send the played note to the appropriate outlet
  *
  * @param {number} articulation Articulation
  * @param {number} zone Zone
  * @private
  */
 function sendNote(articulation, zone) {
+  var outletNo;
+
+  switch(articulation) {
+    case Handpan.Articulation.MID:
+      outletNo = 0;
+      break;
+    case Handpan.Articulation.SLAP:
+      outletNo = 1;
+      break;
+    default:
+      error("sendNote: unknown articulation " + articulation + "\n");
+      break;
+  }
+
   return function(col, row, color, velocity) {
-    outlet(0, [Handpan.toMIDI(articulation, zone), velocity]);
+    outlet(outletNo, [Handpan.toMIDI(articulation, zone), velocity]);
   }
 }
 sendNote.local = 1;
