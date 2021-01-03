@@ -1,7 +1,10 @@
 /**
+ * Max Handpan
+ *
  * @description Velocity compression/expansion curve
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2021
+ * @see {@link https://github.com/edsko/max-handpan}
  * @license BSD-3-Clause
  */
 
@@ -9,8 +12,15 @@
   Setup device
 *******************************************************************************/
 
-inlets  = 1;
+inlets  = 2;
 outlets = 1;
+
+/*******************************************************************************
+  Global state
+*******************************************************************************/
+
+var comp  = 0;
+var boost = 0;
 
 /*******************************************************************************
   Handle M4L messages
@@ -19,17 +29,45 @@ outlets = 1;
 function msg_float(f) {
   var x, y;
 
+  switch(inlet) {
+    case 0:
+      comp = f;
+      break;
+    case 1:
+      boost = f;
+      break;
+    default:
+      error("Message on unexpected inlet");
+      break;
+  }
+
   for(x = 0; x <= 127; x++) {
-    if(f == 0) {
+    if(comp == 0) {
       y = x;
-    } else if(f > 0) {
-      y = fn_compress(f, x);
+    } else if(comp > 0) {
+      y = fn_compress(comp, x);
     } else {
-      y = fn_expand(Math.abs(f), x);
+      y = fn_expand(Math.abs(comp), x);
+    }
+
+    if(boost == 0) {
+      // Nothing to do
+    } else if (boost < 0) {
+      y = fn_rescale(1 + boost, y);
+    } else {
+      y = fn_rescale(1 - boost, y) + (boost * 127);
     }
 
     outlet(0, [x, y]);
   }
+}
+
+/*******************************************************************************
+  Functions for boosting the signal
+*******************************************************************************/
+
+function fn_rescale(f, x) {
+  return (x / 127) * f * 127;
 }
 
 /*******************************************************************************
