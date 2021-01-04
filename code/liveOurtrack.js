@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module live.ourtrack
+ * @module liveOurtrack
  * @description Interface to the track on which the M4L device is loaded.
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -10,7 +10,7 @@
  */
 
 /**
- * Callback used by {@link module:ourtrack.OurTrack}
+ * Callback used by {@link module:liveOurtrack.OurTrack}
  *
  * @callback observerCallback
  * @param {number} trackNo The number of the track we're on

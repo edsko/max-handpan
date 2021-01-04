@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module handpan.iface.push2
+ * @module handpanIfacePush2
  * @description Handpan interface on the Ableton Push 2
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -24,10 +24,10 @@ autowatch = 0;
   Imports
 *******************************************************************************/
 
-var Push     = require("push2.controller").Push;
-var OurTrack = require("live.ourtrack").OurTrack;
-var State    = require("handpan.iface.state").HandpanIfaceState;
-var Handpan  = require("handpan.generic");
+var Push     = require("push2Controller").Push;
+var OurTrack = require("liveOurtrack").OurTrack;
+var State    = require("handpanIfaceState").HandpanIfaceState;
+var Handpan  = require("handpanGeneric");
 
 /*******************************************************************************
   Global variables

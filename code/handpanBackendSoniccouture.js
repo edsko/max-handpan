@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module handpan.backend.soniccouture
+ * @module handpanBackendSoniccouture
  * @description Backend for {@link https://www.soniccouture.com/en/products/35-rare-and-unique/g29-pan-drums/ | Soniccouture Pan Drums}
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -21,8 +21,8 @@ autowatch = 0;
   Imports
 *******************************************************************************/
 
-var OurTrack = require("live.ourtrack").OurTrack;
-var Handpan  = require("handpan.generic");
+var OurTrack = require("liveOurtrack").OurTrack;
+var Handpan  = require("handpanGeneric");
 
 /*******************************************************************************
   Global variables

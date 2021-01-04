@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module handpan.iface.state
+ * @module handpanIfaceState
  * @description Handpan interface state
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021

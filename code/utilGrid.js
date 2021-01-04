@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module util.grid
+ * @module utilGrid
  * @description Simple 2D array
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -10,7 +10,7 @@
  */
 
 /**
- * Callback used by {@link module:grid.Grid#init}.
+ * Callback used by {@link module:utilGrid.Grid#init}.
  *
  * @callback initCallback
  * @param {number} col Column
@@ -19,7 +19,7 @@
  */
 
 /**
- * Callback used by {@link module:grid.Grid#traverse}.
+ * Callback used by {@link module:utilGrid.Grid#traverse}.
  *
  * @callback traverseCallback
  * @param {number} col Column

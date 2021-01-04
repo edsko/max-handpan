@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module handpan.generic
+ * @module handpanGeneric
  * @description Generic definitons (independent of interface or backend)
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021

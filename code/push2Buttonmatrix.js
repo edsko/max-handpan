@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module push2.buttonmatrix
+ * @module push2Buttonmatrix
  * @description Interface to the button matrix of the Push2 controller.
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -13,7 +13,7 @@
  * Function called whenever a button on the Push2 is pressed.
  *
  * @callback buttonCallback
- * @see {module:buttonmatrix.ButtonMatrix}
+ * @see {module:push2Buttonmatrix.ButtonMatrix}
  * @param {number} col Column
  * @param {number} row Row
  * @param {number} velocity Velocity

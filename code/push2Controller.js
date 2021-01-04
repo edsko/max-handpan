@@ -1,7 +1,7 @@
 /**
  * Max Handpan
  *
- * @module push2.controller
+ * @module push2Controller
  * @description Interface to the Push2 controller.
  * @author Edsko de Vries <edsko@edsko.net>
  * @copyright Edsko de Vries, 2020-2021
@@ -13,7 +13,7 @@
  * Function to be called when a button is pressed.
  *
  * @callback actionCallback
- * @see module:push.Push#setAction
+ * @see module:push2Controller.Push#setAction
  * @param {number} col Column
  * @param {number} row Row
  * @param {number} color Current color of the button
@@ -24,8 +24,8 @@
   Imports
 *******************************************************************************/
 
-var ButtonMatrix = require("push2.buttonmatrix").ButtonMatrix;
-var Grid         = require("util.grid").Grid;
+var ButtonMatrix = require("push2Buttonmatrix").ButtonMatrix;
+var Grid         = require("utilGrid").Grid;
 
 /*******************************************************************************
   Public API
@@ -37,7 +37,7 @@ var Grid         = require("util.grid").Grid;
  *
  * @constructor
  * @param {Object} object
- *   Object for action callbacks (see {@link module:push.Push#setAction})
+ *   Object for action callbacks (see {@link module:push2Controller.Push#setAction})
  */
 exports.Push = function(object) {
   this.actionObject = object;
