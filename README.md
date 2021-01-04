@@ -94,6 +94,12 @@ marked as not yet implemented in the table above):
 * Related: we might want to be able to choose the doum separate from the
   scale; for instance, a D Hijaz over a root of G versus a D Hijaz over
   a root of A.
+* We might need a min as well as a max for sensitivity.
+* Need to experiment with the Soniccouture instrument. In particular, the
+  slaps don't seem very reliable. Even when repeating the same volume,
+  might get quite a different response. Round robin in the sampler? Not
+  sure there is anything we can do about that.
+* In general, need to tune the sensitivity of the pads.
 
 # Footnotes
 
