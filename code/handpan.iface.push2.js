@@ -26,7 +26,7 @@ autowatch = 0;
 
 var Push     = require("push2.controller").Push;
 var OurTrack = require("live.ourtrack").OurTrack;
-var State    = require("handpan.iface.state").HandpanCtrlState;
+var State    = require("handpan.iface.state").HandpanIfaceState;
 var Handpan  = require("handpan.generic");
 
 /*******************************************************************************

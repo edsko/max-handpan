@@ -100,7 +100,7 @@ function anything() {
   switch(messagename) {
     // Messages that update the state
     case 'scale':
-      // TODO
+      post("I should be changing the scale..\n");
       break;
 
     default:

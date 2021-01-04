@@ -75,7 +75,12 @@ exports.fromMIDI = function(pitch) {
  */
 exports.Scale = {
   KURD_9: 0
+, MAJOR: 1
 }
+
+// String representation of the above for use in the dial config
+// TODO: Ideally we'd set that programatically.
+// "Kurd 9" Major
 
 /**
  * Scale degree
@@ -104,9 +109,18 @@ exports.Note = {
 
 /**
  * Notes in supported scales
+ *
+ * TODO: For now these are all defined with 9 notes. We might need to rethink
+ * the relation between the number of tonefields and the scales.
  */
 exports.scales = {};
 
 with(exports.Note) {
-  exports.scales[exports.Scale.KURD_9] = [D, A, Bb, C, D, E, F, G, A, C];
+  with(exports.Scale) {
+    exports.scales[KURD_9] = [D, A, Bb, C, D, E, F, G, A, C];
+
+    // No idea if there even is a handpan with a major scale or how it's
+    // laid out. This is just a test for now.
+    exports.scales[MAJOR]  = [C, C, D, E, F, G, A, B, C];
+  }
 }

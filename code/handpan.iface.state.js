@@ -21,7 +21,7 @@
   *
   * @constructor
   */
-exports.HandpanCtrlState = function() {
+exports.HandpanIfaceState = function() {
   /**
    * Number of tone fields
    *
@@ -40,7 +40,7 @@ exports.HandpanCtrlState = function() {
   };
 }
 
-exports.HandpanCtrlState.prototype = {
+exports.HandpanIfaceState.prototype = {
   /**
    * Position of the doum and the two taks
    */
