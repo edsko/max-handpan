@@ -66,6 +66,7 @@ Perhaps a free synthesized hang?<sup>5</sup> <br/>
 </pre></code></td>
 <td>
 <a href="https://www.haganenote.com/store/kurd/">Kurd 9</a> (*) <br/>
+<a href="https://en.wikipedia.org/wiki/Phrygian_dominant_scale">Hijaz</a> (*) <br/>
 <a href="https://www.hangblog.org/hang-sound-models/">Many others..</a>
 </td>
 <td><pre><code>
@@ -85,12 +86,14 @@ Currently known TODOs/bug (apart from simply adding support for whatever is
 marked as not yet implemented in the table above):
 
 * `OurTrack` recognition does not seem to work inside an instrument rack.
-* Backend scale selection is not yet implemented.
 * We might want to allow to explicitly set a root note for the scale.
   Not sure it's necessary (can use the standard Ableton pitch effect), but
   if we want some notes to be shifted and other notes stay where they are
   (for example, if a particular instrument has some pitches dedicated to
   percussive sounds), that will become important.
+* Related: we might want to be able to choose the doum separate from the
+  scale; for instance, a D Hijaz over a root of G versus a D Hijaz over
+  a root of A.
 
 # Footnotes
 

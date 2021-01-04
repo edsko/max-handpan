@@ -74,13 +74,17 @@ exports.fromMIDI = function(pitch) {
  * @enum {number}
  */
 exports.Scale = {
+  // Kurd 9
   KURD_9: 0
-, MAJOR: 1
+
+  // Hijaz, also known as Hitzaz
+  // NOTE: We're using a Hijaz over a root of G.
+, HIJAZ: 1
 }
 
 // String representation of the above for use in the dial config
 // TODO: Ideally we'd set that programatically.
-// "Kurd 9" Major
+// "Kurd 9" Hijaz
 
 /**
  * Scale degree
@@ -108,6 +112,16 @@ exports.Note = {
   };
 
 /**
+ * Translate MIDI pitch to note
+ *
+ * @param {number} pitch MIDI pitch (0-127)
+ * @returns {module:handpanGeneric.Note}
+ */
+exports.pitchToNote = function(pitch) {
+  return (pitch % 12);
+}
+
+/**
  * Notes in supported scales
  *
  * TODO: For now these are all defined with 9 notes. We might need to rethink
@@ -117,10 +131,7 @@ exports.scales = {};
 
 with(exports.Note) {
   with(exports.Scale) {
-    exports.scales[KURD_9] = [D, A, Bb, C, D, E, F, G, A, C];
-
-    // No idea if there even is a handpan with a major scale or how it's
-    // laid out. This is just a test for now.
-    exports.scales[MAJOR]  = [C, C, D, E, F, G, A, B, C];
+    exports.scales[KURD_9] = [D, A, Bb, C,  D, E, F,  G, A, C];
+    exports.scales[HIJAZ]  = [G, D, Eb, Fs, G, A, Bb, C, D];
   }
 }

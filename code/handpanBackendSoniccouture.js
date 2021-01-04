@@ -22,6 +22,7 @@ autowatch = 0;
 *******************************************************************************/
 
 var OurTrack = require("liveOurtrack").OurTrack;
+var State    = require("handpanBackendState").HandpanBackendState;
 var Handpan  = require("handpanGeneric");
 
 /*******************************************************************************
@@ -30,7 +31,8 @@ var Handpan  = require("handpanGeneric");
 
 var ourTrack    = null;
 var strike      = null;
-var interpreted = interpretScale(Handpan.scales[Handpan.Scale.KURD_9]);
+var interpreted = null;
+var state       = new State();
 
 /*******************************************************************************
   Handle M4L messages
@@ -47,6 +49,8 @@ function init() {
   });
 
   strike = new LiveAPI(null, ["id", ourTrack.findParameter("Strike")]);
+
+  stateUpdated();
 }
 
 /**
@@ -70,7 +74,14 @@ function list() {
   var fromMIDI     = Handpan.fromMIDI(pitchIn);
   var articulation = fromMIDI[0];
   var zone         = fromMIDI[1];
-  var pitchOut     = interpreted[zone];
+
+  if(zone >= interpreted.length) {
+    // Not all scales are long enough for the number of tone fields
+    // We might want to reconsider how to deal with this at some point.
+    return;
+  }
+
+  var pitchOut = interpreted[zone];
 
   with (Handpan.Articulation) {
     switch(articulation) {
@@ -100,7 +111,8 @@ function anything() {
   switch(messagename) {
     // Messages that update the state
     case 'scale':
-      post("I should be changing the scale..\n");
+      state[messagename] = arguments[0];
+      stateUpdated();
       break;
 
     default:
@@ -111,40 +123,16 @@ function anything() {
 
 /*******************************************************************************
   Internal
-
-  TODO: We should try to generalize this so that we can use the mk2 as well.
-  (_Detect_ mk1 versus mk2? More generally, detect backend?)
 *******************************************************************************/
 
-function interpretScale(scale) {
-  // Translate note to pitch
-  //
-  // We start with everything initialized to their lowest possible value;
-  // for the Soniccounture chromatic mapping for mk1, this is an A at 57.
-  var pitches = [];
-  for(var i = 0; i < 12; i++) {
-    pitches[(Handpan.Note.A + i) % 12] = 57 + i;
-  }
-
-  // Intepret the scale
-  //
-  // We always try the lowest possible pitch for each note that is still higher
-  // then the previous. This places the scale as low as possible on the mapping,
-  // but means that the scale is still monotonically increasing.
-  // (Players can of course use a standard +12 effect if desired.)
-  var interpreted = [];
-  var offset      = 0;
-  var prev        = -1;
-  for(step in scale) {
-    var note  = scale[step];
-    var pitch = pitches[note];
-    if (pitch + offset <= prev) {
-      offset += 12;
-    }
-    interpreted[step] = pitch + offset;
-    prev = interpreted[step];
-  }
-
-  return interpreted;
+/**
+ * Respond to updates to the state
+ *
+ * @private
+ */
+function stateUpdated() {
+  // Lowest note on the mk1 is 57 (A).
+  // TODO: It would be nice if we could support both mk1 and mk2.
+  interpreted = state.interpretScale(57);
 }
-interpretScale.local = 1;
+stateUpdated.local = 1;
