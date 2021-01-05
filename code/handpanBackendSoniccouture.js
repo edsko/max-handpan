@@ -14,7 +14,7 @@
 *******************************************************************************/
 
 inlets    = 3;
-outlets   = 2;
+outlets   = 3;
 autowatch = 0;
 
 /*******************************************************************************
@@ -83,18 +83,36 @@ function list() {
 
   var pitchOut = interpreted[zone];
 
+  // Pick a sample (assuming mod wheel is mapped to sample selection)
+  var randomSample;
+  with (Math) {
+    randomSample = Math.round(1 + random() * 126);
+  }
+
   with (Handpan.Articulation) {
     switch(articulation) {
       case MID:
         strike.set("value", 0);
+        outlet(1, [1, randomSample]);
         break;
+
       case SLAP:
         strike.set("value", 50);
+
         // For the taks, we also use an octave higher
         if(zone == Handpan.Zone.DOUM) {
           pitchOut += 12;
         }
+
+        // For the slaps we don't use random sample selection for low velocity
+        // This makes ghost notes more reliable
+        if(velocity < 50) {
+          outlet(1, [1, 1]);
+        } else {
+          outlet(1, [1, randomSample]);
+        }
         break;
+
       default:
         error("Unknown articulation\n");
         break;

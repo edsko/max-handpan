@@ -95,15 +95,13 @@ marked as not yet implemented in the table above):
   scale; for instance, a D Hijaz over a root of G versus a D Hijaz over
   a root of A.
 * We might need a min as well as a max for sensitivity.
-* Need to experiment with the Soniccouture instrument. In particular, the
-  slaps don't seem very reliable. Even when repeating the same volume,
-  might get quite a different response. Round robin in the sampler? Not
-  sure there is anything we can do about that.
-* In general, need to tune the sensitivity of the pads.
+* Need to tune the sensitivity of the pads.
 
 # Notes per supported backend instrument
 
 ## Soniccouture Pan Drums
+
+### Overview
 
 The
 [Ableton Live pack](https://www.ableton.com/en/packs/pan-drum/)
@@ -139,20 +137,49 @@ zones; an LFO, set to
 is used drive the sample selector to choose randomly between multiple recordings
 of the same key/velocity/zone.
 
+### Suitability for real handpan playing
 
+There does not seem to be a clear recording of a tak in this instrument?
 
+Currently using the "slapped" articulation of the doum (but on octave up)
+for taks; similarly, using the "slapped" articulation of the tone fields
+for ghost notes.
 
+However, the "slapped" articulation of the doum comes in two recordings, one
+of which is useful but the other one less so. We therefore control sample
+selection from within Max Handpan; see setup instructions, below.
 
+### Setup
 
+Load the instrument:
 
+* Load the `Pan Drum Mk1 Chromatic Map` into a MIDI track.
+* We don't need most of this; select the instrument and "Ungroup" it,
+  then delete the Arpeggiator (not at all useful for emulating "real" handpan
+  playing) and the velocity effect (the Max Handpan has per-zone velocity
+  control built in).
+
+We do want random sample selection mostly, but we don't want it for all zones
+(see Suitability, above). We therefore want to be able to control sample
+selection from within Max Handpan. To make this possible requires two steps.
+Select the _Slap_ chain, then
+
+* Under Modulation, turn off LFO 2 which is controlling sample selection.
+* Under MIDI, set the `Mod Wheel` to `Sample Selector`, and set the amount to
+  100%.
+* Optional: if you wanted to test whether this works, create a short clip with
+  some D4s in it, and set "Strike" to 50 (selecting the "slap" articulation).
+  You should only hear a single sample. Now create a MIDI control automation
+  envelope for CC channel 1 (modulation). You should be able to select a sample
+  by changing the modulation.
+* Now set up the Max Handpan as for any other instrument.
+
+(If it did not work, make sure you updated the Modulation and MIDI settings for
+right articulation.)
 
 
 # Footnotes
 
-1. There does not seem to be a clear recording of a tak in this instrument?
-   Currently using the "slapped" articulation of the doum (but on octave up)
-   for taks; similarly, using the "slapped" articulation of the tone fields
-   for ghost notes.
 2. Tak and doum only available when a scale is selected (not available
    in chromatic mode), so this will need to be taken into account in the
    backend. Could perhaps use Zephyr Perc to get access to other percussive
