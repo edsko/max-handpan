@@ -167,7 +167,7 @@ function initColors() {
 function buttonPressed(col, row, velocity) {
   var action = this.actionGrid.get(col, row);
   var color  = this.colorGrid.get(col, row);
-  // post("buttonPressed", col, row, velocity, color, "\n");
+  post("buttonPressed", col, row, velocity, color, "\n");
   if (action != null) {
     action.call(this.actionObject, col, row, color, velocity);
   }
