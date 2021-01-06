@@ -5,8 +5,8 @@ Max for Live Handpan Instrument for the Ableton Live.
 ## Goal
 
 The goal of this project is to provide a custom instrument for the
-[Ableton Push](https://www.ableton.com/en/push/),
-turning the Push into a digital
+[Ableton Push](https://www.ableton.com/en/push/)
+(and possibly other controllers), turning the Push into a digital
 [handpan](https://en.wikipedia.org/wiki/Handpan)
 (such as the
 [hang drum](https://en.wikipedia.org/wiki/Hang_(instrument)))
@@ -18,18 +18,10 @@ scale. In fact, I am building this instrument as I am making my way through the
 excellent handpan course at David Kuckhermann's
 [Handpan Dojo](https://courses.handpandojo.com/).
 
-The project is split into two parts:
-
-1. The "interface", which defines how the handpan is played: the layout on the
-   push, configurable sensitivity per zone on the handpan (i.e. different
-   sensitivity for tone fields as for ghost notes), etc.  Although this is
-   currently implemented for the Ableton Push, it could potentially be
-   implemented for other controllers as well (such as the Launchpad).
-2. The "backend", which uses a particular instrument to actually produce sound.
-   Currently this is using the
-   [first generation hang from Soniccouture](https://www.soniccouture.com/en/products/35-rare-and-unique/g29-pan-drums/),
-   although other backends should be possible as well. The backend itself is
-   then parameterised over a choice of scale.
+The project is split into two parts: an _interface_, which defines the layout
+of the handpan and defines how the user actually "plays" the handpan, and a
+_backend_, which uses an Ableton instrument to actually produce sound;
+the backend also allows to select a scale.
 
 In other words, the architecture looks
 something like this:
@@ -78,6 +70,18 @@ Perhaps a free synthesized hang?<sup>5</sup> <br/>
 
 where the lines marked `(*)` are currently actually implemented.
 
+_Features of the interface_:
+
+* Configurable number of tone fields
+* Per zone velocity curve; in other words, configure drive, compand, min, and
+  max velocity separately for center zone fields and for taks/ghost notes.
+
+_Features of the backend_:   
+
+The backend interfaces with a particular instrument (see table above for
+supported instruments). It provides some user-facing settings as well, although
+currently this is limited to just scale selection.
+
 ## TODOs
 
 This is work in progress.
@@ -94,7 +98,6 @@ marked as not yet implemented in the table above):
 * Related: we might want to be able to choose the doum separate from the
   scale; for instance, a D Hijaz over a root of G versus a D Hijaz over
   a root of A.
-* We might need a min as well as a max for sensitivity.
 * Need to tune the sensitivity of the pads.
 
 # Notes per supported backend instrument
