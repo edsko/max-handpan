@@ -12,15 +12,22 @@
   Setup device
 *******************************************************************************/
 
-inlets  = 2;
+inlets  = 4;
 outlets = 1;
+
+setinletassist(0, "Drive");
+setinletassist(1, "Compand");
+setinletassist(2, "Min");
+setinletassist(3, "Max");
 
 /*******************************************************************************
   Global state
 *******************************************************************************/
 
+var drive = 0;
 var comp  = 0;
-var boost = 0;
+var min   = 0;
+var max   = 127;
 
 /*******************************************************************************
   Handle M4L messages
@@ -31,14 +38,31 @@ function msg_float(f) {
 
   switch(inlet) {
     case 0:
-      comp = f;
+      drive = f;
       break;
     case 1:
-      boost = f;
+      comp = f;
+      break;
+    case 2:
+      min = f;
+      break;
+    case 3:
+      max = f;
       break;
     default:
       error("Message on unexpected inlet");
       break;
+  }
+
+  var rangeMin, rangeMax;
+
+  if(max >= min) {
+    rangeMin = min;
+    rangeMax = max;
+  } else {
+    // If user sets min to be higher the max, just flip their meaning
+    rangeMin = max;
+    rangeMax = min;
   }
 
   for(x = 0; x <= 127; x++) {
@@ -46,21 +70,36 @@ function msg_float(f) {
       // Velocity 0 (note-off) we always leave at 0.
       y = 0;
     } else {
-      if(comp == 0) {
-        y = x;
-      } else if(comp > 0) {
-        y = fn_compress(comp, x);
+      // Start assuming no transformations are applied
+      y = x;
+
+      // Apply drive
+      var mu_drive = fn_mu(drive);
+      if(drive == 0) {
+        // Nothing to do
+      } else if(drive > 0) {
+        // Map to the positive part of the compression curve
+        with (Math) {
+          y = log(1 + mu_drive * (y / 127)) / log(1 + mu_drive) * 127;
+        }
       } else {
-        y = fn_expand(Math.abs(comp), x);
+        // Map to the positive part of the expansion curve
+        with (Math) {
+          y = (1.0/mu_drive) * (pow(1.0 + mu_drive, x/127) - 1.0) * 127;
+        }
       }
 
-      if(boost == 0) {
+      // Apply compansion
+      if(comp == 0) {
         // Nothing to do
-      } else if (boost < 0) {
-        y = fn_rescale(1 + boost, y);
+      } else if(comp > 0) {
+        y = fn_compress(comp, y);
       } else {
-        y = fn_rescale(1 - boost, y) + (boost * 127);
+        y = fn_expand(comp, y);
       }
+
+      // Apply min and max range
+      y = rangeMin + (y / 127) * (rangeMax - rangeMin);
     }
 
     outlet(0, [x, y]);
@@ -90,7 +129,7 @@ function fn_out(y) {
 
 function fn_mu(f) {
   with (Math) {
-    return pow(10.0, 2 * f);
+    return pow(10.0, 2 * abs(f));
   }
 }
 
