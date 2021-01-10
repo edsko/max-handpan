@@ -135,6 +135,12 @@ function anything() {
  * @private
  */
 function updatePush() {
+  // If push is not yet initialized, don't do anything. We'll get an init
+  // message once the device is initialized, and we will set up the push then.
+  if(push == null) {
+    return;
+  }
+
   for(var i = 1; i <= 9; i++) {
     var pos = state.positionOfTonefield(i);
     if(i <= state.fields) {

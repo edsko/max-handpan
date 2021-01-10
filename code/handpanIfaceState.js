@@ -63,18 +63,18 @@ exports.HandpanIfaceState.prototype = {
 , positionOfTonefield: function(tonefield) {
     switch(tonefield) {
       // Bottom tonefield (1)
-      case 1: return [{col: 4, row: 6}, {col: 4, row: 5}];
+      case 1: return [{col: 4, row: 7}, {col: 4, row: 6}];
       // Left tonefields (2, 4, 6)
-      case 2: return [{col: 1, row: 5}, {col: 2, row: 5}];
-      case 4: return [{col: 1, row: 3}, {col: 2, row: 3}];
-      case 6: return [{col: 1, row: 1}, {col: 2, row: 1}];
+      case 2: return [{col: 0, row: 5}, {col: 1, row: 5}];
+      case 4: return [{col: 0, row: 3}, {col: 1, row: 3}];
+      case 6: return [{col: 0, row: 1}, {col: 1, row: 1}];
       // Right tonefields (3, 5, 7)
-      case 3: return [{col: 6, row: 5}, {col: 5, row: 5}];
-      case 5: return [{col: 6, row: 3}, {col: 5, row: 3}];
-      case 7: return [{col: 6, row: 1}, {col: 5, row: 1}];
+      case 3: return [{col: 7, row: 5}, {col: 6, row: 5}];
+      case 5: return [{col: 7, row: 3}, {col: 6, row: 3}];
+      case 7: return [{col: 7, row: 1}, {col: 6, row: 1}];
       // Top tonefields (8, 9)
-      case 8: return [{col: 3, row: 1}, {col: 3, row: 2}];
-      case 9: return [{col: 4, row: 1}, {col: 4, row: 2}];
+      case 8: return [{col: 3, row: 0}, {col: 3, row: 1}];
+      case 9: return [{col: 4, row: 0}, {col: 4, row: 1}];
       default:
         error("Unknown tonefield " + tonefield + "\n");
         break;

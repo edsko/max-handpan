@@ -99,6 +99,8 @@ marked as not yet implemented in the table above):
   scale; for instance, a D Hijaz over a root of G versus a D Hijaz over
   a root of A.
 * Need to tune the sensitivity of the pads.
+* Need to make sure that multiple instances of the instrument can coexist
+  within the same session.
 
 # Notes per supported backend instrument
 
