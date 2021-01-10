@@ -67,7 +67,7 @@ function init() {
     for(tak in taks) {
       pos = taks[tak];
       push.setColor(pos.col, pos.row, state.colors.tak);
-      push.setAction(pos.col, pos.row, sendNote(Articulation.SLAP, Zone.DOUM));
+      push.setAction(pos.col, pos.row, sendNote(Articulation.GHOST, Zone.DOUM));
     }
 
     /*
@@ -80,7 +80,16 @@ function init() {
       pos  = state.positionOfTonefield(i);
       zone = Zone.TONEFIELD_1 + (i - 1);
       push.setAction(pos[0].col, pos[0].row, sendNote(Articulation.MID, zone));
-      push.setAction(pos[1].col, pos[1].row, sendNote(Articulation.SLAP, zone));
+      push.setAction(pos[1].col, pos[1].row, sendNote(Articulation.GHOST, zone));
+    }
+
+    /*
+     * Set up the slaps (in between the tonefields)
+     */
+    for(var i = 1; i <= 9; i++) {
+      pos = state.positionOfSlap(i);
+      zone = Zone.TONEFIELD_1 + (i - 1);
+      push.setAction(pos.col, pos.row, sendNote(Articulation.SLAP, zone));
     }
   }
 
@@ -143,13 +152,24 @@ function updatePush() {
 
   for(var i = 1; i <= 9; i++) {
     var pos = state.positionOfTonefield(i);
+
     if(i <= state.fields) {
       push.setColor(pos[0].col, pos[0].row, state.colors.tonefieldMid);
-      push.setColor(pos[1].col, pos[1].row, state.colors.tonefieldSlap);
+      push.setColor(pos[1].col, pos[1].row, state.colors.tonefieldGhost);
     } else {
       for(var j = 0; j < 2; j++) {
         push.setColor(pos[j].col, pos[j].row, 0);
       }
+    }
+  }
+
+  for(var i = 1; i <= 9; i++) {
+    var pos = state.positionOfSlap(i);
+    
+    if(i <= state.fields) {
+      push.setColor(pos.col, pos.row, state.colors.tonefieldSlap);
+    } else {
+      push.setColor(pos.col, pos.row, 0);
     }
   }
 }
@@ -169,8 +189,12 @@ function sendNote(articulation, zone) {
     case Handpan.Articulation.MID:
       outletNo = 0;
       break;
-    case Handpan.Articulation.SLAP:
+    case Handpan.Articulation.GHOST:
       outletNo = 1;
+      break;
+    case Handpan.Articulation.SLAP:
+      // TODO: We might want a different velocity curve for slaps?
+      outletNo = 0;
       break;
     default:
       error("sendNote: unknown articulation " + articulation + "\n");

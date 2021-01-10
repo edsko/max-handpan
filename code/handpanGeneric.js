@@ -12,6 +12,9 @@
 /**
  * Different ways of hitting the handpan
  *
+ * TODO: We should probably rephrase this in terms of position on the
+ * handpan: mid, rim, shoulder, etc.
+ *
  * @enum {number}
  */
 exports.Articulation = {
@@ -21,9 +24,14 @@ exports.Articulation = {
   MID: 0
 
   /**
-   * Slap near the edge (useful for taks/ghost notes)
+   * Hit near the edge of a tone field/doum. Useful for taks/ghost notes.
    */
-, SLAP: 1
+, GHOST: 1
+
+  /**
+   * Hit in between tone fields. Useful for slaps.
+   */
+, SLAP: 2
 };
 
 /**
@@ -78,7 +86,7 @@ exports.Scale = {
   KURD_9: 0
 
   // Hijaz, also known as Hitzaz
-  // NOTE: We're using a Hijaz over a root of G.
+  // NOTE: We're using a Hijaz in D over a root of G.
 , HIJAZ: 1
 }
 

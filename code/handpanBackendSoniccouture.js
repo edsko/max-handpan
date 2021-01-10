@@ -89,6 +89,7 @@ function list() {
     randomSample = Math.round(1 + random() * 126);
   }
 
+  post("articulation", articulation, "\n");
   with (Handpan.Articulation) {
     switch(articulation) {
       case MID:
@@ -96,7 +97,8 @@ function list() {
         outlet(1, [1, randomSample]);
         break;
 
-      case SLAP:
+      case GHOST:
+        post("ghost", velocity, "\n");
         strike.set("value", 50);
 
         // For the taks, we also use an octave higher
@@ -107,10 +109,19 @@ function list() {
         // For the slaps we don't use random sample selection for low velocity
         // This makes ghost notes more reliable
         if(velocity < 50) {
-          outlet(1, [1, 1]);
+          // TODO: We should probably move away from using the chromatic map
+          // altogether, and per note choose a tonefield and a slap/ghost note.
+          // The samples are not terribly reliable.
+          outlet(1, [1, 100]);
         } else {
           outlet(1, [1, randomSample]);
         }
+        break;
+
+      case SLAP:
+        strike.set("value", 100);
+        outlet(1, [1, randomSample]);
+        // pitchOut += 12; // For the slaps too, use an octave higher
         break;
 
       default:

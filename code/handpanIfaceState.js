@@ -36,7 +36,8 @@ exports.HandpanIfaceState = function() {
     doum: 3
   , tak: 6
   , tonefieldMid: 16
-  , tonefieldSlap: 20
+  , tonefieldGhost: 20
+  , tonefieldSlap: 113
   };
 }
 
@@ -54,6 +55,35 @@ exports.HandpanIfaceState.prototype = {
 , positionOfTaks: function() {
     return [{col: 2, row: 4}, {col: 5, row: 4}];
   }
+
+  /**
+   * Position of the slaps.
+   *
+   * We associate one slap with each tonefield.
+   *
+   * @param {number} tonefield Tonefield (1-9)
+   */
+, positionOfSlap: function(tonefield) {
+    switch(tonefield) {
+      // Bottom tonefield (1)
+      case 1: return {col: 5, row: 7};
+      // Left tonefields (2, 4, 6)
+      case 2: return {col: 0, row: 6};
+      case 4: return {col: 0, row: 4};
+      case 6: return {col: 0, row: 2};
+      // Right tonefields (3, 5, 7)
+      case 3: return {col: 7, row: 6};
+      case 5: return {col: 7, row: 4};
+      case 7: return {col: 7, row: 2};
+      // Top tonefields (8, 9)
+      case 8: return {col: 2, row: 0};
+      case 9: return {col: 5, row: 0};
+      default:
+        error("Unknown tonefield " + tonefield + "\n");
+        break;
+    }
+  }
+
 
   /**
    * Position of the various tonefields
