@@ -101,6 +101,7 @@ marked as not yet implemented in the table above):
 * Need to tune the sensitivity of the pads.
 * Need to make sure that multiple instances of the instrument can coexist
   within the same session.
+* It might be nice to allow to rotate the handpan.
 
 # Notes per supported backend instrument
 

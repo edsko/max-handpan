@@ -15,6 +15,12 @@
  * TODO: We should probably rephrase this in terms of position on the
  * handpan: mid, rim, shoulder, etc.
  *
+ * https://www.youtube.com/watch?v=dCWX1JbxJi0 calls it
+ *
+ * - Inner shoulder ("tak")
+ * - Outer shoulder ("ghost notes")
+ * - Rim ("slaps")
+ *
  * @enum {number}
  */
 exports.Articulation = {

@@ -37,7 +37,7 @@ exports.HandpanIfaceState = function() {
   , tak: 6
   , tonefieldMid: 16
   , tonefieldGhost: 20
-  , tonefieldSlap: 113
+  , tonefieldSlap: 68
   };
 }
 
