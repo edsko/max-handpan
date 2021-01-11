@@ -155,6 +155,10 @@ However, the "slapped" articulation of the doum comes in two recordings, one
 of which is useful but the other one less so. We therefore control sample
 selection from within Max Handpan; see setup instructions, below.
 
+Using the gu side tone as a substitute for the palm bass, as
+[they serve a similar purpose](https://www.markdambrosiomusic.com/post/the-top-ten-traits-of-a-great-handpan): both activate the helmholtz resonance of the
+instrument.
+
 ### Setup
 
 Load the instrument:
@@ -183,7 +187,6 @@ Select the _Slap_ chain, then
 (If it did not work, make sure you updated the Modulation and MIDI settings for
 right articulation.)
 
-
 # Footnotes
 
 2. Tak and doum only available when a scale is selected (not available
@@ -199,3 +202,6 @@ right articulation.)
    [Helmholtz resonance](https://en.wikipedia.org/wiki/Helmholtz_resonance)
    which suggests we _might_ have some hope of being able to construct
    some kind of useable/passable sound.
+   Moreover, there an an MSc thesis on the topic?
+   [Analysis and Synthesis of the Handpan Sound](http://etheses.whiterose.ac.uk/12260/1/EyalMSc.pdf)
+   by Eyal Alon.

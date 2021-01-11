@@ -74,14 +74,18 @@ function list() {
   var fromMIDI     = Handpan.fromMIDI(pitchIn);
   var articulation = fromMIDI[0];
   var zone         = fromMIDI[1];
+  var pitchOut     = null;
 
-  if(zone >= interpreted.length) {
+  if(zone == Handpan.Zone.GU) {
+    // mk1 has gu mapped to F2
+    pitchOut = 53;
+  } else if(zone < interpreted.length) {
+    pitchOut = interpreted[zone];
+  } else {
     // Not all scales are long enough for the number of tone fields
     // We might want to reconsider how to deal with this at some point.
     return;
   }
-
-  var pitchOut = interpreted[zone];
 
   // Pick a sample (assuming mod wheel is mapped to sample selection)
   var randomSample;
@@ -89,7 +93,6 @@ function list() {
     randomSample = Math.round(1 + random() * 126);
   }
 
-  post("articulation", articulation, "\n");
   with (Handpan.Articulation) {
     switch(articulation) {
       case MID:
@@ -98,7 +101,6 @@ function list() {
         break;
 
       case GHOST:
-        post("ghost", velocity, "\n");
         strike.set("value", 50);
 
         // For the taks, we also use an octave higher
@@ -121,7 +123,6 @@ function list() {
       case SLAP:
         strike.set("value", 100);
         outlet(1, [1, randomSample]);
-        // pitchOut += 12; // For the slaps too, use an octave higher
         break;
 
       default:

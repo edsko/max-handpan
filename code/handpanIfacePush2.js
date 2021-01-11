@@ -36,6 +36,7 @@ var Handpan  = require("handpanGeneric");
 var push     = null;
 var ourTrack = null;
 var state    = new State();
+var activeGu = null; // See sendGu
 
 /*******************************************************************************
   Handle M4L messages
@@ -90,6 +91,15 @@ function init() {
       pos = state.positionOfSlap(i);
       zone = Zone.TONEFIELD_1 + (i - 1);
       push.setAction(pos.col, pos.row, sendNote(Articulation.SLAP, zone));
+    }
+
+    /*
+     * Set up the gu/palm base
+     */
+    var gu = state.positionOfGu();
+    for(var i in gu) {
+      pos = gu[i];
+      push.setAction(pos.col, pos.row, sendGu);
     }
   }
 
@@ -165,12 +175,19 @@ function updatePush() {
 
   for(var i = 1; i <= 9; i++) {
     var pos = state.positionOfSlap(i);
-    
+
     if(i <= state.fields) {
       push.setColor(pos.col, pos.row, state.colors.tonefieldSlap);
     } else {
       push.setColor(pos.col, pos.row, 0);
     }
+  }
+
+  // Base
+  var gu = state.positionOfGu();
+  for(var i in gu) {
+    var pos = gu[i];
+    push.setColor(pos.col, pos.row, state.colors.gu);
   }
 }
 updatePush.local = 1;
@@ -206,3 +223,36 @@ function sendNote(articulation, zone) {
   }
 }
 sendNote.local = 1;
+
+/**
+ * Set gu
+ *
+ * This is different from sendNote because we want to do a bit more processing:
+ * in order to simulate how this would be played on an actual instrument
+ * (with the palm/fist), we want to allow to strike multiple buttons at once
+ * but without generating multiple tones.
+ */
+function sendGu(col, row, color, velocity) {
+  var pitchOut = Handpan.toMIDI(Handpan.Articulation.SLAP, Handpan.Zone.GU);
+  
+  if(velocity > 0) {
+    if(activeGu == null) {
+      activeGu = {col: col, row: row};
+      var pitchOut =
+      outlet(0, [pitchOut, velocity]);
+    } else {
+      // Ignore all other button presses
+    }
+  } else {
+    if(activeGu == null) {
+      error("sendGu: impossible\n");
+    } else if(activeGu.col == col && activeGu.row == row) {
+      // Release of the "active" gu
+      activeGu = null;
+      outlet(0, [pitchOut, 0]);
+    } else {
+      // Ignore release of any of the other gu
+    }
+  }
+}
+sendGu.local = 1;

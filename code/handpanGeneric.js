@@ -56,6 +56,7 @@ exports.Zone = {
 , TONEFIELD_7: 7
 , TONEFIELD_8: 8
 , TONEFIELD_9: 9
+, GU: 10
 };
 
 /**

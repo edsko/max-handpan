@@ -38,6 +38,7 @@ exports.HandpanIfaceState = function() {
   , tonefieldMid: 16
   , tonefieldGhost: 20
   , tonefieldSlap: 68
+  , gu: 74
   };
 }
 
@@ -51,9 +52,26 @@ exports.HandpanIfaceState.prototype = {
 
   /**
    * Position of the taks
+   *
+   * Returns multiple positions, all of which should be mapped to the
+   * same sound.
    */
 , positionOfTaks: function() {
     return [{col: 2, row: 4}, {col: 5, row: 4}];
+  }
+
+  /**
+   * Position of the gu
+   *
+   * Returns multiple positions, all of which should be mapped to the
+   * same sound.
+   */
+, positionOfGu: function() {
+    return [ {col: 0, row: 7}
+           , {col: 1, row: 7}
+           , {col: 6, row: 7}
+           , {col: 7, row: 7}
+           ];
   }
 
   /**
