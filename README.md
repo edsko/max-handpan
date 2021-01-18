@@ -102,6 +102,35 @@ marked as not yet implemented in the table above):
 * Need to make sure that multiple instances of the instrument can coexist
   within the same session.
 * It might be nice to allow to rotate the handpan.
+* Split backend into a scale interpreter and the actual backend.
+  Make it possible to use a standard instrument (piano or whatever)
+  to play instead of the backend.
+* Treat taks as percussion, and have two velocity curves: one for
+  percussion/tone fields and one for ghost notes.
+  I think we should make the tak/slaps their own "zone" rather than
+  an articulation of other zones.
+* Maybe reduce the number of slaps? I asked David:
+
+  ```
+  For percussive slaps, hitting the handpan near different zone fields (in
+  between different tonefields) results in a different sound. Do you use this
+  to your advantage when playing, or do you just play what is convenient? If
+  the former, how do you think about it? Do you associate a particular slap
+  with a particular tone field (like, "this is a D slap" or whatever), or do
+  you just gradually learn how the different slaps sound, and you don't really
+  think of them as notes as such?
+  ```
+
+  and he replied
+
+  ```
+  I check out the various spots on an instrument for slaps and usually choose
+  the ones that give me the strongest accent with as little "tone" from the
+  neighbouring tone fields as possible.
+  ```
+
+  so maybe we don't need to make all slaps available
+  (maybe even _vary_ them?)
 
 # Notes per supported backend instrument
 

@@ -234,7 +234,7 @@ sendNote.local = 1;
  */
 function sendGu(col, row, color, velocity) {
   var pitchOut = Handpan.toMIDI(Handpan.Articulation.SLAP, Handpan.Zone.GU);
-  
+
   if(velocity > 0) {
     if(activeGu == null) {
       activeGu = {col: col, row: row};
