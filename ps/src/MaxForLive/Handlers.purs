@@ -52,6 +52,8 @@ mkHandler message h = { message, handler: MkHandler (_ $ h) }
 -- | ```purescript
 -- | setHandlers [mkHandler "bang" (postLn "BANG!")]
 -- | ```
+-- |
+-- | Use `"msg_int"` and co as `message` to handle values as messages.
 setHandlers :: Array { message :: String, handler :: Handler } -> Effect Unit
 setHandlers = runEffectFn1 setHandlersImpl <<< map invokeHandler'
 

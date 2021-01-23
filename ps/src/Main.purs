@@ -12,9 +12,10 @@ main = do
     setOutlets 1
 
     setHandlers [
-        mkHandler "bang" bang
-      , mkHandler "say"  say
-      , mkHandler "sum"  sum
+        mkHandler "bang"    bang
+      , mkHandler "say"     say
+      , mkHandler "sum"     sum
+      , mkHandler "msg_int" say
       ]
 
 bang :: Effect Unit
