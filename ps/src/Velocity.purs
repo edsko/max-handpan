@@ -12,12 +12,16 @@ import MaxForLive.Global (
   , setOutlets
   )
 import MaxForLive.Handlers (registerHandler)
+import MaxForLive.Patcher (patcher)
+import MaxForLive.Patcher as Patcher
 
 main :: Effect Unit
 main = do
     postLn $ "We have " <> show numJsArgs <> " arguments"
     postLn $ "Argument 1 is " <> show (jsArg 1 :: Int)
     postLn $ "Argument 2 is " <> show (jsArg 2 :: String)
+
+    postLn $ "Our patcher is " <> Patcher.filepath patcher
 
     setInlets  1
     setOutlets 1
