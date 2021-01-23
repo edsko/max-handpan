@@ -9,8 +9,14 @@ exports.newDefaultImpl = function(patcher, args) {
   return patcher.newdefault.apply(patcher, args);
 }
 
-exports.mkNewDefaultArgsToggle = function(left, top) {
-  return [left, top, "toggle"];
+exports.setAttr = function(obj, attrs) {
+  var i, attr, value;
+
+  for(i in attrs) {
+    attr  = attrs[i].attr;
+    value = attrs[i].value;
+    obj.setattr(attr, value);
+  }
 }
 
 exports.remove = function(patcher) {

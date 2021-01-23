@@ -17,7 +17,9 @@ import MaxForLive.Global (
   , setOutlets
   )
 import MaxForLive.Handlers (registerHandler)
-import MaxForLive.Patcher (Maxobj, Toggle(..), patcher)
+import MaxForLive.Objects (LiveDial(..))
+import MaxForLive.Objects as Obj
+import MaxForLive.Patcher (Maxobj, patcher)
 import MaxForLive.Patcher as Patcher
 
 main :: Effect Unit
@@ -38,12 +40,14 @@ main = do
     registerHandler "sum"     $ sum
     registerHandler "msg_int" $ say
 
-bang :: Ref (Maybe (Maxobj Toggle)) -> Effect Unit
+bang :: Ref (Maybe (Maxobj LiveDial)) -> Effect Unit
 bang ref = do
     mOld <- Ref.read ref
     case mOld of
-      Nothing  -> do
-        obj <- Patcher.newDefault patcher {left: 122, top: 90} Toggle
+      Nothing -> do
+        obj <- Patcher.newDefault patcher {left: 122, top: 90} $ LiveDial {
+                   liveDialType: Obj.liveDialTypeInt
+                 }
         Patcher.connect patcher {
             fromObject: obj
           , outlet: 0

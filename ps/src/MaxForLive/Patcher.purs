@@ -13,19 +13,18 @@ module MaxForLive.Patcher (
   , remove
   , connect
   , box
-    -- | Specific kinds of Max objects
-  , Toggle(..)
     -- | FFI: Create
   , class MkNew
   , mkNewDefaultArgs
-  , NewDefaultArgs
+  , mkNewAttrs
   ) where
 
 import Prelude
 
-import Data.Function.Uncurried (Fn2, runFn2)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn2, runEffectFn2)
+
+import MaxForLive.Conversions (MaxValue)
 
 -- | The type of the patcher
 foreign import data Patcher :: Type
@@ -61,13 +60,11 @@ foreign import data Maxobj :: Type -> Type
 -- https://docs.cycling74.com/max8/vignettes/jspatcherobject#box.
 foreign import box :: Maxobj Patcher
 
-data Toggle = Toggle
-
 -- | Add a new object to the patcher
 --
 -- See https://docs.cycling74.com/max8/vignettes/jspatcherobject#newdefault
 foreign import newDefaultImpl ::
-    forall a. EffectFn2 Patcher (NewDefaultArgs a) (Maxobj a)
+    forall a. EffectFn2 Patcher (Array MaxValue) (Maxobj a)
 
 -- | Removes the object (a Maxobj passed as an argument) from a patcher
 --
@@ -87,25 +84,38 @@ foreign import connect ::
      }
   -> Effect Unit
 
+-- | Set attributes
+--
+-- https://docs.cycling74.com/max8/vignettes/jsmaxobj#setattr
+foreign import setAttr ::
+     forall a.
+     EffectFn2
+       (Maxobj a)
+       (Array {attr :: String, value :: MaxValue})
+       Unit
+
 newDefault :: forall a.
      MkNew a
   => Patcher
   -> {left :: Int, top :: Int}
   -> a -> Effect (Maxobj a)
-newDefault p {left, top} a =
-    runEffectFn2 newDefaultImpl p $ mkNewDefaultArgs a left top
+newDefault p coords a = do
+    obj <- runEffectFn2 newDefaultImpl p $ mkNewDefaultArgs a coords
+    runEffectFn2 setAttr obj $ mkNewAttrs a
+    pure obj
 
 {-------------------------------------------------------------------------------
   FFI: Construct untyped arguments for object creation
 -------------------------------------------------------------------------------}
 
--- | Arguments needed to initialize a new object
-foreign import data NewDefaultArgs :: Type -> Type
-
-foreign import mkNewDefaultArgsToggle :: Fn2 Int Int (NewDefaultArgs Toggle)
-
 class MkNew a where
-  mkNewDefaultArgs :: a -> Int -> Int -> NewDefaultArgs a
+  -- | Arguments that should be provided to `newdefault`
+  mkNewDefaultArgs :: a -> {left :: Int, top :: Int} -> Array MaxValue
 
-instance mkNewToggle :: MkNew Toggle where
-  mkNewDefaultArgs Toggle = runFn2 mkNewDefaultArgsToggle
+  -- | Attributes that should be set after the object has been created
+  --
+  -- For an example, see
+  --
+  -- * https://cycling74.com/tutorials/building-a-synthesizer-editor-with-javascript-part-2/
+  -- * https://cycling74.com/forums/can't-create-live-object-withi-javascript
+  mkNewAttrs :: a -> Array {attr :: String, value :: MaxValue}
