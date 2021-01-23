@@ -8,11 +8,16 @@ module MaxForLive.Global (
     -- | Properties of `jsthis`
   , setInlets
   , setOutlets
+    -- | `jsthis` Methods
+  , outlet
   ) where
 
 import Prelude
 
 import Effect (Effect)
+import Effect.Uncurried (EffectFn2, runEffectFn2)
+
+import MaxForLive.Conversions (MaxValue, class ToMax, toMax)
 
 {-------------------------------------------------------------------------------
   Universally Available Methods
@@ -54,3 +59,12 @@ foreign import setInlets :: Int -> Effect Unit
 
 -- | Set number of patcher outlets
 foreign import setOutlets :: Int -> Effect Unit
+
+{-------------------------------------------------------------------------------
+  `jsthis` Methods
+-------------------------------------------------------------------------------}
+
+foreign import outletImpl :: EffectFn2 Int MaxValue Unit
+
+outlet :: forall a. ToMax a => Int -> a -> Effect Unit
+outlet i x = runEffectFn2 outletImpl i (toMax x)

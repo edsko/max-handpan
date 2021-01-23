@@ -6,6 +6,8 @@ module MaxForLive.Conversions (
   , toMax
   ) where
 
+import Unsafe.Coerce (unsafeCoerce)
+
 {-------------------------------------------------------------------------------
   Public API
 -------------------------------------------------------------------------------}
@@ -22,10 +24,17 @@ class ToMax a where
   toMax :: a -> MaxValue
 
 {-------------------------------------------------------------------------------
-  Instances
+  `FromMax` instances
 -------------------------------------------------------------------------------}
 
 foreign import fromMaxIntImpl :: MaxValue -> Int
 
 instance fromMaxInt :: FromMax Int where
   fromMax = fromMaxIntImpl
+
+{-------------------------------------------------------------------------------
+  `ToMax` instances
+-------------------------------------------------------------------------------}
+
+instance toMaxInt :: ToMax Int where
+  toMax = unsafeCoerce

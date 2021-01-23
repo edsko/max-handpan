@@ -18,3 +18,7 @@ exports.setOutlets = function(numOutlets) {
     outlets = numOutlets;
   }
 }
+
+exports.outletImpl = function(i, x) {
+  outlet(i, x);
+}

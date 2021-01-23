@@ -5,7 +5,7 @@ module Main (
 import Prelude
 import Effect (Effect)
 
-import MaxForLive.Global (setInlets, setOutlets, postLn)
+import MaxForLive.Global (setInlets, setOutlets, postLn, outlet)
 import MaxForLive.Handlers (setHandlers, mkHandler)
 
 main :: Effect Unit
@@ -26,4 +26,4 @@ say :: Int -> Effect Unit
 say n = postLn $ "PureScript says int " <> show n
 
 sum :: Int -> Int -> Effect Unit
-sum n m = postLn $ "PostScript sum: " <> show n <> " + " <> show m
+sum n m = outlet 0 (n + m)
