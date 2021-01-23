@@ -1,7 +1,7 @@
 -- | Set up Max message handlers
 -- |
 -- | https://docs.cycling74.com/max8/vignettes/jsbasic
-module Live.Handlers (
+module MaxForLive.Handlers (
      -- | Max message handlers
      Handler -- opaque
    , mkHandler

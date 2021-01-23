@@ -5,8 +5,8 @@ module Main (
 import Prelude
 import Effect (Effect)
 
-import Live.Global (setInlets, setOutlets, postLn)
-import Live.Handlers (setHandlers, mkHandler)
+import MaxForLive.Global (setInlets, setOutlets, postLn)
+import MaxForLive.Handlers (setHandlers, mkHandler)
 
 main :: Effect Unit
 main = do

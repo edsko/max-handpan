@@ -1,7 +1,7 @@
 -- | Methods available in the global JavaScript context
 -- |
 -- | https://docs.cycling74.com/max8/vignettes/jsglobal
-module Live.Global (
+module MaxForLive.Global (
     -- | Universally Available Methods
     post
   , postLn
