@@ -66,5 +66,6 @@ foreign import setOutlets :: Int -> Effect Unit
 
 foreign import outletImpl :: EffectFn2 Int MaxValue Unit
 
+-- | Send value on the specified outlet
 outlet :: forall a. ToMax a => Int -> a -> Effect Unit
 outlet i x = runEffectFn2 outletImpl i (toMax x)

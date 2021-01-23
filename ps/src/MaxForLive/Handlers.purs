@@ -43,7 +43,7 @@ mkHandler :: forall a.
   => String
   -> a
   -> { message :: String, handler :: Handler }
-mkHandler message h = { message, handler: MkHandler (\k -> k h) }
+mkHandler message h = { message, handler: MkHandler (_ $ h) }
 
 -- | Set Max message handlers
 -- |
@@ -52,20 +52,8 @@ mkHandler message h = { message, handler: MkHandler (\k -> k h) }
 -- | ```purescript
 -- | setHandlers [mkHandler "bang" (postLn "BANG!")]
 -- | ```
-setHandlers ::
-     Array { message :: String, handler :: Handler }
-  -> Effect Unit
+setHandlers :: Array { message :: String, handler :: Handler } -> Effect Unit
 setHandlers = runEffectFn1 setHandlersImpl <<< map invokeHandler'
-
-{-------------------------------------------------------------------------------
-  FFI: Construct the untyped/typed boundary with Max
--------------------------------------------------------------------------------}
-
-invokeHandler' :: forall  r.
-     { handler :: Handler                  | r }
-  -> { handler :: EffectFn1 Arguments Unit | r }
-invokeHandler' r@{ handler: MkHandler someHandler } =
-    someHandler (\h -> r{ handler = mkEffectFn1 (invokeHandler 0 h) })
 
 {-------------------------------------------------------------------------------
   FFI: Functions of arbitrary arguments
@@ -73,6 +61,12 @@ invokeHandler' r@{ handler: MkHandler someHandler } =
 
 class InvokeHandler a where
   invokeHandler :: Int -> a -> Arguments -> Effect Unit
+
+invokeHandler' :: forall  r.
+     { handler :: Handler                  | r }
+  -> { handler :: EffectFn1 Arguments Unit | r }
+invokeHandler' r@{ handler: MkHandler someHandler } =
+    someHandler (\h -> r{ handler = mkEffectFn1 (invokeHandler 0 h) })
 
 instance invokeNoArgs :: InvokeHandler (Effect Unit) where
   invokeHandler _i = const
