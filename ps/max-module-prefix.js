@@ -18,10 +18,9 @@ var messageHandlers = {};
  * <code>messageHandlers</code>, and we will read it here.
  */
 function anything() {
-  post("This is anything, JavaScript side", messagename, "\n");
   if(typeof(messageHandlers[messagename]) === 'function') {
     messageHandlers[messagename](arguments);
   } else {
-    throw ("anything: Unexpected message " + messagename + "\n");    
+    throw ("anything: Unexpected message " + messagename + "\n");
   }
 }

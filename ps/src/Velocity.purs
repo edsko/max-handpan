@@ -1,7 +1,12 @@
 module Velocity (main) where
 
 import Prelude
+
+import Data.Maybe (Maybe(..))
+
 import Effect (Effect)
+import Effect.Ref (Ref)
+import Effect.Ref as Ref
 
 import MaxForLive.Global (
     jsArg
@@ -12,7 +17,7 @@ import MaxForLive.Global (
   , setOutlets
   )
 import MaxForLive.Handlers (registerHandler)
-import MaxForLive.Patcher (patcher)
+import MaxForLive.Patcher (MaxObj, Toggle(..), patcher)
 import MaxForLive.Patcher as Patcher
 
 main :: Effect Unit
@@ -23,16 +28,26 @@ main = do
 
     postLn $ "Our patcher is " <> Patcher.filepath patcher
 
+    toggleRef <- Ref.new Nothing
+
     setInlets  1
     setOutlets 1
 
-    registerHandler "bang"    bang
-    registerHandler "say"     say
-    registerHandler "sum"     sum
-    registerHandler "msg_int" say
+    registerHandler "bang"    $ bang toggleRef
+    registerHandler "say"     $ say
+    registerHandler "sum"     $ sum
+    registerHandler "msg_int" $ say
 
-bang :: Effect Unit
-bang = postLn "PureScript says bang"
+bang :: Ref (Maybe (MaxObj Toggle)) -> Effect Unit
+bang ref = do
+    mOld <- Ref.read ref
+    case mOld of
+      Nothing  -> do
+        obj <- Patcher.newDefault patcher {left: 122, top: 90} Toggle
+        Ref.write (Just obj) ref
+      Just old -> do
+        Patcher.remove patcher old
+        Ref.write Nothing ref
 
 say :: Int -> Effect Unit
 say n = postLn $ "PureScript says int " <> show n
