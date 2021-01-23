@@ -1,11 +1,21 @@
 module Main (
-    sayHi
+    main
   ) where
 
 import Prelude
 import Effect (Effect)
 
-import Live.Console (post)
+import Live.Global (setInlets, setOutlets, postLn)
+import Live.Handlers (setHandlers, mkHandler)
 
-sayHi :: Effect Unit
-sayHi = post "hi from PureScript"
+main :: Effect Unit
+main = do
+    setInlets  1
+    setOutlets 1
+
+    setHandlers [
+        { message: "bang", handler: mkHandler bang }
+      ]
+
+bang :: Effect Unit
+bang = postLn "Bang from PureScript"
