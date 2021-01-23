@@ -1,9 +1,9 @@
 module MaxForLive.Conversions (
     MaxValue
-  , class FromMaxValue
-  , fromMaxValue
-  , class ToMaxValue
-  , toMaxValue
+  , class FromMax
+  , fromMax
+  , class ToMax
+  , toMax
   ) where
 
 {-------------------------------------------------------------------------------
@@ -14,9 +14,18 @@ module MaxForLive.Conversions (
 foreign import data MaxValue :: Type
 
 -- | Translate from the Max world to the PureScript world
-class FromMaxValue a where
-  fromMaxValue :: MaxValue -> a
+class FromMax a where
+  fromMax :: MaxValue -> a
 
 -- | Translate from the PureScript world to the Max world
-class ToMaxValue a where
-  toMaxValue :: a -> MaxValue
+class ToMax a where
+  toMax :: a -> MaxValue
+
+{-------------------------------------------------------------------------------
+  Instances
+-------------------------------------------------------------------------------}
+
+foreign import fromMaxIntImpl :: MaxValue -> Int
+
+instance fromMaxInt :: FromMax Int where
+  fromMax = fromMaxIntImpl

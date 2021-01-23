@@ -7,9 +7,6 @@ module MaxForLive.Handlers (
    , mkHandler
    , setHandlers
      -- | FFI boundary
-   , class GetArg
-   , getArg
-   , Arguments
    , class InvokeHandler
    , invokeHandler
    ) where
@@ -19,11 +16,12 @@ import Prelude
 import Effect (Effect)
 import Effect.Uncurried (
     EffectFn1
-  , EffectFn2
   , mkEffectFn1
   , runEffectFn1
-  , runEffectFn2
   )
+
+import MaxForLive.Arguments (Arguments, getArg)
+import MaxForLive.Conversions (class FromMax)
 
 foreign import setHandlersImpl ::
      EffectFn1
@@ -63,47 +61,23 @@ setHandlers = runEffectFn1 setHandlersImpl <<< map invokeHandler'
   FFI: Construct the untyped/typed boundary with Max
 -------------------------------------------------------------------------------}
 
-invokeHandler' :: forall r.
+invokeHandler' :: forall  r.
      { handler :: Handler                  | r }
   -> { handler :: EffectFn1 Arguments Unit | r }
 invokeHandler' r@{ handler: MkHandler someHandler } =
-    someHandler (\h -> r{
-        handler = mkEffectFn1 (\xs -> invokeHandler 0 xs h)
-      })
+    someHandler (\h -> r{ handler = mkEffectFn1 (invokeHandler 0 h) })
 
 {-------------------------------------------------------------------------------
   FFI: Functions of arbitrary arguments
 -------------------------------------------------------------------------------}
 
 class InvokeHandler a where
-  invokeHandler :: Int -> Arguments -> a -> Effect Unit
+  invokeHandler :: Int -> a -> Arguments -> Effect Unit
 
 instance invokeNoArgs :: InvokeHandler (Effect Unit) where
-  invokeHandler _i _xs = identity
+  invokeHandler _i = const
 
 instance invokeWithArg ::
-       (GetArg a, InvokeHandler b)
+       (FromMax a, InvokeHandler b)
     => InvokeHandler (a -> b) where
-  invokeHandler i xs f = getArg xs i >>= f >>> invokeHandler (i + 1) xs
-
-{-------------------------------------------------------------------------------
-  Arguments
--------------------------------------------------------------------------------}
-
--- | The Max 'Arguments' object
--- |
--- | This is entirely opaque to the PureScript code: we only pass it between
--- | the foreign functions.
-foreign import data Arguments :: Type
-
-class GetArg a where
-  getArg :: Arguments -> Int -> Effect a
-
-{-------------------------------------------------------------------------------
-  Implementations for various types
--------------------------------------------------------------------------------}
-
-foreign import getArgIntImpl :: EffectFn2 Arguments Int Int
-
-instance getArgInt :: GetArg Int where
-  getArg = runEffectFn2 getArgIntImpl
+  invokeHandler i f xs = invokeHandler (i + 1) (f (getArg xs i)) xs
