@@ -1,4 +1,4 @@
-module Main (main) where
+module Velocity (main) where
 
 import Prelude
 import Effect (Effect)
