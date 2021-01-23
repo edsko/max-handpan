@@ -1,3 +1,24 @@
+/**
+ * Instead of using <code>EffectFn</code>, we do the wrapping manually.
+ * The reason is that Max's JavaScript environment is a little weird, and it
+ * it treats <code>post</code> special; this works just fine:
+ *
+ * <code>
+ * var fn = function(x) {
+ *   post("This is some other function", x, "\n");
+ * }
+ *
+ * var fnRenamed = fn;
+ * fnRenamed(2);
+ * </code>
+ *
+ * but this does not:
+ *
+ * <code>
+ * var postRenamed = post;
+ * postRenamed("bye\n");
+ * </code>
+ */
 exports.post = function(msg) {
   return function() {
     if(typeof post === 'function')
