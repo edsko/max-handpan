@@ -14,8 +14,16 @@ main = do
     setOutlets 1
 
     setHandlers [
-        { message: "bang", handler: mkHandler bang }
+        mkHandler "bang" bang
+      , mkHandler "say"  say
+      , mkHandler "sum"  sum
       ]
 
 bang :: Effect Unit
-bang = postLn "Bang from PureScript"
+bang = postLn "PureScript says bang"
+
+say :: Int -> Effect Unit
+say n = postLn $ "PureScript says int " <> show n
+
+sum :: Int -> Int -> Effect Unit
+sum n m = postLn $ "PostScript sum: " <> show n <> " + " <> show m
