@@ -3,11 +3,22 @@ module Main (main) where
 import Prelude
 import Effect (Effect)
 
-import MaxForLive.Global (setInlets, setOutlets, postLn, outlet)
+import MaxForLive.Global (
+    jsArg
+  , numJsArgs
+  , outlet
+  , postLn
+  , setInlets
+  , setOutlets
+  )
 import MaxForLive.Handlers (setHandlers, mkHandler)
 
 main :: Effect Unit
 main = do
+    postLn $ "We have " <> show numJsArgs <> " arguments"
+    postLn $ "Argument 1 is " <> show (jsArg 1 :: Int)
+    postLn $ "Argument 2 is " <> show (jsArg 2 :: String)
+
     setInlets  1
     setOutlets 1
 

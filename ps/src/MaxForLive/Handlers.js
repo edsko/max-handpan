@@ -1,4 +1,5 @@
 exports.setHandlersImpl = function(handlers) {
+  post("going to set handlers\n");
   anything = function() {
     var i, h;
     for(i in handlers) {
@@ -8,6 +9,6 @@ exports.setHandlersImpl = function(handlers) {
         return;
       }
     }
-    throw ("Unexpected message " + messagename + "\n");
+    throw ("setHandlersImpl: Unexpected message " + messagename + "\n");
   }
 }

@@ -22,3 +22,18 @@ exports.setOutlets = function(numOutlets) {
 exports.outletImpl = function(i, x) {
   outlet(i, x);
 }
+
+exports.numJsArgs = jsarguments.length;
+
+exports.jsArgImpl = function(i) {
+  if(i < jsarguments.length) {
+    return jsarguments[i];
+  } else {
+    throw ( "jsArgImpl: Argument "
+          + i
+          + " out of range ("
+          + arguments.length
+          + ")\n"
+          );
+  }
+}
