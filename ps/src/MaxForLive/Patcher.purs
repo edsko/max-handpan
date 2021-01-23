@@ -8,9 +8,11 @@ module MaxForLive.Patcher (
   , patcher
   , filepath
     -- | Dynamic patcher manipulation
-  , MaxObj
+  , Maxobj
   , newDefault
   , remove
+  , connect
+  , box
     -- | Specific kinds of Max objects
   , Toggle(..)
     -- | FFI: Create
@@ -47,7 +49,17 @@ foreign import filepath :: Patcher -> String
 -- The phantom type argument that tells us the corresponding PureScript type.
 --
 -- https://docs.cycling74.com/max8/vignettes/jsmaxobj
-foreign import data MaxObj :: Type -> Type
+foreign import data Maxobj :: Type -> Type
+
+-- | The `Maxobj` corresponding to the `js` object
+--
+-- There does not seem to be a documentation entry for this; the tutorial
+-- mentions it at https://docs.cycling74.com/max8/tutorials/javascriptchapter02,
+-- but it's not listed in https://docs.cycling74.com/max8/vignettes/jsglobal.
+--
+-- _Not_ the same as
+-- https://docs.cycling74.com/max8/vignettes/jspatcherobject#box.
+foreign import box :: Maxobj Patcher
 
 data Toggle = Toggle
 
@@ -55,18 +67,31 @@ data Toggle = Toggle
 --
 -- See https://docs.cycling74.com/max8/vignettes/jspatcherobject#newdefault
 foreign import newDefaultImpl ::
-    forall a. EffectFn2 Patcher (NewDefaultArgs a) (MaxObj a)
+    forall a. EffectFn2 Patcher (NewDefaultArgs a) (Maxobj a)
 
 -- | Removes the object (a Maxobj passed as an argument) from a patcher
 --
 -- See https://docs.cycling74.com/max8/vignettes/jspatcherobject#remove
-foreign import remove :: forall a. Patcher -> MaxObj a -> Effect Unit
+foreign import remove :: forall a. Patcher -> Maxobj a -> Effect Unit
+
+-- | Connects two objects
+--
+-- https://docs.cycling74.com/max8/vignettes/jspatcherobject#connect
+foreign import connect ::
+     forall a b.
+     Patcher
+  -> { fromObject :: Maxobj a
+     , inlet      :: Int
+     , toObject   :: Maxobj b
+     , outlet     :: Int
+     }
+  -> Effect Unit
 
 newDefault :: forall a.
      MkNew a
   => Patcher
   -> {left :: Int, top :: Int}
-  -> a -> Effect (MaxObj a)
+  -> a -> Effect (Maxobj a)
 newDefault p {left, top} a =
     runEffectFn2 newDefaultImpl p $ mkNewDefaultArgs a left top
 
