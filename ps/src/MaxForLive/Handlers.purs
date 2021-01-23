@@ -7,6 +7,9 @@ module MaxForLive.Handlers (
    , mkHandler
    , setHandlers
      -- | FFI boundary
+   , class GetArg
+   , getArg
+   , Arguments
    , class InvokeHandler
    , invokeHandler
    ) where
@@ -16,14 +19,10 @@ import Prelude
 import Effect (Effect)
 import Effect.Uncurried (
     EffectFn1
+  , EffectFn2
   , mkEffectFn1
   , runEffectFn1
-  )
-
-import MaxForLive.Boundary.FromInlet (
-    Arguments
-  , class GetArg
-  , getArg
+  , runEffectFn2
   )
 
 foreign import setHandlersImpl ::
@@ -86,3 +85,25 @@ instance invokeWithArg ::
        (GetArg a, InvokeHandler b)
     => InvokeHandler (a -> b) where
   invokeHandler i xs f = getArg xs i >>= f >>> invokeHandler (i + 1) xs
+
+{-------------------------------------------------------------------------------
+  Arguments
+-------------------------------------------------------------------------------}
+
+-- | The Max 'Arguments' object
+-- |
+-- | This is entirely opaque to the PureScript code: we only pass it between
+-- | the foreign functions.
+foreign import data Arguments :: Type
+
+class GetArg a where
+  getArg :: Arguments -> Int -> Effect a
+
+{-------------------------------------------------------------------------------
+  Implementations for various types
+-------------------------------------------------------------------------------}
+
+foreign import getArgIntImpl :: EffectFn2 Arguments Int Int
+
+instance getArgInt :: GetArg Int where
+  getArg = runEffectFn2 getArgIntImpl
