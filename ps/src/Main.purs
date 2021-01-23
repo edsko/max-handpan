@@ -11,7 +11,7 @@ import MaxForLive.Global (
   , setInlets
   , setOutlets
   )
-import MaxForLive.Handlers (setHandlers, mkHandler)
+import MaxForLive.Handlers (registerHandler)
 
 main :: Effect Unit
 main = do
@@ -22,12 +22,10 @@ main = do
     setInlets  1
     setOutlets 1
 
-    setHandlers [
-        mkHandler "bang"    bang
-      , mkHandler "say"     say
-      , mkHandler "sum"     sum
-      , mkHandler "msg_int" say
-      ]
+    registerHandler "bang"    bang
+    registerHandler "say"     say
+    registerHandler "sum"     sum
+    registerHandler "msg_int" say
 
 bang :: Effect Unit
 bang = postLn "PureScript says bang"

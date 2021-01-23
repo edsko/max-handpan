@@ -3,9 +3,7 @@
 -- | https://docs.cycling74.com/max8/vignettes/jsbasic
 module MaxForLive.Handlers (
      -- | Max message handlers
-     Handler -- opaque
-   , mkHandler
-   , setHandlers
+     registerHandler
      -- | FFI boundary
    , class InvokeHandler
    , invokeHandler
@@ -16,46 +14,35 @@ import Prelude
 import Effect (Effect)
 import Effect.Uncurried (
     EffectFn1
+  , EffectFn2
   , mkEffectFn1
-  , runEffectFn1
+  , runEffectFn2
   )
 
 import MaxForLive.Arguments (Arguments, getArg)
 import MaxForLive.Conversions (class FromMax)
 
-foreign import setHandlersImpl ::
-     EffectFn1
-       (Array { message :: String, handler :: EffectFn1 Arguments Unit })
-       Unit
+foreign import registerHandlerImpl ::
+     EffectFn2 String (EffectFn1 Arguments Unit) Unit
 
 {-------------------------------------------------------------------------------
   Max message handlers
 -------------------------------------------------------------------------------}
 
--- | Max message handler
+-- | Register Max message handlers
 -- |
--- | See `setHandlers` and `mkHandler`.
-data Handler = MkHandler (forall r. (forall h. InvokeHandler h => h -> r) -> r)
-
--- | Construct `Handler`
-mkHandler :: forall a.
-     InvokeHandler a
-  => String
-  -> a
-  -> { message :: String, handler :: Handler }
-mkHandler message h = { message, handler: MkHandler (_ $ h) }
-
--- | Set Max message handlers
--- |
--- | For example, to respond (only) to a bang:
+-- | For example, to respond to a bang:
 -- |
 -- | ```purescript
--- | setHandlers [mkHandler "bang" (postLn "BANG!")]
+-- | registerHandler "bang" $ postLn "BANG!"
 -- | ```
 -- |
--- | Use `"msg_int"` and co as `message` to handle values as messages.
-setHandlers :: Array { message :: String, handler :: Handler } -> Effect Unit
-setHandlers = runEffectFn1 setHandlersImpl <<< map invokeHandler'
+-- | Use `"msg_int"` and co as `message` to handle values as messages, see
+-- | https://docs.cycling74.com/max8/vignettes/jsbasic#Special_Function_Names
+registerHandler :: forall a. InvokeHandler a => String -> a -> Effect Unit
+registerHandler msg h =
+    runEffectFn2 registerHandlerImpl msg $
+      mkEffectFn1 (invokeHandler 0 h)
 
 {-------------------------------------------------------------------------------
   FFI: Functions of arbitrary arguments
@@ -63,12 +50,6 @@ setHandlers = runEffectFn1 setHandlersImpl <<< map invokeHandler'
 
 class InvokeHandler a where
   invokeHandler :: Int -> a -> Arguments -> Effect Unit
-
-invokeHandler' :: forall  r.
-     { handler :: Handler                  | r }
-  -> { handler :: EffectFn1 Arguments Unit | r }
-invokeHandler' r@{ handler: MkHandler someHandler } =
-    someHandler (\h -> r{ handler = mkEffectFn1 (invokeHandler 0 h) })
 
 instance invokeNoArgs :: InvokeHandler (Effect Unit) where
   invokeHandler _i = const
