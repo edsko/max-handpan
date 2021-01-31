@@ -1,0 +1,3 @@
+[submodule "ps/purescript-maxforlive"]
+	path = ps/purescript-maxforlive
+	url = git@github.com:edsko/purescript-maxforlive.git

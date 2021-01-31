@@ -6,12 +6,16 @@ You can edit this file as you like.
 , dependencies =
   [ "console"
   , "effect"
+  , "foldable-traversable"
   , "functions"
+  , "integers"
+  , "lists"
   , "maybe"
   , "psci-support"
   , "refs"
   , "unsafe-coerce"
   ]
 , packages = ./packages.dhall
-, sources = [ "src/**/*.purs", "test/**/*.purs" ]
+, sources =
+  [ "src/**/*.purs", "test/**/*.purs", "purescript-maxforlive/src/**/*.purs" ]
 }

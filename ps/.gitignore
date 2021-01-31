@@ -9,5 +9,4 @@
 /.psa*
 /.spago
 
-velocity.js-purescript
-velocity.js
+*.js-purescript

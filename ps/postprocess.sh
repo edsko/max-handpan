@@ -2,4 +2,4 @@
 
 ## Post-process the output of psc
 
-cat max-module-prefix.js $1-purescript max-module-suffix.js > $1
+cat purescript-maxforlive/max-module-prefix.js $1-purescript purescript-maxforlive/max-module-suffix.js > patchers/$1
