@@ -9,6 +9,7 @@ You can edit this file as you like.
   , "foldable-traversable"
   , "functions"
   , "integers"
+  , "leibniz"
   , "lists"
   , "maybe"
   , "psci-support"
