@@ -1,5 +1,5 @@
-watch-inspectsimpler:
-	spago bundle-app --main InspectSimpler --watch --clear-screen --to inspectsimpler.js-purescript --then "./postprocess.sh inspectsimpler.js"
+watch-frontend:
+	spago bundle-app --main Frontend --watch --clear-screen --to frontend.js-purescript --then "./postprocess.sh frontend.js"
 
 build-velocity:
 	spago bundle-app --main Velocity --to velocity.js-purescript
