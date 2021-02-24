@@ -49,6 +49,7 @@ something like this:
 <a href="https://www.cinematique-instruments.com/pages_instr/inst_pandrum.php">Cinematique Instruments Pandrum</a><sup>2</sup> <br/>
 <a href="https://8dio.com/instrument/alien-drum/">8Dio New Alien Drum</a><sup>3</sup> <br/>
 <a href="http://www.soundsonline.com/sd2">EastWest Stormdrum 2</a><sup>4</sup> <br/>
+<a href="https://www.sonixinema.com/products/hang-drum">Sonixinema - Hang Drum</a> <br/>
 Perhaps a free synthesized hang?<sup>5</sup> <br/>
 ...
 </td>
