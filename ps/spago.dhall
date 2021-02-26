@@ -12,6 +12,7 @@ You can edit this file as you like.
   , "leibniz"
   , "lists"
   , "maybe"
+  , "ordered-collections"
   , "psci-support"
   , "refs"
   , "undefined"
