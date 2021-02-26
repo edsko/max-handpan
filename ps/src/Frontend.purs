@@ -18,14 +18,18 @@ import MaxForLive.Handlers (
 
 import MaxForLive.LiveAPI as LiveAPI
 import MaxForLive.LiveAPI (
-    controlSurface
+    LiveAPI
+  , ControlSurface
+  , controlSurface
   , countControlSurfaces
+  , grabControl
   , id
   , liveApp
   , liveSet
+  , objectType
+  , releaseControl
   , sameId
   , selectedTrack
-  , objectType
   , thisTrack
   , view
   )
@@ -38,10 +42,11 @@ main = do
     setInlets 1
     setOutlets 1
 
-    setHandler { inlet: 0, msg: "bang", handler: handleBang }
+    setHandler { inlet: 0, msg: "grab", handler: handleGrab }
+    setHandler { inlet: 0, msg: "release", handler: handleRelease }
 
-handleBang :: Effect Unit
-handleBang = do
+withPush :: (LiveAPI ControlSurface -> Effect Unit) -> Effect Unit
+withPush k = do
     liveApp <- LiveAPI.new liveApp
     numControlSurfaces <- countControlSurfaces liveApp
     postLn $ "numControlSurfaces: " <> show numControlSurfaces
@@ -55,7 +60,27 @@ handleBang = do
       Nothing ->
         postLn "No push found"
       Just push ->
-        postLn "Push found!"
+        k push
+
+handleGrab :: Effect Unit
+handleGrab = withPush $ \push ->
+    -- TODO: We might want a more strongly typed layer around the Push
+    grabControl push "Button_Matrix"
+
+handleRelease :: Effect Unit
+handleRelease = withPush $ \push ->
+    releaseControl push "Button_Matrix"
+
+
+{-
+  if(control) {
+    this.controller.call("grab_control", "Button_Matrix");
+    var initColorsTask = new Task(initColors, this);
+    initColorsTask.schedule(10);
+  } else {
+    this.controller.call("release_control", "Button_Matrix");
+  }
+-}
 
 
 {-
