@@ -28,7 +28,8 @@ main = do
         postLn "Found the Push. Setting up handlers"
         registerHandlers push
 
-registerHandlers :: Push -> Effect Unit 
+registerHandlers :: Push -> Effect Unit
 registerHandlers (Push push) = do
     setHandler { inlet: 0, msg: "grab", handler: push.grabButtonMatrix }
     setHandler { inlet: 0, msg: "release", handler: push.releaseButtonMatrix }
+    push.setButtonMatrixColor { col: 1, row: 2 } 10 
