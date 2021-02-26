@@ -14,6 +14,7 @@ You can edit this file as you like.
   , "maybe"
   , "psci-support"
   , "refs"
+  , "undefined"
   , "unsafe-coerce"
   ]
 , packages = ./packages.dhall
