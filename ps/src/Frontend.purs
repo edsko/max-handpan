@@ -2,6 +2,7 @@ module Frontend (main) where
 
 import Prelude
 import Data.Foldable (for_)
+import Data.FoldableWithIndex (forWithIndex_)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 
@@ -12,7 +13,7 @@ import MaxForLive.Global (
   , postLn
   )
 import MaxForLive.Handlers (setHandler)
-import MaxForLive.Message (Message(..))
+import MaxForLive.Message (Message(..), Bang(..))
 import MaxForLive.Push (Push(..))
 import MaxForLive.Push as Push
 
@@ -40,8 +41,26 @@ setup (Push push) = do
     setHandler { inlet: 0, msg: "grab", handler: push.grabButtonMatrix }
     setHandler { inlet: 0, msg: "release", handler: push.releaseButtonMatrix }
 
-    for_ layout.tonefields $ \button -> do
+    outlet 0 $ Message {
+        messageName: "buttonMatrixId"
+      , messagePayload: push.buttonMatrixId
+      }
+    outlet 0 $ Message {
+        messageName: "reset"
+      , messagePayload: Bang
+      }
+
+    forWithIndex_ layout.tonefields $ \ix button -> do
       push.setButtonMatrixColor button colors.tonefield
+      postLn $ show ix <> ": " <> show button
+      outlet 0 $ Message {
+          messageName: "setNote"
+        , messagePayload: [ button.col * 8 + button.row , 48 + ix ]
+        }
+      outlet 0 $ Message {
+          messageName: "setVelocity"
+        , messagePayload: [ button.col * 8 + button.row , 1 ]
+        }
     for_ layout.ghostnotes $ \button -> do
       push.setButtonMatrixColor button colors.ghostnote
     for_ layout.slaps $ \button -> do
@@ -54,10 +73,6 @@ setup (Push push) = do
     for_ layout.bass $ \button -> do
       push.setButtonMatrixColor button colors.bass
 
-    outlet 0 $ Message {
-        messageName: "buttonMatrixId"
-      , messagePayload: push.buttonMatrixId
-      }
   where
     Layout layout = defaultLayout
     Colors colors = defaultColors
