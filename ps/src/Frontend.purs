@@ -21,6 +21,9 @@ main = do
     setInlets  1
     setOutlets 2
 
+    -- TODO: We should initialize the push on device init (can't use the 
+    -- LiveAPI before that)
+
     mPush <- Push.new
     case mPush of
       Nothing ->

@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 1,
-			"revision" : 8,
+			"revision" : 10,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -53,7 +53,7 @@
 						"valueof" : 						{
 							"parameter_initial" : [ 0 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "#0-OutLo",
+							"parameter_longname" : "#1-OutLo",
 							"parameter_shortname" : "OutLo",
 							"parameter_type" : 1,
 							"parameter_unitstyle" : 0
@@ -80,7 +80,7 @@
 						"valueof" : 						{
 							"parameter_initial" : [ 127 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "#0-Outx",
+							"parameter_longname" : "#1-OutHi",
 							"parameter_shortname" : "OutHi",
 							"parameter_type" : 1,
 							"parameter_unitstyle" : 0
@@ -107,7 +107,7 @@
 						"valueof" : 						{
 							"parameter_initial" : [ 0 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "#0-Comp",
+							"parameter_longname" : "#1-Comp",
 							"parameter_mmax" : 1.0,
 							"parameter_mmin" : -1.0,
 							"parameter_shortname" : "Comp",
@@ -137,7 +137,7 @@
 						"valueof" : 						{
 							"parameter_initial" : [ 0 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "#0-Drive",
+							"parameter_longname" : "#1-Drive",
 							"parameter_mmax" : 1.0,
 							"parameter_mmin" : -1.0,
 							"parameter_shortname" : "Drive",
@@ -161,7 +161,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 75.0, 90.0, 154.000000000000028, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "velocity.js",
+						"filename" : "velocity",
 						"parameter_enable" : 0
 					}
 ,
@@ -183,7 +183,7 @@
 					"presentation_rect" : [ 0.0, 106.0, 64.0, 64.0 ],
 					"range" : 128,
 					"size" : 128,
-					"table_data" : [ 0, 0, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 27, 27, 27, 27, 28, 28, 28, 28, 29, 29, 29, 29, 30, 30, 30, 31, 31, 31, 32, 32, 32, 33, 33, 33, 34, 34, 35, 35, 35, 36, 36, 37, 37, 38, 38, 39, 39, 40, 41, 41, 42, 43, 43, 44, 45, 46, 46, 47, 48, 49, 50, 51, 52, 54, 55, 56, 58, 59, 61, 63, 65, 67, 68, 70, 72, 73, 75, 76, 77, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 95, 96, 97, 98, 99, 99, 100, 101, 102, 102, 103, 104, 104, 105 ]
+					"table_data" : [ 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127 ]
 				}
 
 			}
@@ -252,7 +252,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-11", 3 ],
-					"midpoints" : [ 218.0, 89.0 ],
+					"midpoints" : [ 219.5, 89.0 ],
 					"source" : [ "obj-4", 0 ]
 				}
 
@@ -266,10 +266,10 @@
 			}
  ],
 		"parameters" : 		{
-			"obj-21" : [ "#0-Drive", "Drive", 0 ],
-			"obj-22" : [ "#0-Comp", "Comp", 0 ],
-			"obj-4" : [ "#0-Outx", "OutHi", 0 ],
-			"obj-5" : [ "#0-OutLo", "OutLo", 0 ],
+			"obj-21" : [ "#1-Drive", "Drive", 0 ],
+			"obj-22" : [ "#1-Comp", "Comp", 0 ],
+			"obj-4" : [ "#1-OutHi", "OutHi", 0 ],
+			"obj-5" : [ "#1-OutLo", "OutLo", 0 ],
 			"parameterbanks" : 			{
 
 			}

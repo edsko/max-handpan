@@ -1928,7 +1928,7 @@ var PS = {};
           MaxForLive_Global.postLn("Found the Push. Setting up handlers")();
           return registerHandlers(mPush.value0)();
       };
-      throw new Error("Failed pattern match at Frontend (line 25, column 5 - line 30, column 30): " + [ mPush.constructor.name ]);
+      throw new Error("Failed pattern match at Frontend (line 28, column 5 - line 33, column 30): " + [ mPush.constructor.name ]);
   };
   exports["main"] = main;
 })(PS);
