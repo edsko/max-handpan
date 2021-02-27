@@ -11,9 +11,8 @@ import MaxForLive.Global (
   , outlet
   , postLn
   )
-import MaxForLive.Handlers (
-    setHandler
-  )
+import MaxForLive.Handlers (setHandler)
+import MaxForLive.Message (Message(..))
 import MaxForLive.Push (Push(..))
 import MaxForLive.Push as Push
 
@@ -23,7 +22,7 @@ import Frontend.Colors (Colors(..), defaultColors)
 main :: Effect Unit
 main = do
     setInlets  1
-    setOutlets 2
+    setOutlets 1
 
     -- TODO: We should initialize the push on device init (can't use the
     -- LiveAPI before that)
@@ -34,10 +33,10 @@ main = do
         postLn "No push found"
       Just push -> do
         postLn "Found the Push. Setting up handlers"
-        registerHandlers push
+        setup push
 
-registerHandlers :: Push -> Effect Unit
-registerHandlers (Push push) = do
+setup :: Push -> Effect Unit
+setup (Push push) = do
     setHandler { inlet: 0, msg: "grab", handler: push.grabButtonMatrix }
     setHandler { inlet: 0, msg: "release", handler: push.releaseButtonMatrix }
 
@@ -55,7 +54,10 @@ registerHandlers (Push push) = do
     for_ layout.bass $ \button -> do
       push.setButtonMatrixColor button colors.bass
 
-    outlet 1 push.buttonMatrixId
+    outlet 0 $ Message {
+        messageName: "buttonMatrixId"
+      , messagePayload: push.buttonMatrixId
+      }
   where
     Layout layout = defaultLayout
     Colors colors = defaultColors
