@@ -52,7 +52,6 @@ setup (Push push) = do
 
     forWithIndex_ layout.tonefields $ \ix button -> do
       push.setButtonMatrixColor button colors.tonefield
-      postLn $ show ix <> ": " <> show button
       outlet 0 $ Message {
           messageName: "setNote"
         , messagePayload: [ button.col * 8 + button.row , 48 + ix ]
