@@ -1,3 +1,5 @@
+default: watch-frontend
+
 watch-trackselected:
 	spago bundle-app --main TrackSelected --watch --clear-screen --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
 

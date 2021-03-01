@@ -38,8 +38,7 @@ main = do
 
 setup :: Push -> Effect Unit
 setup (Push push) = do
-    setHandler { inlet: 0, msg: "grab", handler: push.grabButtonMatrix }
-    setHandler { inlet: 0, msg: "release", handler: push.releaseButtonMatrix }
+    setHandler { inlet: 0, msg: "setSelected", handler: setSelected (Push push) }
 
     outlet 0 $ Message {
         messageName: "buttonMatrixId"
@@ -75,3 +74,8 @@ setup (Push push) = do
   where
     Layout layout = defaultLayout
     Colors colors = defaultColors
+
+setSelected :: Push -> Boolean -> Effect Unit
+setSelected (Push push) selected
+  | selected  = push.grabButtonMatrix
+  | otherwise = push.releaseButtonMatrix

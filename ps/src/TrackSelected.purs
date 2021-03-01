@@ -62,13 +62,9 @@ updateState st f = do
     let newState = f oldState
     Ref.write newState st
 
-    if State.isSelected oldState == State.isSelected newState then
-      -- Nothing changed, don't output anything
-      pure unit
-    else
-      if State.isSelected newState
-        then outlet 0 "selected"
-        else outlet 0 "deselected"
+    if State.isSelected oldState == State.isSelected newState 
+      then pure unit -- Nothing changed, don't output anything
+      else outlet 0 (State.isSelected newState)
 
 toggleEnabled :: Ref State -> Boolean -> Effect Unit
 toggleEnabled st = updateState st <<< State.setEnabled
