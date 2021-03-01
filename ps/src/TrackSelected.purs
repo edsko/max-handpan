@@ -6,7 +6,9 @@ import Effect (Effect)
 import MaxForLive.Global (
     outlet
   , setInlets
+  , setInletAssist
   , setOutlets
+  , setOutletAssist
   , postLn
   )
 import MaxForLive.Handlers (
@@ -31,8 +33,13 @@ import MaxForLive.Message (
 
 main :: Effect Unit
 main = do
-    setInlets 1
+    setInlets 3
     setOutlets 3
+
+    setInletAssist 0 "Bang to (re)initialise"
+    setInletAssist 1 "Device enabled/disabled (from live.thisdevice)"
+
+    setOutletAssist 0 "'selected' or 'deselected'"
 
     setHandler { inlet: 0, msg: "bang", handler: init }
 
