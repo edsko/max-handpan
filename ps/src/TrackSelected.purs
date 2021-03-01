@@ -12,29 +12,14 @@ import MaxForLive.Global (
   , setInletAssist
   , setOutlets
   , setOutletAssist
-  , postLn
   )
-import MaxForLive.Handlers (
-    setHandler
-  )
-import MaxForLive.LiveAPI (
-    LiveAPI
-  , Id
-  , Device
-  , deviceTrack
-  , thisDevice
-  , unquotedPath
-  , liveSet
-  , selectedTrack
-  , view
-  , objectType
-  )
+import MaxForLive.Handlers (setHandler)
+import MaxForLive.LiveAPI (Id, Device, Track)
 import MaxForLive.LiveAPI as LiveAPI
-import MaxForLive.Message (
-    Message(..)
-  )
+import MaxForLive.Message (Message(..))
 
-import TrackSelected.State(State(..), defaultState)
+import TrackSelected.State(State(..))
+import TrackSelected.State as State
 
 main :: Effect Unit
 main = do
@@ -49,56 +34,58 @@ main = do
     setOutletAssist 0 "'selected' or 'deselected'"
     setOutletAssist 1 "Device path (on init and when device moved)"
 
-    stVar <- Ref.new defaultState
+    st <- Ref.new State.init
 
-    setHandler { inlet: 0, msg: "bang",    handler: init          stVar }
-    setHandler { inlet: 1, msg: "msg_int", handler: toggleEnabled stVar }
-    setHandler { inlet: 2, msg: "id",      handler: setSelectedId stVar }
-    setHandler { inlet: 3, msg: "id",      handler: setDeviceId   stVar }
+    setHandler { inlet: 0, msg: "bang",    handler: init          st }
+    setHandler { inlet: 1, msg: "msg_int", handler: toggleEnabled st }
+    setHandler { inlet: 2, msg: "id",      handler: setSelectedId st }
+    setHandler { inlet: 3, msg: "id",      handler: setDeviceId   st }
 
 init :: Ref State -> Effect Unit
-init stVar = do
-    us <- LiveAPI.withPath thisDevice
+init st = do
+    us       <- LiveAPI.withPath    LiveAPI.thisDevice
+    ourTrack <- LiveAPI.deviceTrack LiveAPI.thisDevice
 
-    postLn $ "us: " <> show (unquotedPath us) <> " (" <> show (objectType us) <> ", " <> show (LiveAPI.id us) <> ")"
-
-    ourTrack <- LiveAPI.deviceTrack thisDevice
-    postLn $ "ourTrack: " <> show (unquotedPath ourTrack) <> " (" <> show (objectType ourTrack) <> ")"
-
-    selected <- LiveAPI.withPath (selectedTrack (view liveSet))
-    postLn $ "selected: " <> show (unquotedPath selected) <> " (" <> show (objectType selected) <> ")"
-
-    let newState :: State
-        newState = State { ourId: Just (LiveAPI.id us) }
-
-    postLn $ "newState: " <> show newState
-    Ref.write newState stVar
-
-    if LiveAPI.sameId (LiveAPI.id ourTrack) (LiveAPI.id selected)
-      then outlet 0 "selected"
-      else outlet 0 "deselected"
+    updateState st $ State.setDevice {
+        ourId:  LiveAPI.id us
+      , parent: LiveAPI.id ourTrack
+      }
 
     outlet 1 $ Message {
           messageName: "path"
-        , messagePayload: unquotedPath us
+        , messagePayload: LiveAPI.unquotedPath us
         }
 
-toggleEnabled :: Ref State -> Int -> Effect Unit
-toggleEnabled stVar enabled = postLn $ "toggleEnabled: " <> show enabled
+updateState :: Ref State -> (State -> State) -> Effect Unit
+updateState st f = do
+    oldState <- Ref.read st
+    let newState = f oldState
+    Ref.write newState st
 
-setSelectedId :: Ref State -> Int -> Effect Unit
-setSelectedId stVar selected = postLn $ "setSelectedId: " <> show selected
+    if State.isSelected oldState == State.isSelected newState then
+      -- Nothing changed, don't output anything
+      pure unit
+    else
+      if State.isSelected newState
+        then outlet 0 "selected"
+        else outlet 0 "deselected"
+
+toggleEnabled :: Ref State -> Boolean -> Effect Unit
+toggleEnabled st = updateState st <<< State.setEnabled
+
+setSelectedId :: Ref State -> Id Track -> Effect Unit
+setSelectedId st = updateState st <<< State.setSelected
 
 setDeviceId :: Ref State -> Id Device -> Effect Unit
-setDeviceId stVar deviceId = do
-    State oldState <- Ref.read stVar
+setDeviceId st deviceId = do
+    State oldState <- Ref.read st
 
     -- Check if the ID has actually changed.
     --
     -- The most important use case for this case distinction is when we /do/
-    -- (re) initialise the device, because when we set up the `live.path`, we
+    -- (re)initialise the device, because when we set up the `live.path`, we
     -- will immediately get a notification (of our own ID), so if we don't
     -- take that into account, the patcher would fall into an infinite loop.
     if oldState.ourId /= Just deviceId
-      then init stVar
+      then init st
       else pure unit
