@@ -3,18 +3,16 @@ module Frontend (main) where
 import Prelude
 import Data.Foldable (for_)
 import Data.FoldableWithIndex (forWithIndex_)
-import Data.Maybe (Maybe(..))
 import Effect (Effect)
 
 import MaxForLive.Global (
     setInlets
   , setOutlets
   , outlet
-  , postLn
   )
 import MaxForLive.Handlers (setHandler)
 import MaxForLive.Message (Message(..), Bang(..))
-import MaxForLive.Push (Push(..))
+import MaxForLive.Push (Push)
 import MaxForLive.Push as Push
 
 import Frontend.Layout (Layout(..), defaultLayout)
@@ -25,29 +23,41 @@ main = do
     setInlets  1
     setOutlets 1
 
-    -- TODO: We should initialize the push on device init (can't use the
-    -- LiveAPI before that)
+    push <- Push.new
 
-    mPush <- Push.new
-    case mPush of
-      Nothing ->
-        postLn "No push found"
-      Just push -> do
-        postLn "Found the Push. Setting up handlers"
-        setup push
+    setHandler { inlet: 0, msg: "setSelected", handler: setSelected push }
+    setHandler { inlet: 0, msg: "init", handler: init push }
 
-setup :: Push -> Effect Unit
-setup (Push push) = do
-    setHandler { inlet: 0, msg: "setSelected", handler: setSelected (Push push) }
+{-------------------------------------------------------------------------------
+  Message handlers
+-------------------------------------------------------------------------------}
 
-    outlet 0 $ Message {
-        messageName: "buttonMatrixId"
-      , messagePayload: push.buttonMatrixId
-      }
+init :: Push -> Effect Unit
+init push = do
+    -- We can't set these up in `main`, because the outlet of the JS object
+    -- isn't available until the device is fully initialized.
+    setupLUTs push
+
+setSelected :: Push -> Boolean -> Effect Unit
+setSelected push selected
+  | selected  = activate   push
+  | otherwise = deactivate push
+
+{-------------------------------------------------------------------------------
+  Internal auxiliary
+-------------------------------------------------------------------------------}
+
+-- | Configure the layout of the Push, and set the LUTs accordingly
+setupLUTs :: Push -> Effect Unit
+setupLUTs push = do
+    -- Reset the LUTs
+
     outlet 0 $ Message {
         messageName: "reset"
       , messagePayload: Bang
       }
+
+    -- Configure the various parts of the handpan
 
     forWithIndex_ layout.tonefields $ \ix button -> do
       push.setButtonMatrixColor button colors.tonefield
@@ -70,12 +80,24 @@ setup (Push push) = do
       push.setButtonMatrixColor button colors.tak
     for_ layout.bass $ \button -> do
       push.setButtonMatrixColor button colors.bass
-
   where
     Layout layout = defaultLayout
     Colors colors = defaultColors
 
-setSelected :: Push -> Boolean -> Effect Unit
-setSelected (Push push) selected
-  | selected  = push.grabButtonMatrix
-  | otherwise = push.releaseButtonMatrix
+-- | Invoked whenever the track is selected
+activate :: Push -> Effect Unit
+activate push = do
+    push.grabButtonMatrix
+
+    -- Provided we found the push, output the ID of the button matrix so that
+    -- we can start to monitor it (routing the notifications from buttons
+    -- pressed through the LUTs)
+    push.withButtonMatrixId $ \matrixId ->
+      outlet 0 $ Message {
+          messageName: "buttonMatrixId"
+        , messagePayload: matrixId
+        }
+
+-- | Invoked whenever the track is deselected
+deactivate :: Push -> Effect Unit
+deactivate push = push.releaseButtonMatrix
