@@ -9,6 +9,7 @@ import MaxForLive.Global (
     setInlets
   , setOutlets
   , outlet
+  --, postLn
   )
 import MaxForLive.Handlers (setHandler)
 import MaxForLive.Message (Message(..), Bang(..))
@@ -100,4 +101,5 @@ activate push = do
 
 -- | Invoked whenever the track is deselected
 deactivate :: Push -> Effect Unit
-deactivate push = push.releaseButtonMatrix
+deactivate push = do
+    push.releaseButtonMatrix
