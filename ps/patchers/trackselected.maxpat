@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 168.0, 91.0, 640.0, 610.0 ],
+		"rect" : [ 168.0, 91.0, 734.0, 610.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -45,8 +45,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 105.0, 365.5, 495.0, 33.0 ],
-					"text" : "Without this deferlow the live.text does not always update reliably. It is anyway reasonble to defer: no need to deal with the notification from live.thisdevice synchronously."
+					"patching_rect" : [ 150.0, 426.53125, 259.0, 33.0 ],
+					"text" : "Update the UI element asynchronously (without it, it does not always update reliably)."
 				}
 
 			}
@@ -57,7 +57,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 330.0, 231.0, 270.0, 33.0 ],
+					"patching_rect" : [ 315.0, 231.0, 270.0, 33.0 ],
 					"text" : "We cannot change the live.path in response to a notification, so we defer all notifications."
 				}
 
@@ -69,7 +69,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 30.0, 374.5, 54.0, 22.0 ],
+					"patching_rect" : [ 75.0, 434.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -117,7 +117,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
-					"patching_rect" : [ 30.0, 423.5, 29.5, 22.0 ],
+					"patching_rect" : [ 30.0, 345.0, 29.5, 22.0 ],
 					"text" : "t i i"
 				}
 
@@ -139,6 +139,7 @@
 						"valueof" : 						{
 							"parameter_enum" : [ "val1", "val2" ],
 							"parameter_initial" : [ 0.0 ],
+							"parameter_invisible" : 2,
 							"parameter_longname" : "live.text",
 							"parameter_mmax" : 1,
 							"parameter_shortname" : "live.text",
@@ -243,7 +244,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 120.0, 225.0, 495.0, 45.0 ],
+					"patching_rect" : [ 120.0, 225.0, 480.0, 45.0 ],
 					"proportion" : 0.5
 				}
 
@@ -257,7 +258,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 15.0, 360.0, 600.0, 44.5 ],
+					"patching_rect" : [ 60.0, 421.5625, 360.0, 43.4375 ],
 					"proportion" : 0.5
 				}
 
@@ -272,7 +273,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 0 ],
+					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-1", 1 ]
 				}
 
@@ -337,6 +338,13 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-1", 0 ],
+					"source" : [ "obj-7", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
 					"midpoints" : [ 167.5, 340.0, 298.0, 340.0, 298.0, 156.0, 217.5, 156.0 ],
 					"source" : [ "obj-7", 1 ]
@@ -345,14 +353,7 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
+					"destination" : [ "obj-28", 0 ],
 					"source" : [ "obj-8", 0 ]
 				}
 
