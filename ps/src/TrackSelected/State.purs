@@ -1,9 +1,6 @@
 module TrackSelected.State (
-    State(..)
+    State
   , init
-  , setDevice
-  , setEnabled
-  , setSelected
   , isSelected
   ) where
 
@@ -16,7 +13,7 @@ import MaxForLive.LiveAPI (Id, Device, Track)
 -- |
 -- | Although the details are a bit different, we follow the strategy outlined
 -- | in http://edsko.net/2020/12/26/trichords-part1/
-data State = State {
+type State = {
       -- | ID of our device (`Nothing` if not yet known)
       -- |
       -- | When we initialize the device, we set up a `live.path` object to
@@ -38,33 +35,37 @@ data State = State {
       -- |
       -- | We assume the device is enabled when it is loaded.
     , enabled :: Boolean
-    }
 
-instance showState :: Show State where
-  show (State state) = show state
+      -- | Preview mode
+      -- |
+      -- | We assume this starts at `True` (i.e., the device within the Max
+      -- | for Live window is the active one, not the one on the Live track).
+      -- |
+      -- | https://docs.cycling74.com/max8/vignettes/live_preview
+      --
+      -- We monitor preview mode, because when it is disabled and then
+      -- re-enabled, the device within the Max for Live window should
+      -- be re-initialized.
+      --
+      -- When the device is loaded within Live rather than within Max, the
+      -- "Preview Mode" concept does not apply, and we will not get
+      -- notifications about it changing. This means we will consider the
+      -- device to be in "preview mode" always; this is important, because
+      -- we consider the device to be selected only when in preview mode.
+    , preview :: Boolean
+    }
 
 -- | Initial state
 init :: State
-init = State {
+init = {
       ourId: Nothing
     , parent: Nothing
     , selected: Nothing
     , enabled: true
+    , preview: true
     }
-
-setDevice :: { ourId :: Id Device, parent :: Id Track } -> State -> State
-setDevice { ourId, parent } (State state) = State $ state {
-      ourId  = Just ourId
-    , parent = Just parent
-    }
-
-setEnabled :: Boolean -> State -> State
-setEnabled enabled (State state) = State $ state { enabled = enabled }
-
-setSelected :: Id Track -> State -> State
-setSelected selected (State state) = State $ state { selected = Just selected }
 
 -- | Is the device selected (and enabled?)
 isSelected :: State -> Boolean
-isSelected (State { enabled, parent, selected }) =
-    enabled && parent == selected
+isSelected { enabled, parent, selected, preview } =
+    enabled && parent == selected && preview

@@ -538,58 +538,17 @@ var PS = {};
   var Data_Eq = $PS["Data.Eq"];
   var Data_Maybe = $PS["Data.Maybe"];
   var MaxForLive_LiveAPI = $PS["MaxForLive.LiveAPI"];                
-  var State = (function () {
-      function State(value0) {
-          this.value0 = value0;
-      };
-      State.create = function (value0) {
-          return new State(value0);
-      };
-      return State;
-  })();
-  var setSelected = function (selected) {
-      return function (v) {
-          return State.create({
-              ourId: v.value0.ourId,
-              parent: v.value0.parent,
-              selected: new Data_Maybe.Just(selected),
-              enabled: v.value0.enabled
-          });
-      };
-  };
-  var setEnabled = function (enabled) {
-      return function (v) {
-          return State.create({
-              ourId: v.value0.ourId,
-              parent: v.value0.parent,
-              selected: v.value0.selected,
-              enabled: enabled
-          });
-      };
-  };
-  var setDevice = function (v) {
-      return function (v1) {
-          return State.create({
-              ourId: new Data_Maybe.Just(v.ourId),
-              parent: new Data_Maybe.Just(v.parent),
-              selected: v1.value0.selected,
-              enabled: v1.value0.enabled
-          });
-      };
-  };
   var isSelected = function (v) {
-      return v.value0.enabled && Data_Eq.eq(Data_Maybe.eqMaybe(MaxForLive_LiveAPI.eqId))(v.value0.parent)(v.value0.selected);
+      return v.enabled && (Data_Eq.eq(Data_Maybe.eqMaybe(MaxForLive_LiveAPI.eqId))(v.parent)(v.selected) && v.preview);
   };
-  var init = new State({
+  var init = {
       ourId: Data_Maybe.Nothing.value,
       parent: Data_Maybe.Nothing.value,
       selected: Data_Maybe.Nothing.value,
-      enabled: true
-  });
+      enabled: true,
+      preview: true
+  };
   exports["init"] = init;
-  exports["setDevice"] = setDevice;
-  exports["setEnabled"] = setEnabled;
-  exports["setSelected"] = setSelected;
   exports["isSelected"] = isSelected;
 })(PS);
 (function($PS) {
@@ -607,65 +566,104 @@ var PS = {};
   var MaxForLive_LiveAPI = $PS["MaxForLive.LiveAPI"];
   var MaxForLive_Message = $PS["MaxForLive.Message"];
   var TrackSelected_State = $PS["TrackSelected.State"];                
-  var updateState = function (st) {
+  var updateState = function (ref) {
       return function (f) {
           return function __do() {
-              var oldState = Effect_Ref.read(st)();
+              var oldState = Effect_Ref.read(ref)();
               var newState = f(oldState);
-              Effect_Ref.write(newState)(st)();
-              var $1 = TrackSelected_State.isSelected(oldState) === TrackSelected_State.isSelected(newState);
-              if ($1) {
+              Effect_Ref.write(newState)(ref)();
+              var $5 = TrackSelected_State.isSelected(oldState) === TrackSelected_State.isSelected(newState);
+              if ($5) {
                   return Data_Unit.unit;
               };
               return MaxForLive_Global.outlet(MaxForLive_Conversions.toMaxBoolean)(0)(TrackSelected_State.isSelected(newState))();
           };
       };
   };
-  var toggleEnabled = function (st) {
-      var $5 = updateState(st);
-      return function ($6) {
-          return $5(TrackSelected_State.setEnabled($6));
+  var toggleEnabled = function (ref) {
+      return function (enabled) {
+          return updateState(ref)(function (v) {
+              return {
+                  ourId: v.ourId,
+                  parent: v.parent,
+                  selected: v.selected,
+                  enabled: enabled,
+                  preview: v.preview
+              };
+          });
       };
   };
-  var setSelectedId = function (st) {
-      var $7 = updateState(st);
-      return function ($8) {
-          return $7(TrackSelected_State.setSelected($8));
+  var setSelectedId = function (ref) {
+      return function (selected) {
+          return updateState(ref)(function (v) {
+              return {
+                  ourId: v.ourId,
+                  parent: v.parent,
+                  selected: new Data_Maybe.Just(selected),
+                  enabled: v.enabled,
+                  preview: v.preview
+              };
+          });
       };
   };
-  var init = function (st) {
+  var init = function (ref) {
       return function __do() {
           var us = MaxForLive_LiveAPI.withPath(MaxForLive_LiveAPI.thisDevice)();
           var ourTrack = MaxForLive_LiveAPI.deviceTrack(MaxForLive_LiveAPI.thisDevice)();
-          updateState(st)(TrackSelected_State.setDevice({
-              ourId: MaxForLive_LiveAPI.id(us),
-              parent: MaxForLive_LiveAPI.id(ourTrack)
-          }))();
+          updateState(ref)(function (st) {
+              return {
+                  ourId: new Data_Maybe.Just(MaxForLive_LiveAPI.id(us)),
+                  parent: new Data_Maybe.Just(MaxForLive_LiveAPI.id(ourTrack)),
+                  selected: st.selected,
+                  enabled: st.enabled,
+                  preview: true
+              };
+          })();
           return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_LiveAPI.toMaxPath))(1)(new MaxForLive_Message.Message({
               messageName: "path",
               messagePayload: MaxForLive_LiveAPI.unquotedPath(us)
           }))();
       };
   };
-  var setDeviceId = function (st) {
+  var setDeviceId = function (ref) {
       return function (deviceId) {
           return function __do() {
-              var v = Effect_Ref.read(st)();
-              var $3 = Data_Eq.notEq(Data_Maybe.eqMaybe(MaxForLive_LiveAPI.eqId))(v.value0.ourId)(new Data_Maybe.Just(deviceId));
-              if ($3) {
-                  return init(st)();
+              var oldState = Effect_Ref.read(ref)();
+              var $6 = Data_Eq.notEq(Data_Maybe.eqMaybe(MaxForLive_LiveAPI.eqId))(oldState.ourId)(new Data_Maybe.Just(deviceId));
+              if ($6) {
+                  return init(ref)();
               };
               return Data_Unit.unit;
           };
       };
   };
+  var togglePreview = function (ref) {
+      return function (v) {
+          if (!v) {
+              return updateState(ref)(function (v1) {
+                  return {
+                      ourId: v1.ourId,
+                      parent: v1.parent,
+                      selected: v1.selected,
+                      enabled: v1.enabled,
+                      preview: false
+                  };
+              });
+          };
+          if (v) {
+              return init(ref);
+          };
+          throw new Error("Failed pattern match at TrackSelected (line 80, column 1 - line 80, column 53): " + [ ref.constructor.name, v.constructor.name ]);
+      };
+  };
   var main = function __do() {
-      MaxForLive_Global.setInlets(4)();
+      MaxForLive_Global.setInlets(5)();
       MaxForLive_Global.setOutlets(2)();
       MaxForLive_Global.setInletAssist(0)("Bang to (re)initialise")();
       MaxForLive_Global.setInletAssist(1)("Device enabled/disabled (from live.thisdevice)")();
-      MaxForLive_Global.setInletAssist(2)("ID of selected track")();
-      MaxForLive_Global.setInletAssist(3)("ID of device at our path")();
+      MaxForLive_Global.setInletAssist(2)("Preview state (from live.thisdevice)")();
+      MaxForLive_Global.setInletAssist(3)("ID of selected track")();
+      MaxForLive_Global.setInletAssist(4)("ID of device at our path")();
       MaxForLive_Global.setOutletAssist(0)("'selected' or 'deselected'")();
       MaxForLive_Global.setOutletAssist(1)("Device path (on init and when device moved)")();
       var st = Effect_Ref["new"](TrackSelected_State.init)();
@@ -679,13 +677,18 @@ var PS = {};
           msg: "msg_int",
           handler: toggleEnabled(st)
       })();
-      MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeWithArg(MaxForLive_LiveAPI.fromMaxId)(MaxForLive_Handlers.invokeNoArgs))({
+      MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeWithArg(MaxForLive_Conversions.fromMaxBoolean)(MaxForLive_Handlers.invokeNoArgs))({
           inlet: 2,
+          msg: "msg_int",
+          handler: togglePreview(st)
+      })();
+      MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeWithArg(MaxForLive_LiveAPI.fromMaxId)(MaxForLive_Handlers.invokeNoArgs))({
+          inlet: 3,
           msg: "id",
           handler: setSelectedId(st)
       })();
       return MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeWithArg(MaxForLive_LiveAPI.fromMaxId)(MaxForLive_Handlers.invokeNoArgs))({
-          inlet: 3,
+          inlet: 4,
           msg: "id",
           handler: setDeviceId(st)
       })();
