@@ -651,7 +651,14 @@ var PS = {};
               });
           };
           if (v) {
-              return init(ref);
+              return function __do() {
+                  var oldState = Effect_Ref.read(ref)();
+                  var $9 = !oldState.preview;
+                  if ($9) {
+                      return init(ref)();
+                  };
+                  return Data_Unit.unit;
+              };
           };
           throw new Error("Failed pattern match at TrackSelected (line 80, column 1 - line 80, column 53): " + [ ref.constructor.name, v.constructor.name ]);
       };

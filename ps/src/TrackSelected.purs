@@ -80,8 +80,12 @@ setSelectedId ref selected =
 togglePreview :: Ref State -> Boolean -> Effect Unit
 togglePreview ref false =
     updateState ref (_ { preview = false })
-togglePreview ref true =
-    init ref -- Reinitialize when preview is re-enabled
+togglePreview ref true = do
+    oldState <- Ref.read ref
+
+    if not oldState.preview
+      then init ref -- Reinitialize when preview is re-enabled
+      else pure unit
 
 setDeviceId :: Ref State -> Id Device -> Effect Unit
 setDeviceId ref deviceId = do
