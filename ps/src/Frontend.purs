@@ -65,6 +65,7 @@ setupLUTs push = do
 
     -- Configure the various parts of the handpan
 
+    -- Tone fields
     forWithIndex_ layout.tonefields $ \ix button -> do
       push.setButtonMatrixColor button colors.tonefield
       outlet 0 $ Message {
@@ -73,17 +74,34 @@ setupLUTs push = do
         }
       outlet 0 $ Message {
           messageName: "setVelocity"
+        , messagePayload: [ button.col * 8 + button.row , 0 ]
+        }
+
+    -- Ghost notes
+    forWithIndex_ layout.ghostnotes $ \ix button -> do
+      push.setButtonMatrixColor button colors.ghostnote
+      outlet 0 $ Message {
+          messageName: "setNote"
+        , messagePayload: [ button.col * 8 + button.row , 60 + ix ]
+        }
+      outlet 0 $ Message {
+          messageName: "setVelocity"
         , messagePayload: [ button.col * 8 + button.row , 1 ]
         }
-    for_ layout.ghostnotes $ \button -> do
-      push.setButtonMatrixColor button colors.ghostnote
+
+    -- Slaps
     for_ layout.slaps $ \button -> do
       push.setButtonMatrixColor button colors.slap
 
+    -- Doum
     for_ layout.doum $ \button -> do
       push.setButtonMatrixColor button colors.doum
+
+    -- Tak
     for_ layout.tak $ \button -> do
       push.setButtonMatrixColor button colors.tak
+
+    -- Bass
     for_ layout.bass $ \button -> do
       push.setButtonMatrixColor button colors.bass
   where

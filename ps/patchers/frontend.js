@@ -2551,13 +2551,25 @@ var PS = {};
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           messageName: "setVelocity",
-                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 1 ]
+                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 0 ]
                       }))();
                   };
               };
           })();
-          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.ghostnotes)(function (button) {
-              return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.ghostnote);
+          Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.ghostnotes)(function (ix) {
+              return function (button) {
+                  return function __do() {
+                      push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.ghostnote)();
+                      MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          messageName: "setNote",
+                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 60 + ix | 0 ]
+                      }))();
+                      return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          messageName: "setVelocity",
+                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 1 ]
+                      }))();
+                  };
+              };
           })();
           Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.slaps)(function (button) {
               return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.slap);
