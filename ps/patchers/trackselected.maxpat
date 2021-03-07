@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 168.0, 91.0, 608.0, 610.0 ],
+		"rect" : [ 168.0, 91.0, 820.0, 610.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -40,12 +40,34 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-21",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 525.0, 165.0, 165.0, 20.0 ],
+					"text" : "Monitor device at \"our\" path"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-19",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 525.0, 105.0, 165.0, 20.0 ],
+					"text" : "Monitor selected track"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-27",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 110.0, 345.0, 75.0, 22.0 ],
+					"patching_rect" : [ 223.0, 330.0, 75.0, 22.0 ],
 					"text" : "prepend text"
 				}
 
@@ -57,8 +79,8 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 450.0, 435.0, 33.0 ],
-					"text" : "For the rationale for the delay/deferlow after the live.thisdevice, see\nhttps://cycling74.com/forums/livemax-hang-live-at-100-cpu-when-saving-patch"
+					"patching_rect" : [ 30.0, 435.0, 435.0, 33.0 ],
+					"text" : "For the rationale for the delay after the live.thisdevice, see\nhttps://cycling74.com/forums/livemax-hang-live-at-100-cpu-when-saving-patch"
 				}
 
 			}
@@ -69,7 +91,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 125.0, 150.0, 54.0, 22.0 ],
+					"patching_rect" : [ 261.600000000000023, 225.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -81,7 +103,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 125.0, 105.0, 67.0, 22.0 ],
+					"patching_rect" : [ 261.600000000000023, 105.0, 67.0, 22.0 ],
 					"text" : "delay 1000"
 				}
 
@@ -93,7 +115,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 94.0, 60.0, 81.0, 22.0 ],
+					"patching_rect" : [ 184.400000000000006, 60.0, 173.400000000000006, 22.0 ],
 					"text" : "route 0 1"
 				}
 
@@ -105,7 +127,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 323.0, 210.0, 180.0, 47.0 ],
+					"patching_rect" : [ 504.200000000000045, 210.0, 185.800000000000011, 47.0 ],
 					"text" : "We cannot change the live.path in response to a notification, so we defer all notifications."
 				}
 
@@ -117,7 +139,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.0, 225.0, 54.0, 22.0 ],
+					"patching_rect" : [ 416.0, 225.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -129,7 +151,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 158.0, 225.0, 54.0, 22.0 ],
+					"patching_rect" : [ 338.800000000000011, 225.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -142,7 +164,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 390.0, 30.0, 30.0 ]
+					"patching_rect" : [ 30.0, 375.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -153,7 +175,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "int" ],
-					"patching_rect" : [ 30.0, 345.0, 29.5, 22.0 ],
+					"patching_rect" : [ 30.0, 330.0, 29.5, 22.0 ],
 					"text" : "t i i"
 				}
 
@@ -167,7 +189,7 @@
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 1,
 					"parameter_mappable" : 0,
-					"patching_rect" : [ 75.0, 390.0, 44.0, 15.0 ],
+					"patching_rect" : [ 120.0, 382.5, 44.0, 15.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 44.0, 15.0 ],
 					"saved_attribute_attributes" : 					{
@@ -196,7 +218,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 233.0, 180.0, 53.0, 22.0 ],
+					"patching_rect" : [ 399.0, 165.0, 53.0, 22.0 ],
 					"text" : "live.path"
 				}
 
@@ -208,7 +230,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 210.0, 15.0, 167.0, 22.0 ],
+					"patching_rect" : [ 417.0, 15.0, 167.0, 22.0 ],
 					"text" : "loadmess path live_set view"
 				}
 
@@ -220,7 +242,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 210.0, 60.0, 167.0, 22.0 ],
+					"patching_rect" : [ 417.0, 60.0, 167.0, 22.0 ],
 					"text" : "live.path"
 				}
 
@@ -232,7 +254,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 210.0, 105.0, 167.0, 22.0 ],
+					"patching_rect" : [ 338.800000000000011, 105.0, 171.199999999999989, 22.0 ],
 					"saved_object_attributes" : 					{
 						"_persistence" : 1
 					}
@@ -248,7 +270,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "bang", "int", "int" ],
-					"patching_rect" : [ 30.0, 15.0, 83.0, 22.0 ],
+					"patching_rect" : [ 30.0, 15.0, 173.400000000000006, 22.0 ],
 					"text" : "live.thisdevice"
 				}
 
@@ -260,7 +282,7 @@
 					"numinlets" : 6,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 30.0, 300.0, 179.0, 22.0 ],
+					"patching_rect" : [ 30.0, 285.0, 405.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"filename" : "trackselected",
 						"parameter_enable" : 0
@@ -279,7 +301,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 143.0, 210.0, 366.0, 47.0 ],
+					"patching_rect" : [ 255.0, 210.0, 435.0, 47.0 ],
 					"proportion" : 0.5
 				}
 
@@ -372,7 +394,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 1 ],
-					"midpoints" : [ 293.5, 95.0, 367.5, 95.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
@@ -387,7 +408,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-7", 5 ],
-					"midpoints" : [ 259.5, 276.0, 199.5, 276.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -402,7 +422,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
-					"midpoints" : [ 199.5, 340.0, 314.0, 340.0, 314.0, 145.0, 242.5, 145.0 ],
+					"midpoints" : [ 425.5, 324.0, 478.0, 324.0, 478.0, 145.0, 408.5, 145.0 ],
 					"source" : [ "obj-7", 2 ]
 				}
 
