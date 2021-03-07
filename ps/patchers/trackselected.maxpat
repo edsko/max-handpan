@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 168.0, 91.0, 734.0, 610.0 ],
+		"rect" : [ 168.0, 91.0, 608.0, 610.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -40,37 +40,73 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-20",
+					"id" : "obj-27",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 110.0, 345.0, 75.0, 22.0 ],
+					"text" : "prepend text"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-18",
 					"linecount" : 2,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 150.0, 426.53125, 259.0, 33.0 ],
-					"text" : "Update the UI element asynchronously (without it, it does not always update reliably)."
+					"patching_rect" : [ 30.0, 450.0, 435.0, 33.0 ],
+					"text" : "For the rationale for the delay/deferlow after the live.thisdevice, see\nhttps://cycling74.com/forums/livemax-hang-live-at-100-cpu-when-saving-patch"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-14",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 125.0, 150.0, 54.0, 22.0 ],
+					"text" : "deferlow"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-13",
+					"maxclass" : "newobj",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "bang" ],
+					"patching_rect" : [ 125.0, 105.0, 67.0, 22.0 ],
+					"text" : "delay 1000"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-12",
+					"maxclass" : "newobj",
+					"numinlets" : 3,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 94.0, 60.0, 81.0, 22.0 ],
+					"text" : "route 0 1"
 				}
 
 			}
 , 			{
 				"box" : 				{
 					"id" : "obj-17",
-					"linecount" : 2,
+					"linecount" : 3,
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 315.0, 231.0, 270.0, 33.0 ],
+					"patching_rect" : [ 323.0, 210.0, 180.0, 47.0 ],
 					"text" : "We cannot change the live.path in response to a notification, so we defer all notifications."
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-8",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 75.0, 434.0, 54.0, 22.0 ],
-					"text" : "deferlow"
 				}
 
 			}
@@ -81,7 +117,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 225.0, 240.0, 54.0, 22.0 ],
+					"patching_rect" : [ 250.0, 225.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -93,7 +129,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 126.0, 240.0, 54.0, 22.0 ],
+					"patching_rect" : [ 158.0, 225.0, 54.0, 22.0 ],
 					"text" : "deferlow"
 				}
 
@@ -106,7 +142,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 30.0, 483.5, 30.0, 30.0 ]
+					"patching_rect" : [ 30.0, 390.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -125,14 +161,13 @@
 , 			{
 				"box" : 				{
 					"id" : "obj-28",
-					"ignoreclick" : 1,
 					"maxclass" : "live.text",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 1,
 					"parameter_mappable" : 0,
-					"patching_rect" : [ 75.0, 483.5, 44.0, 15.0 ],
+					"patching_rect" : [ 75.0, 390.0, 44.0, 15.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 44.0, 15.0 ],
 					"saved_attribute_attributes" : 					{
@@ -161,7 +196,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 208.0, 180.0, 53.0, 22.0 ],
+					"patching_rect" : [ 233.0, 180.0, 53.0, 22.0 ],
 					"text" : "live.path"
 				}
 
@@ -173,7 +208,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 126.0, 15.0, 167.0, 22.0 ],
+					"patching_rect" : [ 210.0, 15.0, 167.0, 22.0 ],
 					"text" : "loadmess path live_set view"
 				}
 
@@ -185,7 +220,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 126.0, 60.0, 167.0, 22.0 ],
+					"patching_rect" : [ 210.0, 60.0, 167.0, 22.0 ],
 					"text" : "live.path"
 				}
 
@@ -197,7 +232,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 126.0, 105.0, 167.0, 22.0 ],
+					"patching_rect" : [ 210.0, 105.0, 167.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"_persistence" : 1
 					}
@@ -222,12 +257,12 @@
 				"box" : 				{
 					"id" : "obj-7",
 					"maxclass" : "newobj",
-					"numinlets" : 5,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 30.0, 300.0, 147.0, 22.0 ],
+					"numinlets" : 6,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 30.0, 300.0, 179.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "trackselected",
+						"filename" : "trackselected.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -244,21 +279,7 @@
 					"mode" : 0,
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 120.0, 225.0, 480.0, 45.0 ],
-					"proportion" : 0.5
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"angle" : 270.0,
-					"bgcolor" : [ 0.705882352941177, 0.8, 0.796078431372549, 1.0 ],
-					"id" : "obj-18",
-					"maxclass" : "panel",
-					"mode" : 0,
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 60.0, 421.5625, 360.0, 43.4375 ],
+					"patching_rect" : [ 143.0, 210.0, 366.0, 47.0 ],
 					"proportion" : 0.5
 				}
 
@@ -273,14 +294,14 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
+					"destination" : [ "obj-28", 0 ],
 					"source" : [ "obj-1", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 2 ],
+					"destination" : [ "obj-12", 0 ],
 					"source" : [ "obj-10", 2 ]
 				}
 
@@ -301,8 +322,43 @@
 			}
 , 			{
 				"patchline" : 				{
+					"destination" : [ "obj-13", 0 ],
+					"source" : [ "obj-12", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 2 ],
+					"source" : [ "obj-12", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-14", 0 ],
+					"source" : [ "obj-13", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 3 ],
+					"source" : [ "obj-14", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
 					"destination" : [ "obj-6", 0 ],
 					"source" : [ "obj-16", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-28", 0 ],
+					"source" : [ "obj-27", 0 ]
 				}
 
 			}
@@ -316,22 +372,22 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 1 ],
-					"midpoints" : [ 209.5, 95.0, 283.5, 95.0 ],
+					"midpoints" : [ 293.5, 95.0, 367.5, 95.0 ],
 					"source" : [ "obj-4", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 3 ],
+					"destination" : [ "obj-7", 4 ],
 					"source" : [ "obj-5", 0 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 4 ],
-					"midpoints" : [ 234.5, 285.0, 167.5, 285.0 ],
+					"destination" : [ "obj-7", 5 ],
+					"midpoints" : [ 259.5, 276.0, 199.5, 276.0 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -346,15 +402,15 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-16", 0 ],
-					"midpoints" : [ 167.5, 340.0, 298.0, 340.0, 298.0, 156.0, 217.5, 156.0 ],
-					"source" : [ "obj-7", 1 ]
+					"midpoints" : [ 199.5, 340.0, 314.0, 340.0, 314.0, 145.0, 242.5, 145.0 ],
+					"source" : [ "obj-7", 2 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-28", 0 ],
-					"source" : [ "obj-8", 0 ]
+					"destination" : [ "obj-27", 0 ],
+					"source" : [ "obj-7", 1 ]
 				}
 
 			}

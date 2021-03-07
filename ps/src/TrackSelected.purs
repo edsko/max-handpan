@@ -23,41 +23,53 @@ import TrackSelected.State as State
 
 main :: Effect Unit
 main = do
-    setInlets 5
-    setOutlets 2
+    setInlets 6
+    setOutlets 3
 
     setInletAssist 0 "Bang to (re)initialise"
     setInletAssist 1 "Device enabled/disabled (from live.thisdevice)"
-    setInletAssist 2 "Preview state (from live.thisdevice)"
-    setInletAssist 3 "ID of selected track"
-    setInletAssist 4 "ID of device at our path"
+    setInletAssist 2 "Bang when preview state disabled"
+    setInletAssist 3 "Bang when preview state enabled"
+    setInletAssist 4 "ID of selected track"
+    setInletAssist 5 "ID of device at our path"
 
     setOutletAssist 0 "'selected' or 'deselected'"
     setOutletAssist 1 "Device path (on init and when device moved)"
 
     st <- Ref.new State.init
 
-    setHandler { inlet: 0, msg: "bang",    handler: init          st }
-    setHandler { inlet: 1, msg: "msg_int", handler: toggleEnabled st }
-    setHandler { inlet: 2, msg: "msg_int", handler: togglePreview st }
-    setHandler { inlet: 3, msg: "id",      handler: setSelectedId st }
-    setHandler { inlet: 4, msg: "id",      handler: setDeviceId   st }
+    setHandler { inlet: 0, msg: "bang",    handler: init           st }
+    setHandler { inlet: 1, msg: "msg_int", handler: toggleEnabled  st }
+    setHandler { inlet: 2, msg: "bang",    handler: previewDisable st }
+    setHandler { inlet: 3, msg: "bang",    handler: previewEnable  st }
+    setHandler { inlet: 4, msg: "id",      handler: setSelectedId  st }
+    setHandler { inlet: 5, msg: "id",      handler: setDeviceId    st }
 
 init :: Ref State -> Effect Unit
 init ref = do
-    us       <- LiveAPI.withPath    LiveAPI.thisDevice
-    ourTrack <- LiveAPI.deviceTrack LiveAPI.thisDevice
+    us        <- LiveAPI.withPath    LiveAPI.thisDevice
+    mOurTrack <- LiveAPI.deviceTrack LiveAPI.thisDevice
 
-    updateState ref $ \st -> st {
-        ourId   = Just (LiveAPI.id us)
-      , parent  = Just (LiveAPI.id ourTrack)
-      , preview = true
-      }
+    case mOurTrack of
+      Just ourTrack -> do
+        updateState ref $ \st -> st {
+            ourId   = Just (LiveAPI.id us)
+          , parent  = Just (LiveAPI.id ourTrack)
+          , preview = true
+          }
 
-    outlet 1 $ Message {
-          messageName: "path"
-        , messagePayload: LiveAPI.unquotedPath us
-        }
+        outlet 1 "Off"
+        outlet 2 $ Message {
+              messageName: "path"
+            , messagePayload: LiveAPI.unquotedPath us
+            }
+      Nothing -> do
+        outlet 1 "Error"
+        updateState ref $ \st -> st {
+           ourId   = Nothing
+         , parent  = Nothing
+         , preview = true
+         }
 
 updateState :: Ref State -> (State -> State) -> Effect Unit
 updateState ref f = do
@@ -70,17 +82,19 @@ updateState ref f = do
       else outlet 0 (State.isSelected newState)
 
 toggleEnabled :: Ref State -> Boolean -> Effect Unit
-toggleEnabled ref enabled =
+toggleEnabled ref enabled = do
     updateState ref (_ { enabled = enabled })
 
 setSelectedId :: Ref State -> Id Track -> Effect Unit
-setSelectedId ref selected =
+setSelectedId ref selected = do
     updateState ref (_ { selected = Just selected })
 
-togglePreview :: Ref State -> Boolean -> Effect Unit
-togglePreview ref false =
+previewDisable :: Ref State -> Effect Unit
+previewDisable ref = do
     updateState ref (_ { preview = false })
-togglePreview ref true = do
+
+previewEnable :: Ref State -> Effect Unit
+previewEnable ref = do
     oldState <- Ref.read ref
 
     if not oldState.preview
