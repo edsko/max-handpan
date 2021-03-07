@@ -6,10 +6,11 @@ import Data.FoldableWithIndex (forWithIndex_)
 import Effect (Effect)
 
 import MaxForLive.Global (
-    setInlets
+    outlet
+--  , postLn
+  , setAutowatch
+  , setInlets
   , setOutlets
-  , outlet
-  --, postLn
   )
 import MaxForLive.Handlers (setHandler)
 import MaxForLive.Message (Message(..), Bang(..))
@@ -23,6 +24,10 @@ main :: Effect Unit
 main = do
     setInlets  1
     setOutlets 1
+
+    -- Disable autowatch. For justification, see
+    -- http://edsko.net/2020/12/27/trichords-part2/
+    setAutowatch 0
 
     push <- Push.new
 

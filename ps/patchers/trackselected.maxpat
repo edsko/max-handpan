@@ -183,7 +183,7 @@
 
 					}
 ,
-					"text" : "Off",
+					"text" : "Error",
 					"texton" : "On",
 					"varname" : "live.text"
 				}
@@ -262,7 +262,7 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 30.0, 300.0, 179.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "trackselected.js",
+						"filename" : "trackselected",
 						"parameter_enable" : 0
 					}
 ,
