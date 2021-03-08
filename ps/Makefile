@@ -1,7 +1,10 @@
-default: watch-frontend
+default: watch-scaleselector
 
 watch-trackselected:
 	spago bundle-app --main TrackSelected --watch --clear-screen --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
+
+watch-scaleselector:
+	spago bundle-app --main ScaleSelector --watch --clear-screen --to scaleselector.js-purescript --then "./postprocess.sh scaleselector.js"
 
 watch-frontend:
 	spago bundle-app --main Frontend --watch --clear-screen --to frontend.js-purescript --then "./postprocess.sh frontend.js"
