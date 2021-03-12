@@ -11,6 +11,9 @@ import MaxForLive.Global (
   )
 import MaxForLive.Handlers (setHandler)
 
+import Backend.Note (Note)
+import Backend.Scale (Scale)
+
 main :: Effect Unit
 main = do
     setInlets  3
@@ -24,11 +27,11 @@ main = do
     setHandler { inlet: 1, msg: "msg_int", handler: setRoot  }
     setHandler { inlet: 2, msg: "msg_int", handler: setDoum  }
 
-setScale :: Int -> Effect Unit
+setScale :: Scale -> Effect Unit
 setScale scale = postLn $ "setScale " <> show scale
 
-setRoot :: Int -> Effect Unit
+setRoot :: Note -> Effect Unit
 setRoot root = postLn $ "setRoot " <> show root
 
-setDoum :: Int -> Effect Unit
+setDoum :: Note -> Effect Unit
 setDoum doum = postLn $ "setDoum " <> show doum

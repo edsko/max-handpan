@@ -6,6 +6,7 @@ You can edit this file as you like.
 , dependencies =
   [ "console"
   , "effect"
+  , "enums"
   , "foldable-traversable"
   , "functions"
   , "integers"
@@ -13,6 +14,7 @@ You can edit this file as you like.
   , "lists"
   , "maybe"
   , "ordered-collections"
+  , "prelude"
   , "psci-support"
   , "refs"
   , "undefined"

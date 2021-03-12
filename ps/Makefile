@@ -1,5 +1,11 @@
 default: watch-scaleselector
 
+all:
+	spago bundle-app --main TrackSelected --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
+	spago bundle-app --main ScaleSelector --to scaleselector.js-purescript --then "./postprocess.sh scaleselector.js"
+	spago bundle-app --main Frontend --to frontend.js-purescript --then "./postprocess.sh frontend.js"
+	spago bundle-app --main Velocity --to velocity.js-purescript --then "./postprocess.sh velocity.js"
+
 watch-trackselected:
 	spago bundle-app --main TrackSelected --watch --clear-screen --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
 
@@ -8,10 +14,6 @@ watch-scaleselector:
 
 watch-frontend:
 	spago bundle-app --main Frontend --watch --clear-screen --to frontend.js-purescript --then "./postprocess.sh frontend.js"
-
-build-velocity:
-	spago bundle-app --main Velocity --to velocity.js-purescript
-	./postprocess.sh velocity.js
 
 watch-velocity:
 	spago bundle-app --main Velocity --watch --clear-screen --to velocity.js-purescript --then "./postprocess.sh velocity.js"

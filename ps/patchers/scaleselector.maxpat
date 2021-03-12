@@ -59,7 +59,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 123.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector.js",
+						"filename" : "scaleselector",
 						"parameter_enable" : 0
 					}
 ,
@@ -75,16 +75,17 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 119.0, 22.5, 41.0, 48.0 ],
+					"patching_rect" : [ 119.0, 15.0, 50.0, 48.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.5, 115.0, 41.0, 48.0 ],
+					"presentation_rect" : [ 0.0, 114.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
 							"parameter_longname" : "Doum",
 							"parameter_mmax" : 11,
 							"parameter_shortname" : "Doum",
-							"parameter_type" : 2
+							"parameter_type" : 2,
+							"parameter_unitstyle" : 9
 						}
 
 					}
@@ -101,16 +102,17 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 67.0, 22.5, 41.0, 48.0 ],
+					"patching_rect" : [ 67.0, 15.0, 50.0, 48.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 4.5, 65.0, 41.0, 48.0 ],
+					"presentation_rect" : [ 0.0, 60.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
 							"parameter_longname" : "Root",
 							"parameter_mmax" : 11,
 							"parameter_shortname" : "Root",
-							"parameter_type" : 2
+							"parameter_type" : 2,
+							"parameter_unitstyle" : 9
 						}
 
 					}
@@ -121,23 +123,23 @@
 			}
 , 			{
 				"box" : 				{
-					"appearance" : 3,
 					"id" : "obj-1",
 					"maxclass" : "live.dial",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "float" ],
 					"parameter_enable" : 1,
-					"patching_rect" : [ 15.0, 15.0, 50.0, 63.0 ],
+					"patching_rect" : [ 15.0, 15.0, 50.0, 48.0 ],
 					"presentation" : 1,
-					"presentation_rect" : [ 0.0, 0.0, 50.0, 63.0 ],
+					"presentation_rect" : [ 0.0, 6.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "Kurd 9", "Hijaz" ],
 							"parameter_longname" : "Scale",
 							"parameter_mmax" : 1,
 							"parameter_shortname" : "Scale",
-							"parameter_type" : 2
+							"parameter_type" : 2,
+							"parameter_unitstyle" : 9
 						}
 
 					}
