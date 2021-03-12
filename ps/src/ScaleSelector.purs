@@ -6,10 +6,11 @@ import Effect.Ref (Ref)
 import Effect.Ref as Ref
 
 import MaxForLive.Global (
-    postLn
-  , setInletAssist
+    setInletAssist
   , setInlets
   , setOutlets
+  , outlet
+--    postLn
   )
 import MaxForLive.Handlers (setHandler)
 
@@ -29,13 +30,13 @@ main = do
     ref <- Ref.new Scale.defaultSpec
 
     setHandler { inlet: 0, msg: "msg_int", handler: setScale ref }
-    setHandler { inlet: 1, msg: "msg_int", handler: setRoot  ref }
-    setHandler { inlet: 2, msg: "msg_int", handler: setDoum  ref }
+    setHandler { inlet: 1, msg: "msg_int", handler: setDoum  ref }
+    setHandler { inlet: 2, msg: "msg_int", handler: setRoot  ref }
 
 updateSpec :: Ref ScaleSpec -> (ScaleSpec -> ScaleSpec) -> Effect Unit
 updateSpec ref f = do
     newSpec <- Ref.modify f ref
-    postLn $ show newSpec
+    outlet 0 (Scale.renderSpec newSpec)
 
 setScale :: Ref ScaleSpec -> Scale -> Effect Unit
 setScale ref scale = updateSpec ref (_ { scale = scale })

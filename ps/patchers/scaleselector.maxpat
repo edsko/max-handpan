@@ -59,7 +59,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 123.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector",
+						"filename" : "scaleselector.js",
 						"parameter_enable" : 0
 					}
 ,
