@@ -59,7 +59,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 123.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector.js",
+						"filename" : "scaleselector",
 						"parameter_enable" : 0
 					}
 ,
@@ -81,6 +81,8 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
+							"parameter_initial" : [ 9 ],
+							"parameter_initial_enable" : 1,
 							"parameter_longname" : "Root",
 							"parameter_mmax" : 11,
 							"parameter_shortname" : "Root",
@@ -108,6 +110,8 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
+							"parameter_initial" : [ 2 ],
+							"parameter_initial_enable" : 1,
 							"parameter_longname" : "Doum",
 							"parameter_mmax" : 11,
 							"parameter_shortname" : "Doum",
