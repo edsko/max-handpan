@@ -59,7 +59,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 123.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector",
+						"filename" : "scaleselector.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -81,9 +81,9 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
-							"parameter_longname" : "Doum",
+							"parameter_longname" : "Root",
 							"parameter_mmax" : 11,
-							"parameter_shortname" : "Doum",
+							"parameter_shortname" : "Root",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
 						}
@@ -108,9 +108,9 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
-							"parameter_longname" : "Root",
+							"parameter_longname" : "Doum",
 							"parameter_mmax" : 11,
-							"parameter_shortname" : "Root",
+							"parameter_shortname" : "Doum",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
 						}
@@ -180,8 +180,8 @@
  ],
 		"parameters" : 		{
 			"obj-1" : [ "Scale", "Scale", 0 ],
-			"obj-2" : [ "Root", "Root", 0 ],
-			"obj-3" : [ "Doum", "Doum", 0 ],
+			"obj-2" : [ "Doum", "Doum", 0 ],
+			"obj-3" : [ "Root", "Root", 0 ],
 			"parameterbanks" : 			{
 
 			}
