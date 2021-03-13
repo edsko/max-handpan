@@ -14,7 +14,7 @@ import MaxForLive.Global (
   )
 import MaxForLive.Handlers (setHandler)
 import MaxForLive.Message (Message(..), Bang(..))
-import MaxForLive.Push (Push)
+import MaxForLive.Push (Push, Button)
 import MaxForLive.Push as Push
 
 import Frontend.Layout (Layout(..), defaultLayout)
@@ -62,48 +62,63 @@ setupLUTs push = do
 
     -- Configure the various parts of the handpan
 
-    -- Tone fields
-    forWithIndex_ layout.tonefields $ \ix button -> do
-      push.setButtonMatrixColor button colors.tonefield
-      outlet 0 $ Message {
-          name: "setNote"
-        , payload: [ button.col * 8 + button.row , 48 + ix ]
-        }
-      outlet 0 $ Message {
-          name: "setVelocity"
-        , payload: [ button.col * 8 + button.row , 0 ]
-        }
-
-    -- Ghost notes
-    forWithIndex_ layout.ghostnotes $ \ix button -> do
-      push.setButtonMatrixColor button colors.ghostnote
-      outlet 0 $ Message {
-          name: "setNote"
-        , payload: [ button.col * 8 + button.row , 60 + ix ]
-        }
-      outlet 0 $ Message {
-          name: "setVelocity"
-        , payload: [ button.col * 8 + button.row , 1 ]
-        }
-
-    -- Slaps
-    for_ layout.slaps $ \button -> do
-      push.setButtonMatrixColor button colors.slap
+    --
+    -- Melodic
+    --
 
     -- Doum
-    for_ layout.doum $ \button -> do
-      push.setButtonMatrixColor button colors.doum
+    for_ layout.doum $ \b -> do
+      push.setButtonMatrixColor b colors.doum
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 48] }
+      outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
 
-    -- Tak
-    for_ layout.tak $ \button -> do
-      push.setButtonMatrixColor button colors.tak
+    -- Tone fields
+    forWithIndex_ layout.tonefields $ \ix b -> do
+      push.setButtonMatrixColor b colors.tonefield
+      outlet 0 $ Message { name: "setNote", payload: [ buttonIx b, 49 + ix ] }
+      outlet 0 $ Message { name: "setVelocity", payload: [ buttonIx b, 0] }
+
+    --
+    -- Ghost notes
+    --
+
+    -- TODO: Tak-as-ghost-note currently unassigned
+
+    -- Ghost notes
+    forWithIndex_ layout.ghostnotes $ \ix b -> do
+      push.setButtonMatrixColor b colors.ghostnote
+      outlet 0 $ Message { name: "setNote", payload: [ buttonIx b, 61 + ix ] }
+      outlet 0 $ Message { name: "setVelocity", payload: [ buttonIx b, 1 ] }
+
+    --
+    -- Percussion
+    --
 
     -- Bass
-    for_ layout.bass $ \button -> do
-      push.setButtonMatrixColor button colors.bass
+    for_ layout.bass $ \b -> do
+      push.setButtonMatrixColor b colors.bass
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 36] }
+      outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
+
+    -- Tak
+    for_ layout.tak $ \b -> do
+      push.setButtonMatrixColor b colors.tak
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 37] }
+      outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
+
+    -- Slaps
+    forWithIndex_ layout.slaps $ \ix b -> do
+      push.setButtonMatrixColor b colors.slap
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 38 + ix] }
+      outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
+
   where
     Layout layout = defaultLayout
     Colors colors = defaultColors
+
+-- | Index of this button in the LUT
+buttonIx :: Button -> Int
+buttonIx button = button.col * 8 + button.row
 
 -- | Invoked whenever the track is selected
 activate :: Push -> Effect Unit

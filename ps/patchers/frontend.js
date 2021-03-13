@@ -2542,61 +2542,106 @@ var PS = {};
   var MaxForLive_LiveAPI = $PS["MaxForLive.LiveAPI"];
   var MaxForLive_Message = $PS["MaxForLive.Message"];
   var MaxForLive_Push = $PS["MaxForLive.Push"];                
+  var deactivate = function (push) {
+      return push.releaseButtonMatrix;
+  };
+  var buttonIx = function (button) {
+      return (button.col * 8 | 0) + button.row | 0;
+  };
   var setupLUTs = function (push) {
       return function __do() {
           MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Message.toMaxBang))(0)(new MaxForLive_Message.Message({
               name: "reset",
               payload: MaxForLive_Message.Bang.value
           }))();
+          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.doum)(function (b) {
+              return function __do() {
+                  push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.doum)();
+                  MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setNote",
+                      payload: [ buttonIx(b), 48 ]
+                  }))();
+                  return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setVelocity",
+                      payload: [ buttonIx(b), 0 ]
+                  }))();
+              };
+          })();
           Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.tonefields)(function (ix) {
-              return function (button) {
+              return function (b) {
                   return function __do() {
-                      push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.tonefield)();
+                      push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.tonefield)();
                       MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setNote",
-                          payload: [ (button.col * 8 | 0) + button.row | 0, 48 + ix | 0 ]
+                          payload: [ buttonIx(b), 49 + ix | 0 ]
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setVelocity",
-                          payload: [ (button.col * 8 | 0) + button.row | 0, 0 ]
+                          payload: [ buttonIx(b), 0 ]
                       }))();
                   };
               };
           })();
           Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.ghostnotes)(function (ix) {
-              return function (button) {
+              return function (b) {
                   return function __do() {
-                      push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.ghostnote)();
+                      push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.ghostnote)();
                       MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setNote",
-                          payload: [ (button.col * 8 | 0) + button.row | 0, 60 + ix | 0 ]
+                          payload: [ buttonIx(b), 61 + ix | 0 ]
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setVelocity",
-                          payload: [ (button.col * 8 | 0) + button.row | 0, 1 ]
+                          payload: [ buttonIx(b), 1 ]
                       }))();
                   };
               };
           })();
-          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.slaps)(function (button) {
-              return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.slap);
+          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.bass)(function (b) {
+              return function __do() {
+                  push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.bass)();
+                  MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setNote",
+                      payload: [ buttonIx(b), 36 ]
+                  }))();
+                  return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setVelocity",
+                      payload: [ buttonIx(b), 0 ]
+                  }))();
+              };
           })();
-          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.doum)(function (button) {
-              return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.doum);
+          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.tak)(function (b) {
+              return function __do() {
+                  push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.tak)();
+                  MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setNote",
+                      payload: [ buttonIx(b), 37 ]
+                  }))();
+                  return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                      name: "setVelocity",
+                      payload: [ buttonIx(b), 0 ]
+                  }))();
+              };
           })();
-          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.tak)(function (button) {
-              return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.tak);
-          })();
-          return Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.bass)(function (button) {
-              return push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.bass);
+          return Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.slaps)(function (ix) {
+              return function (b) {
+                  return function __do() {
+                      push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.slap)();
+                      MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          name: "setNote",
+                          payload: [ buttonIx(b), 38 + ix | 0 ]
+                      }))();
+                      return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          name: "setVelocity",
+                          payload: [ buttonIx(b), 0 ]
+                      }))();
+                  };
+              };
           })();
       };
   };
   var init = function (push) {
       return setupLUTs(push);
-  };
-  var deactivate = function (push) {
-      return push.releaseButtonMatrix;
   };
   var activate = function (push) {
       return function __do() {
