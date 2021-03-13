@@ -22,8 +22,43 @@ import Backend.Note as N
 -------------------------------------------------------------------------------}
 
 data Scale =
+    -- | Kurd 9
+    -- |
+    -- | Arabic scale. One of the most popular handpan scales.
+    -- |
+    -- | See https://www.haganenote.com/store/kurd/
     Kurd9
-  | Hijaz  -- ^ also known as Hitzaz
+
+    -- | Hijaz
+    -- |
+    -- | Also known as:
+    -- | * Phrygian dominant scale.
+    -- | * Hitzaz
+    -- | * Hijaz-Nahawand
+    -- | * Hijaz maqam
+    -- |
+    -- | Fifth mode of the harmonic minor scale.
+    -- | See https://en.wikipedia.org/wiki/Phrygian_dominant_scale
+  | Hijaz  -- ^ Also known as
+
+    -- | Pelog
+    -- |
+    -- | Also known as:
+    -- | * Melog
+    -- | * Melog/Selisir
+    -- |
+    -- | Indonesian pentatonic scale. Selisir is a _mode_ of this scale.
+    -- | See https://en.wikipedia.org/wiki/Pelog
+  | Pelog
+
+    -- | Integral minor scale
+    -- |
+    -- | Mode of the natural minor scale (starting on the 5th degree) and
+    -- | omitting the 4th degree, ending up with a hexatonic scale.
+    -- | (Doum then normally a fifth below the root.)
+    -- |
+    -- | See https://www.sarazhandpans.com/handpan-scales/integral/
+  | Integral
 
 derive instance genericScale :: Generic Scale _
 
@@ -43,12 +78,11 @@ instance simpleEnumScale :: SimpleEnum Scale where
 --
 -- The root note of the scale here doesn't matter, whatever is convenient.
 -- We will anyway transpose it up or down as required.
---
--- The scale will automatically be repeated the next octave up if it must be
--- extended to more notes.
 scaleNotes :: Scale -> Array Note
-scaleNotes Kurd9 = [ A , As , C  , D , E , F  , G , A , C ]
-scaleNotes Hijaz = [ D , Ds , Fs , G , A , As , C ]
+scaleNotes Kurd9    = [ A , As , C  , D , E , F  , G  , A , C ]
+scaleNotes Hijaz    = [ D , Ds , Fs , G , A , As , C  , D     ]
+scaleNotes Pelog    = [ A , As , C  , E , F , A  , As , C     ]
+scaleNotes Integral = [ A , As , C  , D , E , F  , A          ]
 
 {-------------------------------------------------------------------------------
   Specification of the scale of a handpan

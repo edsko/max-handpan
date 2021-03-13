@@ -260,7 +260,7 @@ var PS = {};
   $PS["MaxForLive.Conversions"] = $PS["MaxForLive.Conversions"] || {};
   var exports = $PS["MaxForLive.Conversions"];
   var $foreign = $PS["MaxForLive.Conversions"];
-  var Unsafe_Coerce = $PS["Unsafe.Coerce"];                
+  var Unsafe_Coerce = $PS["Unsafe.Coerce"];
   var ToMax = function (toMax) {
       this.toMax = toMax;
   };
@@ -280,11 +280,11 @@ var PS = {};
           if (v) {
               return 1;
           };
-          throw new Error("Failed pattern match at MaxForLive.Conversions (line 64, column 7 - line 64, column 29): " + [ v.constructor.name ]);
+          throw new Error("Failed pattern match at MaxForLive.Conversions (line 86, column 7 - line 86, column 29): " + [ v.constructor.name ]);
       };
-      var $7 = toMax(toMaxInt);
-      return function ($8) {
-          return $7(conv($8));
+      var $17 = toMax(toMaxInt);
+      return function ($18) {
+          return $17(conv($18));
       };
   })());                                                      
   var fromMaxInt = new FromMax($foreign.fromMaxIntImpl);
@@ -298,9 +298,9 @@ var PS = {};
           };
           return true;
       };
-      var $9 = fromMax(fromMaxInt);
-      return function ($10) {
-          return conv($9($10));
+      var $27 = fromMax(fromMaxInt);
+      return function ($28) {
+          return conv($27($28));
       };
   })());
   exports["FromMax"] = FromMax;
@@ -318,13 +318,13 @@ var PS = {};
   var exports = $PS["MaxForLive.Arguments"];
   var $foreign = $PS["MaxForLive.Arguments"];
   var Data_Function_Uncurried = $PS["Data.Function.Uncurried"];
-  var MaxForLive_Conversions = $PS["MaxForLive.Conversions"];                
+  var MaxForLive_Conversions = $PS["MaxForLive.Conversions"];
   var getArg = function (dictFromMax) {
       return function (xs) {
-          var $1 = MaxForLive_Conversions.fromMax(dictFromMax);
-          var $2 = Data_Function_Uncurried.runFn2($foreign.getArgImpl)(xs);
-          return function ($3) {
-              return $1($2($3));
+          var $5 = MaxForLive_Conversions.fromMax(dictFromMax);
+          var $6 = Data_Function_Uncurried.runFn2($foreign.getArgImpl)(xs);
+          return function ($7) {
+              return $5($6($7));
           };
       };
   };

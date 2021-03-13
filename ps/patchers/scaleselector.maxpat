@@ -59,7 +59,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 90.0, 123.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector.js",
+						"filename" : "scaleselector",
 						"parameter_enable" : 0
 					}
 ,
@@ -81,11 +81,11 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
-							"parameter_initial" : [ 9 ],
+							"parameter_initial" : [ 2 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "Root",
+							"parameter_longname" : "Doum",
 							"parameter_mmax" : 11,
-							"parameter_shortname" : "Root",
+							"parameter_shortname" : "Doum",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
 						}
@@ -110,11 +110,11 @@
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
 							"parameter_enum" : [ "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B" ],
-							"parameter_initial" : [ 2 ],
+							"parameter_initial" : [ 9 ],
 							"parameter_initial_enable" : 1,
-							"parameter_longname" : "Doum",
+							"parameter_longname" : "Root",
 							"parameter_mmax" : 11,
-							"parameter_shortname" : "Doum",
+							"parameter_shortname" : "Root",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
 						}
@@ -138,9 +138,9 @@
 					"presentation_rect" : [ 0.0, 6.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
-							"parameter_enum" : [ "Kurd 9", "Hijaz" ],
+							"parameter_enum" : [ "Kurd 9", "Hijaz", "Pelog", "Integral" ],
 							"parameter_longname" : "Scale",
-							"parameter_mmax" : 1,
+							"parameter_mmax" : 3,
 							"parameter_shortname" : "Scale",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
@@ -184,8 +184,8 @@
  ],
 		"parameters" : 		{
 			"obj-1" : [ "Scale", "Scale", 0 ],
-			"obj-2" : [ "Doum", "Doum", 0 ],
-			"obj-3" : [ "Root", "Root", 0 ],
+			"obj-2" : [ "Root", "Root", 0 ],
+			"obj-3" : [ "Doum", "Doum", 0 ],
 			"parameterbanks" : 			{
 
 			}

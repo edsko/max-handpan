@@ -10,7 +10,7 @@ import MaxForLive.Global (
   , setInlets
   , setOutlets
   , outlet
---    postLn
+--  , postLn
   )
 import MaxForLive.Handlers (setHandler)
 
@@ -30,19 +30,19 @@ main = do
     ref <- Ref.new Scale.defaultSpec
 
     setHandler { inlet: 0, msg: "msg_int", handler: setScale ref }
-    setHandler { inlet: 1, msg: "msg_int", handler: setDoum  ref }
-    setHandler { inlet: 2, msg: "msg_int", handler: setRoot  ref }
+    setHandler { inlet: 1, msg: "msg_int", handler: setRoot  ref }
+    setHandler { inlet: 2, msg: "msg_int", handler: setDoum  ref }
 
-updateSpec :: Ref ScaleSpec -> (ScaleSpec -> ScaleSpec) -> Effect Unit
-updateSpec ref f = do
+update :: Ref ScaleSpec -> (ScaleSpec -> ScaleSpec) -> Effect Unit
+update ref f = do
     newSpec <- Ref.modify f ref
     outlet 0 (Scale.renderSpec newSpec)
 
 setScale :: Ref ScaleSpec -> Scale -> Effect Unit
-setScale ref scale = updateSpec ref (_ { scale = scale })
+setScale ref scale = update ref (_ { scale = scale })
 
 setRoot :: Ref ScaleSpec -> Note -> Effect Unit
-setRoot ref root = updateSpec ref (_ { root = root })
+setRoot ref root = update ref (_ { root = root })
 
 setDoum :: Ref ScaleSpec -> Note -> Effect Unit
-setDoum ref doum = updateSpec ref (_ { doum = doum })
+setDoum ref doum = update ref (_ { doum = doum })

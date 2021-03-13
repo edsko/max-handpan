@@ -1008,7 +1008,7 @@ var PS = {};
   var exports = $PS["MaxForLive.Conversions"];
   var $foreign = $PS["MaxForLive.Conversions"];
   var Data_Functor = $PS["Data.Functor"];
-  var Unsafe_Coerce = $PS["Unsafe.Coerce"];                
+  var Unsafe_Coerce = $PS["Unsafe.Coerce"];
   var ToMax = function (toMax) {
       this.toMax = toMax;
   };
@@ -1021,9 +1021,9 @@ var PS = {};
   };
   var toMaxArray = function (dictToMax) {
       return new ToMax((function () {
-          var $5 = Data_Functor.map(Data_Functor.functorArray)(toMax(dictToMax));
-          return function ($6) {
-              return $5($6);
+          var $15 = Data_Functor.map(Data_Functor.functorArray)(toMax(dictToMax));
+          return function ($16) {
+              return $15($16);
           };
       })());
   };                                                          
@@ -1046,13 +1046,13 @@ var PS = {};
   var exports = $PS["MaxForLive.Arguments"];
   var $foreign = $PS["MaxForLive.Arguments"];
   var Data_Function_Uncurried = $PS["Data.Function.Uncurried"];
-  var MaxForLive_Conversions = $PS["MaxForLive.Conversions"];                
+  var MaxForLive_Conversions = $PS["MaxForLive.Conversions"];
   var getArg = function (dictFromMax) {
       return function (xs) {
-          var $1 = MaxForLive_Conversions.fromMax(dictFromMax);
-          var $2 = Data_Function_Uncurried.runFn2($foreign.getArgImpl)(xs);
-          return function ($3) {
-              return $1($2($3));
+          var $5 = MaxForLive_Conversions.fromMax(dictFromMax);
+          var $6 = Data_Function_Uncurried.runFn2($foreign.getArgImpl)(xs);
+          return function ($7) {
+              return $5($6($7));
           };
       };
   };
