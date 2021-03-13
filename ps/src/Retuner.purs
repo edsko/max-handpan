@@ -2,7 +2,7 @@ module Retuner (main) where
 
 import Prelude
 import Data.Int (toNumber)
-import Data.List (List)
+import Data.List (List, (:))
 import Data.List as List
 import Effect (Effect)
 import Effect.Ref (Ref)
@@ -14,7 +14,7 @@ import MaxForLive.Global (
   , setInlets
   , setOutletAssist
   , setOutlets
-  , postLn
+--  , postLn
   )
 import MaxForLive.Handlers (CollectRemaining(..), setHandler)
 import MaxForLive.Message (Message(..))
@@ -27,12 +27,14 @@ import Retuner.State as State
 main :: Effect Unit
 main = do
     setInlets 2
-    setOutlets 1
+    setOutlets 3
 
     setInletAssist 0 "Scale"
     setInletAssist 1 "Tuning"
 
-    setOutletAssist 0 "To multislider"
+    setOutletAssist 0 "Scale size (to split)"
+    setOutletAssist 1 "To funbuff"
+    setOutletAssist 2 "To multislider"
 
     ref <- Ref.new State.initial
 
@@ -43,10 +45,23 @@ update :: Ref RetunerState -> (RetunerState -> RetunerState) -> Effect Unit
 update ref f = do
     newState <- Ref.modify f ref
 
+    -- Size of the scale (including the doum)
+    -- This disables the "split" if the scale is empty.
+    outlet 0 (List.length newState.scale - 1)
+
     unless (List.null newState.tuning) $ do
-      outlet 0 $ Message { name: "size", payload: List.length newState.tuning }
-      postLn $ show (State.retunings newState)
-      outlet 0 $ normalize (State.retunings newState)
+      let retunings = State.retunings newState
+
+      -- Configure the LUT
+      -- (First value in the "set" message is the starting index in the table)
+      outlet 1 "clear"
+      outlet 1 $ Message { name: "set", payload: (0 : retunings) }
+
+      -- Configure the multisliders
+      outlet 2 $ Message { name: "size", payload: List.length newState.tuning }
+      outlet 2 $ normalize retunings
+
+
 
 setScale :: Ref RetunerState -> CollectRemaining List InOctave
 setScale ref = CollectRemaining $ \scale -> update ref (_ { scale = scale })
