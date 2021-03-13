@@ -58,11 +58,8 @@ init ref = do
           , preview = true
           }
 
-        outlet 1 "Off"
-        outlet 2 $ Message {
-              messageName: "path"
-            , messagePayload: LiveAPI.unquotedPath us
-            }
+        outlet 1 $ "Off"
+        outlet 2 $ Message { name: "path", payload: LiveAPI.unquotedPath us }
       Nothing -> do
         outlet 1 "Error"
         updateState ref $ \st -> st {

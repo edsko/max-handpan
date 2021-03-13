@@ -60,16 +60,19 @@
 					"candycane" : 2,
 					"ghostbar" : 7,
 					"id" : "obj-5",
+					"ignoreclick" : 1,
 					"maxclass" : "multislider",
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
+					"parameter_mappable" : 0,
 					"patching_rect" : [ 105.0, 120.0, 135.0, 75.0 ],
+					"peakcolor" : [ 1.0, 0.0, 0.0, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 0.0, 0.0, 135.0, 75.0 ],
 					"signed" : 1,
-					"size" : 10,
+					"size" : 9,
 					"spacing" : 4
 				}
 

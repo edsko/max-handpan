@@ -58,10 +58,7 @@ setupLUTs :: Push -> Effect Unit
 setupLUTs push = do
     -- Reset the LUTs
 
-    outlet 0 $ Message {
-        messageName: "reset"
-      , messagePayload: Bang
-      }
+    outlet 0 $ Message { name: "reset", payload: Bang }
 
     -- Configure the various parts of the handpan
 
@@ -69,24 +66,24 @@ setupLUTs push = do
     forWithIndex_ layout.tonefields $ \ix button -> do
       push.setButtonMatrixColor button colors.tonefield
       outlet 0 $ Message {
-          messageName: "setNote"
-        , messagePayload: [ button.col * 8 + button.row , 48 + ix ]
+          name: "setNote"
+        , payload: [ button.col * 8 + button.row , 48 + ix ]
         }
       outlet 0 $ Message {
-          messageName: "setVelocity"
-        , messagePayload: [ button.col * 8 + button.row , 0 ]
+          name: "setVelocity"
+        , payload: [ button.col * 8 + button.row , 0 ]
         }
 
     -- Ghost notes
     forWithIndex_ layout.ghostnotes $ \ix button -> do
       push.setButtonMatrixColor button colors.ghostnote
       outlet 0 $ Message {
-          messageName: "setNote"
-        , messagePayload: [ button.col * 8 + button.row , 60 + ix ]
+          name: "setNote"
+        , payload: [ button.col * 8 + button.row , 60 + ix ]
         }
       outlet 0 $ Message {
-          messageName: "setVelocity"
-        , messagePayload: [ button.col * 8 + button.row , 1 ]
+          name: "setVelocity"
+        , payload: [ button.col * 8 + button.row , 1 ]
         }
 
     -- Slaps
@@ -117,10 +114,7 @@ activate push = do
     -- we can start to monitor it (routing the notifications from buttons
     -- pressed through the LUTs)
     push.withButtonMatrixId $ \matrixId ->
-      outlet 0 $ Message {
-          messageName: "buttonMatrixId"
-        , messagePayload: matrixId
-        }
+      outlet 0 $ Message { name: "buttonMatrixId", payload: matrixId }
 
 -- | Invoked whenever the track is deselected
 deactivate :: Push -> Effect Unit

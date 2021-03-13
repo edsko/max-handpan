@@ -553,7 +553,7 @@ var PS = {};
   })();
   var toMaxMessage = function (dictToMax) {
       return new MaxForLive_Conversions.ToMax(function (v) {
-          return $foreign.mkMaxMessage(v.value0.messageName, MaxForLive_Conversions.toMax(dictToMax)(v.value0.messagePayload));
+          return $foreign.mkMaxMessage(v.value0.name, MaxForLive_Conversions.toMax(dictToMax)(v.value0.payload));
       });
   };
   exports["Message"] = Message;
@@ -662,8 +662,8 @@ var PS = {};
               })();
               MaxForLive_Global.outlet(MaxForLive_Conversions.toMaxString)(1)("Off")();
               return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_LiveAPI.toMaxPath))(2)(new MaxForLive_Message.Message({
-                  messageName: "path",
-                  messagePayload: MaxForLive_LiveAPI.unquotedPath(us)
+                  name: "path",
+                  payload: MaxForLive_LiveAPI.unquotedPath(us)
               }))();
           };
           if (mOurTrack instanceof Data_Maybe.Nothing) {
@@ -678,7 +678,7 @@ var PS = {};
                   };
               })();
           };
-          throw new Error("Failed pattern match at TrackSelected (line 53, column 5 - line 72, column 11): " + [ mOurTrack.constructor.name ]);
+          throw new Error("Failed pattern match at TrackSelected (line 53, column 5 - line 69, column 11): " + [ mOurTrack.constructor.name ]);
       };
   };
   var previewEnable = function (ref) {

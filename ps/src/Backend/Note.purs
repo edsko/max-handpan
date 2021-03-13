@@ -4,6 +4,7 @@ module Backend.Note (
     -- * InOctave
   , InOctave(..)
   , transposeBy
+  , distance
     -- * Rendered
   , Rendered
   , renderedToList
@@ -61,6 +62,12 @@ instance simpleEnumInOctave :: SimpleEnum InOctave where
 transposeBy :: Int -> InOctave -> InOctave
 transposeBy n = C.fromSimpleEnum >>> (_ + n) >>> C.toSimpleEnum
 
+-- | Distance between two notes in semitones
+-- |
+-- | Positive if first note is higher than the second, negative otherwise.
+distance :: InOctave -> InOctave -> Int
+distance a b = C.fromSimpleEnum a - C.fromSimpleEnum b
+
 {-------------------------------------------------------------------------------
   Rendering
 -------------------------------------------------------------------------------}
@@ -109,13 +116,8 @@ renderOne note = Rendered (InOctave { octave: 0, note: note } : Nil)
 render :: forall f. Foldable f => f Note -> Rendered
 render = fromFoldable >>> map renderOne >>> appendMany
 
-transposeTo :: Note -> Rendered -> Rendered
-transposeTo note (Rendered rendered) = Rendered $
+transposeTo :: InOctave -> Rendered -> Rendered
+transposeTo x (Rendered rendered) = Rendered $
     case rendered of
       Nil  -> Nil
-      y:ys -> go y ys
-  where
-    go :: InOctave -> List InOctave -> List InOctave
-    go y@(InOctave { note: note' }) ys =
-       let t = C.fromSimpleEnum note - C.fromSimpleEnum note'
-       in map (transposeBy t) (y : ys)
+      y:ys -> map (transposeBy (distance x y)) (y : ys)

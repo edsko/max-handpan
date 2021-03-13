@@ -1002,7 +1002,7 @@ var PS = {};
       if (x instanceof B) {
           return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(Data_Generic_Rep.NoArguments.value)))))))))));
       };
-      throw new Error("Failed pattern match at Backend.Note (line 30, column 1 - line 30, column 46): " + [ x.constructor.name ]);
+      throw new Error("Failed pattern match at Backend.Note (line 31, column 1 - line 31, column 46): " + [ x.constructor.name ]);
   }, function (x) {
       if (x instanceof Data_Generic_Rep.Inl) {
           return C.value;
@@ -1040,7 +1040,7 @@ var PS = {};
       if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0.value0.value0.value0.value0.value0.value0.value0 instanceof Data_Generic_Rep.Inr)))))))))) {
           return B.value;
       };
-      throw new Error("Failed pattern match at Backend.Note (line 30, column 1 - line 30, column 46): " + [ x.constructor.name ]);
+      throw new Error("Failed pattern match at Backend.Note (line 31, column 1 - line 31, column 46): " + [ x.constructor.name ]);
   });              
   var simpleEnumNote = new MaxForLive_Conversions.SimpleEnum(MaxForLive_Conversions.genericFromSimpleEnum(genericNote)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))))))))))), MaxForLive_Conversions.genericToSimpleEnum(genericNote)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))))))))))));
   var simpleEnumInOctave = new MaxForLive_Conversions.SimpleEnum(function (v) {
@@ -1053,40 +1053,39 @@ var PS = {};
   });
   var toMaxInOctave = new MaxForLive_Conversions.ToMax(MaxForLive_Conversions.maxFromEnum(simpleEnumInOctave));
   var toMaxRendered = new MaxForLive_Conversions.ToMax((function () {
-      var $115 = MaxForLive_Conversions.toMax(MaxForLive_Conversions.toMaxList(toMaxInOctave));
-      return function ($116) {
-          return $115(renderedToList($116));
+      var $111 = MaxForLive_Conversions.toMax(MaxForLive_Conversions.toMaxList(toMaxInOctave));
+      return function ($112) {
+          return $111(renderedToList($112));
       };
   })());
   var transposeBy = function (n) {
-      var $117 = MaxForLive_Conversions.toSimpleEnum(simpleEnumInOctave);
-      var $118 = MaxForLive_Conversions.fromSimpleEnum(simpleEnumInOctave);
-      return function ($119) {
-          return $117((function (v) {
+      var $113 = MaxForLive_Conversions.toSimpleEnum(simpleEnumInOctave);
+      var $114 = MaxForLive_Conversions.fromSimpleEnum(simpleEnumInOctave);
+      return function ($115) {
+          return $113((function (v) {
               return v + n | 0;
-          })($118($119)));
+          })($114($115)));
       };
-  };                                                                                                   
-  var transposeTo = function (note) {
+  }; 
+  var fromMaxNote = new MaxForLive_Conversions.FromMax(MaxForLive_Conversions.maxToEnum(simpleEnumNote));        
+  var distance = function (a) {
+      return function (b) {
+          return MaxForLive_Conversions.fromSimpleEnum(simpleEnumInOctave)(a) - MaxForLive_Conversions.fromSimpleEnum(simpleEnumInOctave)(b) | 0;
+      };
+  };
+  var transposeTo = function (x) {
       return function (v) {
-          var go = function (v1) {
-              return function (ys) {
-                  var t = MaxForLive_Conversions.fromSimpleEnum(simpleEnumNote)(note) - MaxForLive_Conversions.fromSimpleEnum(simpleEnumNote)(v1.note) | 0;
-                  return Data_Functor.map(Data_List_Types.functorList)(transposeBy(t))(new Data_List_Types.Cons(v1, ys));
-              };
-          };
           return Rendered((function () {
               if (v instanceof Data_List_Types.Nil) {
                   return Data_List_Types.Nil.value;
               };
               if (v instanceof Data_List_Types.Cons) {
-                  return go(v.value0)(v.value1);
+                  return Data_Functor.map(Data_List_Types.functorList)(transposeBy(distance(x)(v.value0)))(new Data_List_Types.Cons(v.value0, v.value1));
               };
-              throw new Error("Failed pattern match at Backend.Note (line 114, column 5 - line 116, column 22): " + [ v.constructor.name ]);
+              throw new Error("Failed pattern match at Backend.Note (line 121, column 5 - line 123, column 56): " + [ v.constructor.name ]);
           })());
       };
-  }; 
-  var fromMaxNote = new MaxForLive_Conversions.FromMax(MaxForLive_Conversions.maxToEnum(simpleEnumNote));        
+  };
   var appendMany = (function () {
       var go = function (v) {
           return function (v1) {
@@ -1098,27 +1097,27 @@ var PS = {};
               };
               if (v1 instanceof Data_List_Types.Cons && v1.value0 instanceof Data_List_Types.Cons) {
                   var n = MaxForLive_Conversions.fromSimpleEnum(simpleEnumInOctave)(v1.value0.value0);
-                  var $110 = n > v;
-                  if ($110) {
+                  var $106 = n > v;
+                  if ($106) {
                       return new Data_List_Types.Cons(v1.value0.value0, go(n)(new Data_List_Types.Cons(v1.value0.value1, v1.value1)));
                   };
                   var t = (1 + Data_EuclideanRing.div(Data_EuclideanRing.euclideanRingInt)(v - n | 0)(12) | 0) * 12 | 0;
                   return new Data_List_Types.Cons(transposeBy(t)(v1.value0.value0), go(n + t | 0)(new Data_List_Types.Cons(v1.value0.value1, v1.value1)));
               };
-              throw new Error("Failed pattern match at Backend.Note (line 94, column 5 - line 94, column 55): " + [ v.constructor.name, v1.constructor.name ]);
+              throw new Error("Failed pattern match at Backend.Note (line 101, column 5 - line 101, column 55): " + [ v.constructor.name, v1.constructor.name ]);
           };
       };
-      var $120 = go(-1 | 0);
-      var $121 = Data_Functor.map(Data_List_Types.functorList)(renderedToList);
-      return function ($122) {
-          return Rendered($120($121($122)));
+      var $116 = go(-1 | 0);
+      var $117 = Data_Functor.map(Data_List_Types.functorList)(renderedToList);
+      return function ($118) {
+          return Rendered($116($117($118)));
       };
   })();
   var render = function (dictFoldable) {
-      var $123 = Data_Functor.map(Data_List_Types.functorList)(renderOne);
-      var $124 = Data_List.fromFoldable(dictFoldable);
-      return function ($125) {
-          return appendMany($123($124($125)));
+      var $119 = Data_Functor.map(Data_List_Types.functorList)(renderOne);
+      var $120 = Data_List.fromFoldable(dictFoldable);
+      return function ($121) {
+          return appendMany($119($120($121)));
       };
   };
   var semigroupRendered = new Data_Semigroup.Semigroup(function (a) {
@@ -1197,7 +1196,10 @@ var PS = {};
       throw new Error("Failed pattern match at Backend.Scale (line 81, column 1 - line 81, column 34): " + [ v.constructor.name ]);
   };
   var renderSpec = function (v) {
-      return Data_Semigroup.append(Backend_Note.semigroupRendered)(Backend_Note.renderOne(v.doum))(Backend_Note.transposeTo(v.root)(Backend_Note.render(Data_Foldable.foldableArray)(scaleNotes(v.scale))));
+      return Data_Semigroup.append(Backend_Note.semigroupRendered)(Backend_Note.renderOne(v.doum))(Backend_Note.transposeTo({
+          octave: 0,
+          note: v.root
+      })(Backend_Note.render(Data_Foldable.foldableArray)(scaleNotes(v.scale))));
   };
   var genericScale = new Data_Generic_Rep.Generic(function (x) {
       if (x instanceof Kurd9) {

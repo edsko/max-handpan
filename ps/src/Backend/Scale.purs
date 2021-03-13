@@ -14,7 +14,7 @@ import Data.Show.Generic (genericShow)
 import MaxForLive.Conversions (class ToMax, class FromMax, class SimpleEnum)
 import MaxForLive.Conversions as C
 
-import Backend.Note (Note(..), Rendered)
+import Backend.Note (Note(..), InOctave(..), Rendered)
 import Backend.Note as N
 
 {-------------------------------------------------------------------------------
@@ -100,4 +100,6 @@ defaultSpec = { scale: Kurd9, doum: D, root: A }
 renderSpec :: ScaleSpec -> Rendered
 renderSpec { scale, doum, root } =
        N.renderOne doum
-    <> N.transposeTo root (N.render (scaleNotes scale))
+    <> N.transposeTo
+         (InOctave { octave: 0, note: root })
+         (N.render (scaleNotes scale))

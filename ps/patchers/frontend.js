@@ -2229,7 +2229,7 @@ var PS = {};
   })();
   var toMaxMessage = function (dictToMax) {
       return new MaxForLive_Conversions.ToMax(function (v) {
-          return $foreign.mkMaxMessage(v.value0.messageName, MaxForLive_Conversions.toMax(dictToMax)(v.value0.messagePayload));
+          return $foreign.mkMaxMessage(v.value0.name, MaxForLive_Conversions.toMax(dictToMax)(v.value0.payload));
       });
   };
   var toMaxBang = new MaxForLive_Conversions.ToMax(function (v) {
@@ -2254,8 +2254,8 @@ var PS = {};
   var MaxForLive_Message = $PS["MaxForLive.Message"];                          
   var toMaxId = new MaxForLive_Conversions.ToMax(function (v) {
       return MaxForLive_Conversions.toMax(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxInt))(new MaxForLive_Message.Message({
-          messageName: "id",
-          messagePayload: v
+          name: "id",
+          payload: v
       }));
   });                      
   var liveApp = "live_app";        
@@ -2545,20 +2545,20 @@ var PS = {};
   var setupLUTs = function (push) {
       return function __do() {
           MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Message.toMaxBang))(0)(new MaxForLive_Message.Message({
-              messageName: "reset",
-              messagePayload: MaxForLive_Message.Bang.value
+              name: "reset",
+              payload: MaxForLive_Message.Bang.value
           }))();
           Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.tonefields)(function (ix) {
               return function (button) {
                   return function __do() {
                       push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.tonefield)();
                       MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                          messageName: "setNote",
-                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 48 + ix | 0 ]
+                          name: "setNote",
+                          payload: [ (button.col * 8 | 0) + button.row | 0, 48 + ix | 0 ]
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                          messageName: "setVelocity",
-                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 0 ]
+                          name: "setVelocity",
+                          payload: [ (button.col * 8 | 0) + button.row | 0, 0 ]
                       }))();
                   };
               };
@@ -2568,12 +2568,12 @@ var PS = {};
                   return function __do() {
                       push.setButtonMatrixColor(button)(Frontend_Colors.defaultColors.value0.ghostnote)();
                       MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                          messageName: "setNote",
-                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 60 + ix | 0 ]
+                          name: "setNote",
+                          payload: [ (button.col * 8 | 0) + button.row | 0, 60 + ix | 0 ]
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                          messageName: "setVelocity",
-                          messagePayload: [ (button.col * 8 | 0) + button.row | 0, 1 ]
+                          name: "setVelocity",
+                          payload: [ (button.col * 8 | 0) + button.row | 0, 1 ]
                       }))();
                   };
               };
@@ -2603,8 +2603,8 @@ var PS = {};
           push.grabButtonMatrix();
           return push.withButtonMatrixId(function (matrixId) {
               return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_LiveAPI.toMaxId))(0)(new MaxForLive_Message.Message({
-                  messageName: "buttonMatrixId",
-                  messagePayload: matrixId
+                  name: "buttonMatrixId",
+                  payload: matrixId
               }));
           })();
       };
