@@ -1793,17 +1793,17 @@ var PS = {};
           col: 0,
           row: 5
       }, {
+          col: 7,
+          row: 5
+      }, {
           col: 0,
+          row: 3
+      }, {
+          col: 7,
           row: 3
       }, {
           col: 0,
           row: 1
-      }, {
-          col: 7,
-          row: 5
-      }, {
-          col: 7,
-          row: 3
       }, {
           col: 7,
           row: 1
@@ -1821,17 +1821,17 @@ var PS = {};
           col: 1,
           row: 5
       }, {
+          col: 6,
+          row: 5
+      }, {
           col: 1,
+          row: 3
+      }, {
+          col: 6,
           row: 3
       }, {
           col: 1,
           row: 1
-      }, {
-          col: 6,
-          row: 5
-      }, {
-          col: 6,
-          row: 3
       }, {
           col: 6,
           row: 1

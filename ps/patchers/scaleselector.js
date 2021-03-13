@@ -807,7 +807,7 @@ var PS = {};
       if (v instanceof Data_Maybe.Nothing) {
           return $foreign.maxError("maxFromJust");
       };
-      throw new Error("Failed pattern match at MaxForLive.Conversions (line 135, column 1 - line 135, column 38): " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at MaxForLive.Conversions (line 133, column 1 - line 133, column 38): " + [ v.constructor.name ]);
   };
   var genericToSimpleEnum = function (dictGeneric) {
       return function (dictGenericBoundedEnum) {
