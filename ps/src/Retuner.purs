@@ -29,8 +29,8 @@ main = do
     setInlets 2
     setOutlets 3
 
-    setInletAssist 0 "Scale"
-    setInletAssist 1 "Tuning"
+    setInletAssist 0 "Handpan tuning"
+    setInletAssist 1 "Selected scale"
 
     setOutletAssist 0 "Scale size (to split)"
     setOutletAssist 1 "To funbuff"
@@ -38,8 +38,8 @@ main = do
 
     ref <- Ref.new State.initial
 
-    setHandler { inlet: 0, msg: "list", handler: setScale  ref }
-    setHandler { inlet: 1, msg: "list", handler: setTuning ref }
+    setHandler { inlet: 0, msg: "list", handler: setTuning ref }
+    setHandler { inlet: 1, msg: "list", handler: setScale  ref }
 
 update :: Ref RetunerState -> (RetunerState -> RetunerState) -> Effect Unit
 update ref f = do

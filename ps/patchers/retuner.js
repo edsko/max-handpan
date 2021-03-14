@@ -1615,8 +1615,8 @@ var PS = {};
   var main = function __do() {
       MaxForLive_Global.setInlets(2)();
       MaxForLive_Global.setOutlets(3)();
-      MaxForLive_Global.setInletAssist(0)("Scale")();
-      MaxForLive_Global.setInletAssist(1)("Tuning")();
+      MaxForLive_Global.setInletAssist(0)("Handpan tuning")();
+      MaxForLive_Global.setInletAssist(1)("Selected scale")();
       MaxForLive_Global.setOutletAssist(0)("Scale size (to split)")();
       MaxForLive_Global.setOutletAssist(1)("To funbuff")();
       MaxForLive_Global.setOutletAssist(2)("To multislider")();
@@ -1624,12 +1624,12 @@ var PS = {};
       MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeList(Backend_Note.fromMaxInOctave))({
           inlet: 0,
           msg: "list",
-          handler: setScale(ref)
+          handler: setTuning(ref)
       })();
       return MaxForLive_Handlers.setHandler(MaxForLive_Handlers.invokeList(Backend_Note.fromMaxInOctave))({
           inlet: 1,
           msg: "list",
-          handler: setTuning(ref)
+          handler: setScale(ref)
       })();
   };
   exports["main"] = main;

@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 240.0, 229.0, 640.0, 480.0 ],
+		"rect" : [ 322.0, 258.0, 640.0, 480.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 1,
 		"default_fontsize" : 12.0,
@@ -85,7 +85,7 @@
 					"outlettype" : [ "", "", "" ],
 					"patching_rect" : [ 90.0, 75.0, 64.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "retuner",
+						"filename" : "retuner.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -129,7 +129,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "Handpan scale",
+					"comment" : "Selected scale",
 					"id" : "obj-3",
 					"index" : 0,
 					"maxclass" : "inlet",
@@ -142,7 +142,7 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "Selected scale",
+					"comment" : "Handpan tuning",
 					"cool" : 1,
 					"id" : "obj-2",
 					"index" : 0,
