@@ -2,10 +2,20 @@
 
 ## mk1
 
+MIDI mapping:
+
 ```
 0, 53 65 70 72;
 1, 65 69 70 72 76 77 81 82 84;
 2, 65 69 70 72 76 77 81 82 84;
+```
+
+Articulations (0 Mid, 1 Edge, 2 Slap, 3 Between, 4 Knuckle)
+
+```
+0, 0 1 2 2;
+1, 0 0 0 0 0 0 0 0 0;
+2, 3 3 3 3 3 3 3 3 3;
 ```
 
 ### Doum and Tone Fields
@@ -28,11 +38,15 @@ F2   F3     (B♭3) (C4)
 
 ## mk2
 
+MIDI mapping:
+
 ```
 0, 50 62 70 72;
 1, 62 69 70 72 74 76 77 81;
 2, 62 69 70 72 74 76 77 81;
 ```
+
+Articulation mapping identical to the mk1.
 
 ### Doum and Tone Fields
 
