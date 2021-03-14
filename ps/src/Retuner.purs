@@ -2,8 +2,10 @@ module Retuner (main) where
 
 import Prelude
 import Data.Int (toNumber)
+import Data.Foldable (minimum, maximum)
 import Data.List (List, (:))
 import Data.List as List
+import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Ref (Ref)
 import Effect.Ref as Ref
@@ -27,14 +29,14 @@ import Retuner.State as State
 main :: Effect Unit
 main = do
     setInlets 2
-    setOutlets 3
+    setOutlets 4
 
     setInletAssist 0 "Handpan tuning"
     setInletAssist 1 "Selected scale"
 
     setOutletAssist 0 "Scale size (to split)"
     setOutletAssist 1 "To funbuff"
-    setOutletAssist 2 "To multislider"
+    setOutletAssist 3 "To multislider"
 
     ref <- Ref.new State.initial
 
@@ -57,9 +59,17 @@ update ref f = do
       outlet 1 "clear"
       outlet 1 $ Message { name: "set", payload: (0 : retunings) }
 
+      -- Configure the min/max displays
+      case minimum retunings of
+        Nothing -> pure unit -- Can't actually happen
+        Just m  -> outlet 2 $ Message { name: "min", payload: m }
+      case maximum retunings of
+        Nothing -> pure unit -- Can't actually happen
+        Just m  -> outlet 2 $ Message { name: "max", payload: m }
+
       -- Configure the multisliders
-      outlet 2 $ Message { name: "size", payload: List.length newState.tuning }
-      outlet 2 $ normalize retunings
+      outlet 3 $ Message { name: "size", payload: List.length newState.tuning }
+      outlet 3 $ normalize retunings
 
 
 
