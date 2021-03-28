@@ -368,7 +368,7 @@
 					"peakcolor" : [ 1.0, 0.192156862745098, 0.192156862745098, 1.0 ],
 					"presentation" : 1,
 					"presentation_rect" : [ 60.0, 0.0, 15.0, 154.0 ],
-					"setminmax" : [ 0.0, 16.0 ],
+					"setminmax" : [ 0.0, 32.0 ],
 					"settype" : 0,
 					"spacing" : 2,
 					"thickness" : 1
@@ -472,8 +472,8 @@
 					"numinlets" : 4,
 					"numoutlets" : 7,
 					"outlettype" : [ "signal", "signal", "", "", "", "", "" ],
-					"patching_rect" : [ 135.0, 120.0, 265.000000000000057, 22.0 ],
-					"text" : "poly~ ks-voice 16 @target 0 @steal 0"
+					"patching_rect" : [ 135.0, 120.0, 265.0, 22.0 ],
+					"text" : "poly~ ks-voice 32 @target 0 @steal 0"
 				}
 
 			}
@@ -603,7 +603,7 @@
 				"patchline" : 				{
 					"color" : [ 0.028541615232825, 0.250918865203857, 0.50196373462677, 1.0 ],
 					"destination" : [ "obj-8", 0 ],
-					"midpoints" : [ 267.500000000000057, 173.0, 466.0, 173.0, 466.0, 14.0, 226.5, 14.0 ],
+					"midpoints" : [ 267.5, 173.0, 466.0, 173.0, 466.0, 14.0, 226.5, 14.0 ],
 					"source" : [ "obj-7", 3 ]
 				}
 
