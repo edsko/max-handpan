@@ -81,7 +81,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 345.0, 130.5, 183.0, 87.0 ],
+					"patching_rect" : [ 345.0, 130.5, 185.0, 87.0 ],
 					"text" : "Manual changes to the live.dials are respected, but in addition we programmatically modify the live.dial values in response to key-switching commands in the MIDI data."
 				}
 
@@ -2208,7 +2208,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "signal", "signal", "", "" ],
 					"patching_rect" : [ 90.0, 405.0, 225.0, 22.0 ],
-					"text" : "poly~ ks-voice 32 @target 0 @steal 0"
+					"text" : "poly~ ks-voice 64 @target 0 @steal 0"
 				}
 
 			}
