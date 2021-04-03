@@ -28,6 +28,8 @@ data Scale =
     -- | Arabic scale. One of the most popular handpan scales.
     -- |
     -- | See https://www.haganenote.com/store/kurd/
+    -- |
+    -- | The Kurd 9 handpan used in the Handpan Dojo is in A over D.
     Kurd9
 
     -- | Hijaz
@@ -40,6 +42,8 @@ data Scale =
     -- |
     -- | Fifth mode of the harmonic minor scale.
     -- | See https://en.wikipedia.org/wiki/Phrygian_dominant_scale
+    -- |
+    -- | The Hijaz handpan used in the Handpan Dojo is in D over G.
   | Hijaz  -- ^ Also known as
 
     -- | Pelog

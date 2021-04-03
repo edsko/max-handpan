@@ -1148,7 +1148,7 @@ var PS = {};
       if (v instanceof Integral) {
           return [ Backend_Note.A.value, Backend_Note.As.value, Backend_Note.C.value, Backend_Note.D.value, Backend_Note.E.value, Backend_Note.F.value, Backend_Note.A.value ];
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 88, column 1 - line 88, column 34): " + [ v.constructor.name ]);
+      throw new Error("Failed pattern match at Backend.Scale (line 92, column 1 - line 92, column 34): " + [ v.constructor.name ]);
   };
   var renderSpec = function (v) {
       var render = (function () {
@@ -1179,7 +1179,7 @@ var PS = {};
       if (x instanceof Integral) {
           return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(Data_Generic_Rep.NoArguments.value)));
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 70, column 1 - line 70, column 48): " + [ x.constructor.name ]);
+      throw new Error("Failed pattern match at Backend.Scale (line 74, column 1 - line 74, column 48): " + [ x.constructor.name ]);
   }, function (x) {
       if (x instanceof Data_Generic_Rep.Inl) {
           return Kurd9.value;
@@ -1193,7 +1193,7 @@ var PS = {};
       if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0 instanceof Data_Generic_Rep.Inr)) {
           return Integral.value;
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 70, column 1 - line 70, column 48): " + [ x.constructor.name ]);
+      throw new Error("Failed pattern match at Backend.Scale (line 74, column 1 - line 74, column 48): " + [ x.constructor.name ]);
   });      
   var simpleEnumScale = new MaxForLive_Conversions.SimpleEnum(MaxForLive_Conversions.genericFromSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))), MaxForLive_Conversions.genericToSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))));
   var fromMaxScale = new MaxForLive_Conversions.FromMax(MaxForLive_Conversions.maxToEnum(simpleEnumScale));
