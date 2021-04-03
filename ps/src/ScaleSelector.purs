@@ -14,7 +14,7 @@ import MaxForLive.Global (
   )
 import MaxForLive.Handlers (setHandler)
 
-import Backend.Note (Note)
+import Backend.Note (InOctave)
 import Backend.Scale (Scale, ScaleSpec)
 import Backend.Scale as Scale
 
@@ -24,14 +24,14 @@ main = do
     setOutlets 1
 
     setInletAssist 0 "Scale"
-    setInletAssist 1 "Root"
-    setInletAssist 2 "Doum"
+    setInletAssist 1 "Doum"
+    setInletAssist 2 "Root"
 
     ref <- Ref.new Scale.defaultSpec
 
     setHandler { inlet: 0, msg: "msg_int", handler: setScale ref }
-    setHandler { inlet: 1, msg: "msg_int", handler: setRoot  ref }
-    setHandler { inlet: 2, msg: "msg_int", handler: setDoum  ref }
+    setHandler { inlet: 1, msg: "msg_int", handler: setDoum  ref }
+    setHandler { inlet: 2, msg: "msg_int", handler: setRoot  ref }
 
 update :: Ref ScaleSpec -> (ScaleSpec -> ScaleSpec) -> Effect Unit
 update ref f = do
@@ -41,8 +41,8 @@ update ref f = do
 setScale :: Ref ScaleSpec -> Scale -> Effect Unit
 setScale ref scale = update ref (_ { scale = scale })
 
-setRoot :: Ref ScaleSpec -> Note -> Effect Unit
+setRoot :: Ref ScaleSpec -> InOctave -> Effect Unit
 setRoot ref root = update ref (_ { root = root })
 
-setDoum :: Ref ScaleSpec -> Note -> Effect Unit
+setDoum :: Ref ScaleSpec -> InOctave -> Effect Unit
 setDoum ref doum = update ref (_ { doum = doum })

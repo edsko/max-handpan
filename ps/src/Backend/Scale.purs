@@ -9,12 +9,13 @@ module Backend.Scale (
 
 import Prelude
 import Data.Generic.Rep (class Generic)
+import Data.List (List, (:), fromFoldable)
 import Data.Show.Generic (genericShow)
 
 import MaxForLive.Conversions (class ToMax, class FromMax, class SimpleEnum)
 import MaxForLive.Conversions as C
 
-import Backend.Note (Note(..), InOctave(..), Rendered)
+import Backend.Note (Note(..), InOctave(..))
 import Backend.Note as N
 
 {-------------------------------------------------------------------------------
@@ -49,6 +50,9 @@ data Scale =
     -- |
     -- | Indonesian pentatonic scale. Selisir is a _mode_ of this scale.
     -- | See https://en.wikipedia.org/wiki/Pelog
+    -- |
+    -- | This also happens to the scale of the first generation Hangdrum
+    -- | sampled by Soniccouture in their Pandrum instrument.
   | Pelog
 
     -- | Integral minor scale
@@ -58,6 +62,9 @@ data Scale =
     -- | (Doum then normally a fifth below the root.)
     -- |
     -- | See https://www.sarazhandpans.com/handpan-scales/integral/
+    -- |
+    -- | This also happens to the scale of the second generation Hangdrum
+    -- | sampled by Soniccouture in their Pandrum instrument.
   | Integral
 
 derive instance genericScale :: Generic Scale _
@@ -88,18 +95,26 @@ scaleNotes Integral = [ A , As , C  , D , E , F  , A          ]
   Specification of the scale of a handpan
 -------------------------------------------------------------------------------}
 
-type ScaleSpec = { scale :: Scale, doum :: Note, root :: Note }
+type ScaleSpec = { scale :: Scale, doum :: InOctave, root :: InOctave }
 
 -- | Default spec
 --
 -- These match the default in the patcher.
 defaultSpec :: ScaleSpec
-defaultSpec = { scale: Kurd9, doum: D, root: A }
+defaultSpec = {
+      scale: Kurd9
+    , doum: InOctave { octave: 3, note: C }
+    , root: InOctave { octave: 3, note: C }
+    }
 
 -- | Rendering a spec
-renderSpec :: ScaleSpec -> Rendered
+renderSpec :: ScaleSpec -> List InOctave
 renderSpec { scale, doum, root } =
-       N.renderOne doum
-    <> N.transposeTo
-         (InOctave { octave: 0, note: root })
-         (N.render (scaleNotes scale))
+    doum : render (scaleNotes scale)
+  where
+    render :: Array Note -> List InOctave
+    render =
+            fromFoldable
+        >>> map (\n -> InOctave { octave: 0, note: n })
+        >>> N.monotonic
+        >>> N.startWith root
