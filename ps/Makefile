@@ -1,24 +1,23 @@
 default: watch-retuner
 
 all:
-	spago bundle-app --main TrackSelected --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
-	spago bundle-app --main ScaleSelector --to scaleselector.js-purescript --then "./postprocess.sh scaleselector.js"
-	spago bundle-app --main Frontend --to frontend.js-purescript --then "./postprocess.sh frontend.js"
-	spago bundle-app --main Velocity --to velocity.js-purescript --then "./postprocess.sh velocity.js"
-	spago bundle-app --main Retuner --to retuner.js-purescript --then "./postprocess.sh retuner.js"
+	spago bundle-app --main TrackSelected --to temp/trackselected.js-purescript --then "./postprocess.sh temp/trackselected.js"
+	spago bundle-app --main ScaleSelector --to temp/scaleselector.js-purescript --then "./postprocess.sh temp/scaleselector.js"
+	spago bundle-app --main Frontend --to temp/frontend.js-purescript --then "./postprocess.sh temp/frontend.js"
+	spago bundle-app --main Velocity --to temp/velocity.js-purescript --then "./postprocess.sh temp/velocity.js"
+	spago bundle-app --main Retuner --to temp/retuner.js-purescript --then "./postprocess.sh temp/retuner.js"
 
 watch-retuner:
-	spago bundle-app --main Retuner --watch --clear-screen --to retuner.js-purescript --then "./postprocess.sh retuner.js"
+	spago bundle-app --main Retuner --watch --clear-screen --to temp/retuner.js-purescript --then "./postprocess.sh temp/retuner.js"
 
 watch-trackselected:
-	spago bundle-app --main TrackSelected --watch --clear-screen --to trackselected.js-purescript --then "./postprocess.sh trackselected.js"
+	spago bundle-app --main TrackSelected --watch --clear-screen --to temp/trackselected.js-purescript --then "./postprocess.sh temp/trackselected.js"
 
 watch-scaleselector:
-	spago bundle-app --main ScaleSelector --watch --clear-screen --to scaleselector.js-purescript --then "./postprocess.sh scaleselector.js"
+	spago bundle-app --main ScaleSelector --watch --clear-screen --to temp/scaleselector.js-purescript --then "./postprocess.sh temp/scaleselector.js"
 
 watch-frontend:
-	spago bundle-app --main Frontend --watch --clear-screen --to frontend.js-purescript --then "./postprocess.sh frontend.js"
+	spago bundle-app --main Frontend --watch --clear-screen --to temp/frontend.js-purescript --then "./postprocess.sh temp/frontend.js"
 
 watch-velocity:
-	spago bundle-app --main Velocity --watch --clear-screen --to velocity.js-purescript --then "./postprocess.sh velocity.js"
-
+	spago bundle-app --main Velocity --watch --clear-screen --to temp/velocity.js-purescript --then "./postprocess.sh temp/velocity.js"
