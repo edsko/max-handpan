@@ -23,52 +23,9 @@ import Backend.Note as N
 -------------------------------------------------------------------------------}
 
 data Scale =
-    -- | Kurd 9
-    -- |
-    -- | Arabic scale. One of the most popular handpan scales.
-    -- |
-    -- | See https://www.haganenote.com/store/kurd/
-    -- |
-    -- | The Kurd 9 handpan used in the Handpan Dojo is in A over D.
     Kurd9
-
-    -- | Hijaz
-    -- |
-    -- | Also known as:
-    -- | * Phrygian dominant scale.
-    -- | * Hitzaz
-    -- | * Hijaz-Nahawand
-    -- | * Hijaz maqam
-    -- |
-    -- | Fifth mode of the harmonic minor scale.
-    -- | See https://en.wikipedia.org/wiki/Phrygian_dominant_scale
-    -- |
-    -- | The Hijaz handpan used in the Handpan Dojo is in D over G.
-  | Hijaz  -- ^ Also known as
-
-    -- | Pelog
-    -- |
-    -- | Also known as:
-    -- | * Melog
-    -- | * Melog/Selisir
-    -- |
-    -- | Indonesian pentatonic scale. Selisir is a _mode_ of this scale.
-    -- | See https://en.wikipedia.org/wiki/Pelog
-    -- |
-    -- | This also happens to the scale of the first generation Hangdrum
-    -- | sampled by Soniccouture in their Pandrum instrument.
+  | Hijaz
   | Pelog
-
-    -- | Integral minor scale
-    -- |
-    -- | Mode of the natural minor scale (starting on the 5th degree) and
-    -- | omitting the 4th degree, ending up with a hexatonic scale.
-    -- | (Doum then normally a fifth below the root.)
-    -- |
-    -- | See https://www.sarazhandpans.com/handpan-scales/integral/
-    -- |
-    -- | This also happens to the scale of the second generation Hangdrum
-    -- | sampled by Soniccouture in their Pandrum instrument.
   | Integral
 
 derive instance genericScale :: Generic Scale _
