@@ -20,5 +20,11 @@ scale. In fact, I am building this instrument as I am making my way through the
 excellent handpan course at David Kuckhermann's
 [Handpan Dojo](https://courses.handpandojo.com/).
 
+I recorded a quick screencast to give an overview of the design:
+
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=RDjqJzj-waA"><img src="https://img.youtube.com/vi/RDjqJzj-waA/0.jpg"></a>
+</div>
+
 See [Architecture](/docs/Architecture.md) for a detailed overview of
 the architecture.
