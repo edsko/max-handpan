@@ -5,9 +5,10 @@ The frontend generates MIDI notes using the following layout:
 ```
 -------------------------------
 PERCUSSION  36 | Bass
-            37 | Tak
-            38 | Slap 1 (Left)
-            39 | Slap 2 (Right)
+            37 | Tak (Left)
+            38 | Tak (Right)
+            39 | Slap 1 (Left)
+            40 | Slap 2 (Right)
 -------------------------------
 MELODIC     48 | Doum
             49 | Tonefield 1

@@ -94,22 +94,22 @@ setupLUTs push = do
     -- Percussion
     --
 
-    -- Bass
+    -- Bass (36)
     for_ layout.bass $ \b -> do
       push.setButtonMatrixColor b colors.bass
       outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 36] }
       outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
 
-    -- Tak
-    for_ layout.tak $ \b -> do
+    -- Tak (37, 38)
+    forWithIndex_ layout.taks $ \ix b -> do
       push.setButtonMatrixColor b colors.tak
-      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 37] }
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 37 + ix] }
       outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
 
-    -- Slaps
+    -- Slaps (39, 40)
     forWithIndex_ layout.slaps $ \ix b -> do
       push.setButtonMatrixColor b colors.slap
-      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 38 + ix] }
+      outlet 0 $ Message { name: "setNote", payload: [buttonIx b, 39 + ix] }
       outlet 0 $ Message { name: "setVelocity", payload: [buttonIx b, 0] }
 
   where

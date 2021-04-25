@@ -1849,18 +1849,18 @@ var PS = {};
           col: 7,
           row: 6
       } ],
+      taks: [ {
+          col: 2,
+          row: 4
+      }, {
+          col: 5,
+          row: 4
+      } ],
       doum: [ {
           col: 3,
           row: 4
       }, {
           col: 4,
-          row: 4
-      } ],
-      tak: [ {
-          col: 2,
-          row: 4
-      }, {
-          col: 5,
           row: 4
       } ],
       bass: [ {
@@ -2610,17 +2610,19 @@ var PS = {};
                   }))();
               };
           })();
-          Data_Foldable.for_(Effect.applicativeEffect)(Data_Foldable.foldableArray)(Frontend_Layout.defaultLayout.value0.tak)(function (b) {
-              return function __do() {
-                  push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.tak)();
-                  MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                      name: "setNote",
-                      payload: [ buttonIx(b), 37 ]
-                  }))();
-                  return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
-                      name: "setVelocity",
-                      payload: [ buttonIx(b), 0 ]
-                  }))();
+          Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.taks)(function (ix) {
+              return function (b) {
+                  return function __do() {
+                      push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.tak)();
+                      MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          name: "setNote",
+                          payload: [ buttonIx(b), 37 + ix | 0 ]
+                      }))();
+                      return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
+                          name: "setVelocity",
+                          payload: [ buttonIx(b), 0 ]
+                      }))();
+                  };
               };
           })();
           return Data_FoldableWithIndex.forWithIndex_(Effect.applicativeEffect)(Data_FoldableWithIndex.foldableWithIndexArray)(Frontend_Layout.defaultLayout.value0.slaps)(function (ix) {
@@ -2629,7 +2631,7 @@ var PS = {};
                       push.setButtonMatrixColor(b)(Frontend_Colors.defaultColors.value0.slap)();
                       MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setNote",
-                          payload: [ buttonIx(b), 38 + ix | 0 ]
+                          payload: [ buttonIx(b), 39 + ix | 0 ]
                       }))();
                       return MaxForLive_Global.outlet(MaxForLive_Message.toMaxMessage(MaxForLive_Conversions.toMaxArray(MaxForLive_Conversions.toMaxInt)))(0)(new MaxForLive_Message.Message({
                           name: "setVelocity",

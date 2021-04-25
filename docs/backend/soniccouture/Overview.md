@@ -48,10 +48,20 @@ for a description of the MIDI layout of the (precision) instrument
 
 This instrument is deeply sampled, and the Precision mapping gives us access
 to the unmodified samples, which is what we need. It also provides plenty of
-percussive samples. All in all, this is an excellent instrument to emulate
+percussive samples. On the whole, this is an excellent instrument to emulate
 real handpan playing.
 
-The only percussive element that appears to be missing is a palm base; I'm
-using the gu side tone as a substitute as
-[they serve a similar purpose](https://www.markdambrosiomusic.com/post/the-top-ten-traits-of-a-great-handpan):
-both activate the helmholtz resonance of the instrument.
+It does seem however that there are two percussive elements missing:
+
+1. There isn't a clear "tak" sound. I'm currently using the highest two tone
+   fields for this in the "between" articulation. This kind of works as a
+   percussive element, but it's not a perfect match.
+
+   (There _are_ two articulations of the doum, but it seems they are just two
+   different ways of playing the doum: with or without palm; see
+   https://github.com/edsko/max-handpan/issues/3.)
+
+2. There is no recording of a palm base; I'm using the gu side tone as a
+   substitute as
+   [they serve a similar purpose](https://www.markdambrosiomusic.com/post/the-top-ten-traits-of-a-great-handpan):
+   both activate the helmholtz resonance of the instrument.

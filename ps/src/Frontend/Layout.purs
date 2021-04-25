@@ -11,8 +11,8 @@ data Layout = Layout {
       tonefields :: Array Button -- ^ One per tonefield
     , ghostnotes :: Array Button -- ^ One per ghost note
     , slaps      :: Array Button -- ^ One per slap position
+    , taks       :: Array Button -- ^ One per tak position (left/right of the doum)
     , doum       :: Array Button -- ^ Multiple buttons mapping to doum
-    , tak        :: Array Button -- ^ Multiple buttons mapping to tak
     , bass       :: Array Button -- ^ Multiple buttons mapping to the bass
     }
 
@@ -47,14 +47,14 @@ defaultLayout = Layout {
         , {col: 7, row: 6}
         ]
 
+    , taks: [
+          {col: 2, row: 4}
+        , {col: 5, row: 4}
+        ]
+
     , doum: [
           {col: 3, row: 4}
         , {col: 4, row: 4}
-        ]
-
-    , tak: [
-          {col: 2, row: 4}
-        , {col: 5, row: 4}
         ]
 
     , bass: [
