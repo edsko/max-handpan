@@ -1135,6 +1135,13 @@ var PS = {};
       Integral.value = new Integral();
       return Integral;
   })();
+  var CelticMinor = (function () {
+      function CelticMinor() {
+
+      };
+      CelticMinor.value = new CelticMinor();
+      return CelticMinor;
+  })();
   var scaleNotes = function (v) {
       if (v instanceof Kurd9) {
           return [ Backend_Note.A.value, Backend_Note.As.value, Backend_Note.C.value, Backend_Note.D.value, Backend_Note.E.value, Backend_Note.F.value, Backend_Note.G.value, Backend_Note.A.value, Backend_Note.C.value ];
@@ -1148,20 +1155,23 @@ var PS = {};
       if (v instanceof Integral) {
           return [ Backend_Note.A.value, Backend_Note.As.value, Backend_Note.C.value, Backend_Note.D.value, Backend_Note.E.value, Backend_Note.F.value, Backend_Note.A.value ];
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 92, column 1 - line 92, column 34): " + [ v.constructor.name ]);
+      if (v instanceof CelticMinor) {
+          return [ Backend_Note.A.value, Backend_Note.C.value, Backend_Note.D.value, Backend_Note.E.value, Backend_Note.F.value, Backend_Note.G.value, Backend_Note.A.value, Backend_Note.C.value ];
+      };
+      throw new Error("Failed pattern match at Backend.Scale (line 50, column 1 - line 50, column 34): " + [ v.constructor.name ]);
   };
   var renderSpec = function (v) {
       var render = (function () {
-          var $19 = Backend_Note.startWith(v.root);
-          var $20 = Data_Functor.map(Data_List_Types.functorList)(function (n) {
+          var $24 = Backend_Note.startWith(v.root);
+          var $25 = Data_Functor.map(Data_List_Types.functorList)(function (n) {
               return {
                   octave: 0,
                   note: n
               };
           });
-          var $21 = Data_List.fromFoldable(Data_Foldable.foldableArray);
-          return function ($22) {
-              return $19(Backend_Note.monotonic($20($21($22))));
+          var $26 = Data_List.fromFoldable(Data_Foldable.foldableArray);
+          return function ($27) {
+              return $24(Backend_Note.monotonic($25($26($27))));
           };
       })();
       return new Data_List_Types.Cons(v.doum, render(scaleNotes(v.scale)));
@@ -1177,9 +1187,12 @@ var PS = {};
           return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(Data_Generic_Rep.NoArguments.value)));
       };
       if (x instanceof Integral) {
-          return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(Data_Generic_Rep.NoArguments.value)));
+          return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inl(Data_Generic_Rep.NoArguments.value))));
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 74, column 1 - line 74, column 48): " + [ x.constructor.name ]);
+      if (x instanceof CelticMinor) {
+          return new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(new Data_Generic_Rep.Inr(Data_Generic_Rep.NoArguments.value))));
+      };
+      throw new Error("Failed pattern match at Backend.Scale (line 32, column 1 - line 32, column 48): " + [ x.constructor.name ]);
   }, function (x) {
       if (x instanceof Data_Generic_Rep.Inl) {
           return Kurd9.value;
@@ -1190,12 +1203,15 @@ var PS = {};
       if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0 instanceof Data_Generic_Rep.Inl)) {
           return Pelog.value;
       };
-      if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0 instanceof Data_Generic_Rep.Inr)) {
+      if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0 instanceof Data_Generic_Rep.Inl))) {
           return Integral.value;
       };
-      throw new Error("Failed pattern match at Backend.Scale (line 74, column 1 - line 74, column 48): " + [ x.constructor.name ]);
-  });      
-  var simpleEnumScale = new MaxForLive_Conversions.SimpleEnum(MaxForLive_Conversions.genericFromSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))), MaxForLive_Conversions.genericToSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))))));
+      if (x instanceof Data_Generic_Rep.Inr && (x.value0 instanceof Data_Generic_Rep.Inr && (x.value0.value0 instanceof Data_Generic_Rep.Inr && x.value0.value0.value0 instanceof Data_Generic_Rep.Inr))) {
+          return CelticMinor.value;
+      };
+      throw new Error("Failed pattern match at Backend.Scale (line 32, column 1 - line 32, column 48): " + [ x.constructor.name ]);
+  });       
+  var simpleEnumScale = new MaxForLive_Conversions.SimpleEnum(MaxForLive_Conversions.genericFromSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments)))))), MaxForLive_Conversions.genericToSimpleEnum(genericScale)(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumSum(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments))(Data_Enum_Generic.genericBoundedEnumConstructor(Data_Enum_Generic.genericBoundedEnumNoArguments)))))));
   var fromMaxScale = new MaxForLive_Conversions.FromMax(MaxForLive_Conversions.maxToEnum(simpleEnumScale));
   var defaultSpec = {
       scale: Kurd9.value,

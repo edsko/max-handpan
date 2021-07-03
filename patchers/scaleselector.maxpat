@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 1,
-			"revision" : 10,
+			"revision" : 11,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -211,7 +211,7 @@
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 15.0, 315.0, 214.0, 22.0 ],
 					"saved_object_attributes" : 					{
-						"filename" : "scaleselector",
+						"filename" : "scaleselector.js",
 						"parameter_enable" : 0
 					}
 ,
@@ -294,9 +294,9 @@
 					"presentation_rect" : [ 0.0, 0.0, 50.0, 48.0 ],
 					"saved_attribute_attributes" : 					{
 						"valueof" : 						{
-							"parameter_enum" : [ "Kurd 9", "Hijaz", "Pelog", "Integral" ],
+							"parameter_enum" : [ "Kurd 9", "Hijaz", "Pelog", "Integral", "Celtic Minor" ],
 							"parameter_longname" : "Scale",
-							"parameter_mmax" : 3,
+							"parameter_mmax" : 4,
 							"parameter_shortname" : "Scale",
 							"parameter_type" : 2,
 							"parameter_unitstyle" : 9
@@ -444,7 +444,7 @@
 ,
 		"dependency_cache" : [ 			{
 				"name" : "scaleselector.js",
-				"bootpath" : "~/personal/repo/max-handpan/ps/patchers",
+				"bootpath" : "~/personal/repo/max-handpan/patchers",
 				"patcherrelativepath" : ".",
 				"type" : "TEXT",
 				"implicit" : 1

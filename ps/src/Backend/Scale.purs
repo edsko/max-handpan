@@ -27,6 +27,7 @@ data Scale =
   | Hijaz
   | Pelog
   | Integral
+  | CelticMinor
 
 derive instance genericScale :: Generic Scale _
 
@@ -47,10 +48,11 @@ instance simpleEnumScale :: SimpleEnum Scale where
 -- The root note of the scale here doesn't matter, whatever is convenient.
 -- We will anyway transpose it up or down as required.
 scaleNotes :: Scale -> Array Note
-scaleNotes Kurd9    = [ A , As , C  , D , E , F  , G  , A , C ]
-scaleNotes Hijaz    = [ D , Ds , Fs , G , A , As , C  , D     ]
-scaleNotes Pelog    = [ A , As , C  , E , F , A  , As , C     ]
-scaleNotes Integral = [ A , As , C  , D , E , F  , A          ]
+scaleNotes Kurd9       = [ A , As , C  , D , E , F  , G  , A , C ]
+scaleNotes Hijaz       = [ D , Ds , Fs , G , A , As , C  , D     ]
+scaleNotes Pelog       = [ A , As , C  , E , F , A  , As , C     ]
+scaleNotes Integral    = [ A , As , C  , D , E , F  , A          ]
+scaleNotes CelticMinor = [ A , C  , D  , E , F , G  , A  , C     ]
 
 {-------------------------------------------------------------------------------
   Specification of the scale of a handpan
