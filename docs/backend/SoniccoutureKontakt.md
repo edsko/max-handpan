@@ -22,7 +22,7 @@ PERCUSSION  | Bass           |
             | Slap 1 (Left)  |
             | Slap 2 (Right) |
 -------------------------------
-MELODIC     | Doum           |
+MELODIC     | Doum           | Center
             | Tonefield 1    |
             | ..             |
             | ..             |
